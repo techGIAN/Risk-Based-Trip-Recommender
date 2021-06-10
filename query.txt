@@ -1,0 +1,25 @@
+# Query (Comments in #)
+
+specific_poi = no
+
+# if specific_poi is 'yes' then at least one of the following is required; use 'None' to leave blank
+postal_code = M2N 3B3
+address = 461 Sheppard Avenue East
+
+# optional only if specific_poi is 'no'
+# if specific_poi is 'yes', then at least one of the following is required; use 'None' to leave blank
+poi = None
+poi_category = Grocery Stores
+
+# radius takes into account the max possible distance from your current location
+radius = 25
+unit = km
+
+# number of points of interest
+# only applicable when specific_poi is 'no'
+K_poi = 20
+
+# trip count determines how many recommended trips
+# note: returns <= to this number
+trip_count = 3
+

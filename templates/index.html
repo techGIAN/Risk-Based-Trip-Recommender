@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title%}Home Page{% endblock %}
+
+{% block sidebar%}
+    <div style="background-color: aqua" >
+
+    </div>
+{% endblock %}
+
+{% block map%}
+    <iframe src="{{ url_for('myLocation') }}" style="height:90vh; width: 100%"></iframe>
+
+{% endblock %}

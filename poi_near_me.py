@@ -35,7 +35,8 @@ def haversine_dist(lat1, lon1, lat2, lon2):
 	return R * cons
 
 # grab query/parameters
-query_file = sys.argv[1]
+# query_file = sys.argv[1]
+query_file = 'query.txt'
 parameters = dict()
 with open(query_file) as qf:
 	for line in qf:

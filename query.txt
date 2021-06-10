@@ -3,7 +3,7 @@
 specific_poi = no
 
 # if specific_poi is 'yes' then at least one of the following is required; use 'None' to leave blank
-postal_code = M2N 3B3
+postal_code = M7A 1A2
 address = 461 Sheppard Avenue East
 
 # optional only if specific_poi is 'no'

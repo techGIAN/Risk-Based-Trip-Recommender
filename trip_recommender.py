@@ -22,13 +22,7 @@ class Trip_Recommender(Location):
     specific_poi = 'no'
     postal_code = None
     address = None
-    poi = None
-    poi_category = None
-    radius = 25
-    unit = 'km'
-    K_poi = 20
     trip_count = 3
-    # source = None
     destination = None
 
     #  Initializes parameters

@@ -90,7 +90,7 @@ for i in range(parameters['K_poi']):
         icon=folium.Icon(color='blue', prefix='fa', icon='shopping-cart')
     ).add_to(m)
 
-webname = 'poi_near_me.html'
+webname = 'templates/poi_near_me.html'
 m.save(webname)
 path_to_open = 'file:///' + os.getcwd() + '/' + webname
 webbrowser.open_new_tab(path_to_open)

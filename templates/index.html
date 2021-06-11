@@ -3,12 +3,29 @@
 {% block title%}Home Page{% endblock %}
 
 {% block sidebar%}
-    <div style="background-color: aqua" >
+    <form action="#" method="GET" style="margin-left: 30px;margin-top: 50px;">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <p style="color: red">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith%}
 
-    </div>
+        <p><label>Enter a destination: </label></p>
+        <input id="destination" type="text" placeholder="enter destination here..." style="width: 90%" name="destination" value="{{destination if destination}}"/>
+        <p><label>search postal code: </label></p>
+        <input id="postal" type="text" placeholder="enter search posta lcode here.." style="width: 90%" name="postal" value="{{postal_code if postal_code}}"/>
+
+        <br></br>
+        <p><input type="submit" name="submit" /></p>
+    </form>
 {% endblock %}
 
 {% block map%}
-    <iframe src="{{ url_for('myLocation') }}" style="height:90vh; width: 100%"></iframe>
-
+    {% if setMap == "myLocation" %}
+        <iframe src="{{ url_for('myLocation') }}" style="height:90vh; width: 100%"></iframe>
+    {% elif setMap == "recommender" %}
+        <iframe src="{{ url_for('recommender') }}" style="height:90vh; width: 100%"></iframe>
+    {% endif %}
 {% endblock %}

@@ -1,7 +1,6 @@
+import copy
 import webbrowser
 import os
-import urllib.request
-import json
 
 import pgeocode
 import geocoder
@@ -10,9 +9,10 @@ import folium
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from Location import Location
+from Path import Path
+from utilityMethods import queryOSRM, get_path_points
 
-WEBNAME = 'templates/recommender.html'
-
+# IS_DEBUG_MODE = True
 geoloc = Nominatim(user_agent='TripRecApp')
 geolocation = RateLimiter(geoloc.geocode, min_delay_seconds=2, return_value_on_exception=None)
 WEBNAME = 'templates/recommender.html'
@@ -24,9 +24,19 @@ class Trip_Recommender(Location):
     address = None
     trip_count = 3
     destination = None
+    paths = []
+    query = None
 
     #  Initializes parameters
-    def __init__(self, source, address, postal_code, specific_poi, trip_count, isCurrentLocation=True):
+    def __init__(self, source, address, postal_code, specific_poi, trip_count, isCurrentLocation=True,
+                 destination_coordinates=False, destination=None, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
+
+        self.setNewTrip(source, address, postal_code, specific_poi, trip_count, isCurrentLocation,
+                        destination_coordinates=destination_coordinates, destination=destination,
+                        IS_DEBUG_MODE = IS_DEBUG_MODE, IS_FULL_DEBUG_MODE = IS_FULL_DEBUG_MODE)
+
+    def setNewTrip(self, source, address, postal_code, specific_poi, trip_count, isCurrentLocation=True,
+                   destination_coordinates=False, destination=None, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
         if isCurrentLocation:
             self.source = geocoder.ip('me').latlng
         else:
@@ -35,47 +45,27 @@ class Trip_Recommender(Location):
         self.specific_poi = specific_poi
         self.trip_count = trip_count
         self.address = address
+        self.query = None
+        self.paths = []
 
         # retrieve coordinates of user's and desired destination
-        self.destination = self.get_coordinates(postal_code, address)
-        print('source = ',self.source , '\ndestination = ',self.destination)
+        if not destination_coordinates:
+            self.destination = self.__get_coordinates(postal_code, address)
+        else:
+            self.destination = destination
 
-    # list of path points of alternative routes
-    def get_path_points(self, q, num_of_routes=1):
-        urllib.request.urlretrieve(q, "query.json")
-        routing_file = open('query.json', )
+        query = queryOSRM(source=self.source, destination=self.destination, IS_DEBUG_MODE=IS_DEBUG_MODE,
+                          IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE)
+        path_list, distances, durations = get_path_points(query, self.trip_count)
 
-        # obtain the coordinates of the points along the path as suggested by osrm
-        routing_data = json.load(routing_file)
-
-        routes = []
-        m_min = min(num_of_routes, len(routing_data['routes']))
-
-        dist_tags = []
-        duration_tags = []
-
-        for i in range(m_min):
-            path_points = routing_data['routes'][i]['geometry']['coordinates']
-            dist_tags.append(round(routing_data['routes'][i]['distance'] / 1000.0, 2))
-            duration_tags.append(round(routing_data['routes'][i]['duration'] / 60.0, 2))
-
-            # swap the coordinates
-            for point in path_points:
-                temp = point[0]
-                point[0] = point[1]
-                point[1] = temp
-            routes.append(path_points)
-
-        # Close and delete file
-        routing_file.close()
-        os.remove('query.json')
-
-        return routes, dist_tags, duration_tags
+        for i in reversed(range(len(path_list))):
+            pts = path_list[i]
+            self.paths.append(Path(pts, distances[i], durations[i]))
 
     # gets the geocoordinates of a location
     # requires either one of postal code or address
     # note: postal code takes precedence
-    def get_coordinates(self, p_code, ad):
+    def __get_coordinates(self, p_code, ad):
         coords = [0.0, 0.0]
         if p_code != '':
             country_code = pgeocode.Nominatim('ca')
@@ -84,31 +74,17 @@ class Trip_Recommender(Location):
             lon = postal_data['longitude']
         else:
             locale = geoloc(ad)
-            lat = locale['latitde']
+            lat = locale['latitude']
             lon = locale['longitude']
         coords = [lat, lon]
         return coords
 
     #  Get paths from source to destination
-    def getPaths(self):
-        # flip coordinates for OSRM query
+    def plot(self):
         mid = [(self.source[0] + self.destination[0]) / 2, (self.source[1] + self.destination[1]) / 2]
-
-        self.source = self.source[::-1]
-        self.destination = self.destination[::-1]
-        print('source = ',self.source , '\ndestination = ',self.destination)
-
-        query = 'http://router.project-osrm.org/route/v1/foot/' + str(self.source[0]) +','+ str(self.source[1])+ ';' + \
-                str(self.destination[0]) + ','+str(self.destination[1]) + '?alternatives=true&geometries=geojson&overview=full'
-        print(query)
-
         src_poi = 'Origin'
         tgt_poi = 'Destination'
         m = folium.Map(location=mid, zoom_start=14)
-
-        # return to original coordinates
-        self.source = self.source[::-1]
-        self.destination = self.destination[::-1]
 
         # markers
         folium.Marker(
@@ -124,14 +100,17 @@ class Trip_Recommender(Location):
             icon=folium.Icon(color='red', prefix='fa', icon='star')
         ).add_to(m)
 
-        path_list, distances, durations = self.get_path_points(query, self.trip_count)
+        i = len(self.paths) - 1
+        for path in self.paths:
+            pts = path.coordinates
 
-        # for i in range(len(path_list)):
-        for i in reversed(range(len(path_list))):
-            pts = path_list[i]
+            this_duration = str(round(path.total_duration,2)) + ' min'
+            if path.total_duration >= 60:
+                this_duration = str(round(path.total_duration / 60, 2)) + " h"
+
             trip_name = 'OSRM Trip ' + str(i + 1) + '<br>' + \
-                        str(distances[i]) + 'Km<br>' + \
-                        str(durations[i]) + ' min'
+                        str(round(path.total_distance,2)) + 'Km<br>' + \
+                        this_duration
 
             rand_color = 'darkblue'
             opacity_val = 0.3
@@ -140,7 +119,7 @@ class Trip_Recommender(Location):
                 opacity_val = 1
 
             fg = folium.FeatureGroup(trip_name)
-            trip = folium.vector_layers.PolyLine(
+            folium.vector_layers.PolyLine(
                 pts,
                 popup='<b>' + trip_name + '</b>',
                 tooltip=trip_name,
@@ -150,12 +129,26 @@ class Trip_Recommender(Location):
             ).add_to(fg)
 
             fg.add_to(m)
-        folium.LayerControl().add_to(m)
+            i -= 1
 
+        folium.LayerControl().add_to(m)
         m.save(WEBNAME)
         path_to_open = 'file:///' + os.getcwd() + '/' + WEBNAME
         # webbrowser.open_new_tab(path_to_open)
 
-# trip = Trip_Recommender(source=[43.8711, -79.4373], address='461 Sheppard Avenue East', postal_code='M7A 1A2',
+    # Prints the number of points per kilometer to get a sense of the resolution
+    def get_resolution_data(self):
+        for p in self.paths:
+            p.get_resolution()
+
+    def getPaths(self):
+        return self.paths
+#
+# trip = Trip_Recommender(source=[43.797632, -79.421758], address='1486 Aldergrove Dr, Oshawa,', postal_code='L1K 2Y4',
 #                         specific_poi=False,trip_count=3, isCurrentLocation=True)
-# trip.getPaths()
+# trip.plot()
+# print()
+# trip.get_resolution_data()
+# print("\n\n\n\n")
+# for p in trip.paths:
+#     print(p.print())

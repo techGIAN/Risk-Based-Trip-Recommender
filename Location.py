@@ -5,6 +5,8 @@ WEBNAME = 'templates/myLocation.html'
 
 class Location():
     source = None
+    IS_DEBUG_MODE = False
+    IS_FULL_DEBUG_MODE = False
 
     def __init__(self):
         self.source = geocoder.ip('me').latlng

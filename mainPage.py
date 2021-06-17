@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, flash
 from trip_recommender import Trip_Recommender
 from Location import Location
 from poi_near_me import POINearMe
+from utilityMethods import SORT_BY
 
 app = Flask(__name__)
 app.secret_key = "some_complex_key"
@@ -37,7 +38,7 @@ def handlePOIRequests(errMsg, errType):
         session['radius'] = radius
         session['K_poi'] = K_poi
 
-        p = POINearMe(radius=30, unit="km", K_poi=20, poi=None, category="Grocery Stores")
+        p = POINearMe(radius=30, K_poi=20, category="Grocery Stores")
         p.graphPOIs()
 
         return render_template("index.html", setMap="poi_shower", category=category, radius=radius, K_poi=K_poi)
@@ -86,7 +87,14 @@ def home():
                 session['radius'] = radius
                 session['K_poi'] = K_poi
                 print(radius, K_poi, category)
-                p = POINearMe(radius=radius, unit="km", K_poi=K_poi, poi=None, category=category)
+                p = POINearMe(radius=radius,
+                              K_poi=K_poi,
+                              poi=None,
+                              duration=60,
+                              category=category,
+                              sortBy=SORT_BY.Time)
+                print("\n\n\tDONE!!!!!\n\n")
+                print(p.poi_list)
                 p.graphPOIs()
 
                 return render_template("index.html", setMap="poi_shower", category=category, radius=radius, K_poi=K_poi)

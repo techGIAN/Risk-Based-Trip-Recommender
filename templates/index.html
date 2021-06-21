@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title%}Home Page{% endblock %}
+
+{% block sidebar%}
+
+    <form action="#" method="GET" style="margin-left: 30px;margin-top: 50px;">
+        <p style="font-weight: bold;">Find destination:</p>
+
+        {% if errType == "recommender" %}
+            <p style="color: red">{{errMsg}}</p>
+        {% endif %}
+
+        <p><label>Enter a destination: </label></p>
+        <input id="destination" type="text" placeholder="enter destination here..." style="width: 90%" name="destination" value="{{destination if destination}}"/>
+        <p><label>search postal code: </label></p>
+        <input id="postal" type="text" placeholder="enter search postal code here.." style="width: 90%" name="postal" value="{{postal_code if postal_code}}"/>
+
+        <br></br>
+        <p><input type="submit" name="submit_paths" /></p>
+    </form>
+    <br></br>
+
+    <form action="#" method="GET" style="margin-left: 30px;margin-top: 50px;">
+        <p style="font-weight: bold;">Find POI near you:</p>
+
+        {% if errType == "poi_shower" %}
+            <p style="color: red">{{errMsg}}</p>
+        {% endif %}
+
+        <p><label>Enter a category: </label></p>
+        <input id="category" type="text" placeholder="enter category here..." style="width: 90%" name="category" value="{{category if category}}"/>
+        <p><label>Enter search radius: </label></p>
+        <input id="radius" type="number" placeholder="enter search radius here.." style="width: 90%" name="radius" value="{{radius if radius}}"/>
+        <p><label>Enter number of results to display: </label></p>
+        <input id="K_poi" type="number" placeholder="enter search radius here.." style="width: 90%" name="K_poi" value="{{K_poi if K_poi}}"/>
+
+        <br></br>
+        <p><input type="submit" name="submit_poi" /></p>
+    </form>
+{% endblock %}
+
+{% block map%}
+    {% if setMap == "myLocation" %}
+        <iframe src="{{ url_for('myLocation') }}" style="height:90vh; width: 100%"></iframe>
+    {% elif setMap == "recommender" %}
+        <iframe src="{{ url_for('recommender') }}" style="height:90vh; width: 100%"></iframe>
+    {% elif setMap == "poi_shower" %}
+        <iframe src="{{ url_for('poi_near_me') }}" style="height:90vh; width: 100%"></iframe>
+    {% endif %}
+{% endblock %}

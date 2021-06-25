@@ -1,14 +1,14 @@
 from trip_recommender import Trip_Recommender
-
+from utilityMethods import ROUTE_FROM
 
 class POI(Trip_Recommender):
     poi_risk = None
 
-    def __init__(self, coordinate, origin, isCurrentLocation=True):
+    def __init__(self, coordinate, origin, isCurrentLocation=True, ROUTE_FROM=ROUTE_FROM.OSRM):
         super().__init__(source=origin, address=None,
                          postal_code=None, specific_poi=False, trip_count=3,
                          isCurrentLocation=isCurrentLocation, destination_coordinates=True,
-                         destination=coordinate)
+                         destination=coordinate, ROUTE_FROM=ROUTE_FROM)
 
         # TO DO
         # compute POI risk and update it accordingly

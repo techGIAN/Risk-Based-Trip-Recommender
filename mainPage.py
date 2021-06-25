@@ -70,7 +70,7 @@ def home():
 
                 trip = Trip_Recommender(source=[43.8711, -79.4373], address=destination, postal_code=postal_code,
                                         specific_poi=False, trip_count=5, isCurrentLocation=True)
-                trip.getPaths()
+                trip.plot()
 
                 return render_template("index.html", setMap="recommender", destination=destination, postal_code=postal_code)
 

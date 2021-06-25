@@ -1,6 +1,6 @@
 import copy
 
-from utilityMethods import queryOSRM, get_path_points
+from utilityMethods import query
 
 IS_DEBUG_MODE = True
 IS_FULL_DEBUG_MODE = True
@@ -14,11 +14,13 @@ class Path:
     total_duration = None
     time_by_segment = []
     distance_by_segment = []
+    ROUTE_FROM = None
 
-    def __init__(self, coordinates, distance, time):
+    def __init__(self, coordinates, distance, time, ROUTE_FROM = 'OSRM'):
         self.coordinates = coordinates
         self.total_distance = distance
         self.total_duration = time
+        self.ROUTE_FROM = ROUTE_FROM
 
     def calculate_risk(self):
         # get the distance and duration of each line segment of the path
@@ -50,8 +52,10 @@ class Path:
             if isFirst:
                 isFirst = False
             else:
-                q = queryOSRM(last, line)
-                sub_path_list, dist, dur = get_path_points(q, 2)
+                # q = queryOSRM(last, line)
+                # sub_path_list, dist, dur = get_path_points(q, 2)
+                sub_path_list, dist, dur  = query(last, line, trip_count=1, ROUTE_FROM=self.ROUTE_FROM)
+
                 segment_durations.append(dur)
                 segment_distances.append(dist)
 

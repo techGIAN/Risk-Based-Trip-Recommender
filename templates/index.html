@@ -30,10 +30,17 @@
 
         <p><label>Enter a category: </label></p>
         <input id="category" type="text" placeholder="enter category here..." style="width: 90%" name="category" value="{{category if category}}"/>
-        <p><label>Enter search radius: </label></p>
-        <input id="radius" type="number" placeholder="enter search radius here.." style="width: 90%" name="radius" value="{{radius if radius}}"/>
+<!--        <p><label>Enter search radius: </label></p>-->
+<!--        <input id="radius" type="number" placeholder="enter search radius here.." style="width: 90%" name="radius" value="{{radius if radius}}"/>-->
         <p><label>Enter number of results to display: </label></p>
         <input id="K_poi" type="number" placeholder="enter search radius here.." style="width: 90%" name="K_poi" value="{{K_poi if K_poi}}"/>
+
+        <p><label>Search radius: </label></p>
+        <input id="radius" type="range" style="width: 90%" name="radius" value="{{radius if radius}}" min="1" max="50"/>
+
+<!--        <p><label>drive time: </label></p>-->
+<!--        <input id="time" type="number" placeholder="enter search radius here.." style="width: 90%" name="radius" value="{{radius if radius}}"/>-->
+<!--        -->
 
         <br></br>
         <p><input type="submit" name="submit_poi" /></p>

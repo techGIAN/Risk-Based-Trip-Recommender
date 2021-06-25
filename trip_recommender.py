@@ -1,7 +1,7 @@
 import copy
 import webbrowser
 import os
-
+import ast
 import pgeocode
 import geocoder
 
@@ -14,6 +14,7 @@ from Location import Location
 from Path import Path
 from shapely import wkt
 from utilityMethods import queryOSRM, get_path_points
+import branca.colormap as cm
 
 from RiskMap import RiskMap
 
@@ -31,6 +32,7 @@ class Trip_Recommender(Location):
     destination = None
     paths = []
     query = None
+    GDF_FILE = 'hex_gdf.csv'
 
     #  Initializes parameters
     def __init__(self, source, address, postal_code, specific_poi, trip_count, isCurrentLocation=True,
@@ -68,7 +70,9 @@ class Trip_Recommender(Location):
                           IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE)
         path_list, distances, durations = get_path_points(query, self.trip_count)
         
-        rm = RiskMap(w=500)
+        # create a risk map if it does not exist
+        if not os.path.exists(self.GDF_FILE):
+            rm = RiskMap(w=1000)
 
 
         for i in reversed(range(len(path_list))):
@@ -110,13 +114,43 @@ class Trip_Recommender(Location):
         m = folium.Map(location=mid, zoom_start=14)
 
         # Add hexagon layer
-        gdf_file = 'hex_gdf.csv'
-        df = pd.read_csv(gdf_file)
+        print('init hex layer')
+        df = pd.read_csv(self.GDF_FILE)
         df['geometry'] = df['geometry'].apply(wkt.loads)
         grid_gdf = gpd.GeoDataFrame(df, crs='epsg:4326')
-        folium.GeoJson(
-            grid_gdf['geometry'], 
-            style_function=lambda x:{'fillColor':'gray', 'color':'black'}
+        # risk at 0 only
+        grid_gdf['hex_risk'] = grid_gdf['hex_risk'].apply(eval)
+        grid_gdf['risk_val'] = [l[0] for l in grid_gdf['hex_risk']]
+        # gray map
+        # folium.GeoJson(
+        #     grid_gdf['geometry'], 
+        #     style_function=lambda x:{'fillColor':'gray', 'color':'black'}
+        # ).add_to(m)
+        # colormap
+        colormap = cm.LinearColormap(colors=['green', 'yellow', 'red'])
+        colormap.caption = 'Risk Level'
+        colormap.add_to(m)
+        style_func = lambda x: {
+            'color': 'black',
+            'fillColor': colormap(x['properties']['risk_val']),
+            'fillOpacity': 0.5
+        }
+        highlight_func = lambda x: {
+            'fillColor': '#000000',
+            'color': '#000000',
+            'fillOpacity': 0.3
+        }
+        folium.features.GeoJson(
+            grid_gdf,
+            style_function=style_func,
+            highlight_function=highlight_func,
+            control=False,
+            tooltip=folium.features.GeoJsonTooltip(
+                fields=['cellID', 'risk_val'],
+                aliases=['Hex ID', 'Risk Level'],
+                style=('background-color: white; color: #333333; font-family: arial; font-sizeL 12px; padding: 10px;'),
+                sticky=True
+            )
         ).add_to(m)
 
         # markers

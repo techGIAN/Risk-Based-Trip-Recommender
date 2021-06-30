@@ -30,6 +30,7 @@ function getTodaysDate(){
     if(min<10) min='0'+min;
 
     document.getElementById('date_time').min =  yyyy + '-' + mm + '-' + dd + 'T' + HH + ':' + min; //YYYY-MM-DDThh:mm
+    document.getElementById('date_time_poi').min =  yyyy + '-' + mm + '-' + dd + 'T' + HH + ':' + min; //YYYY-MM-DDThh:mm
 }
 
 function select_query(type){

@@ -1,8 +1,6 @@
 import webbrowser
 import os
 import time
-import pgeocode
-import geocoder
 
 import folium
 from geopy.geocoders import Nominatim
@@ -11,96 +9,60 @@ from Location import Location
 from Path import Path
 from utilityMethods import query, ROUTE_FROM
 
-
-
-# from ipyleaflet import Map, Polyline, Marker, Icon
-
-
-
-
-# IS_DEBUG_MODE = True
 geoloc = Nominatim(user_agent='TripRecApp')
 geolocation = RateLimiter(geoloc.geocode, min_delay_seconds=2, return_value_on_exception=None)
 WEBNAME = 'templates/recommender.html'
 
 
 class Trip_Recommender(Location):
-    specific_poi = 'no'
-    postal_code = None
-    address = None
     trip_count = 3
     destination = None
     paths = []
     ROUTE_FROM = ROUTE_FROM.OSRM
-
-    # query = None
+    mode_of_transit = 'car'
 
     #  Initializes parameters
-    def __init__(self, source, address, postal_code, specific_poi, trip_count, isCurrentLocation=True,
-                 destination_coordinates=False, destination=None, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False,
-                 ROUTE_FROM=ROUTE_FROM.OSRM):
+    def __init__(self, source, destination, trip_count,
+                 IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False,
+                 ROUTE_FROM=ROUTE_FROM.OSRM,
+                 mode_of_transit='car',is_time_now = True, time_later_val = None):
 
-        self.setNewTrip(source, address, postal_code, specific_poi, trip_count, ROUTE_FROM, isCurrentLocation,
-                        destination_coordinates=destination_coordinates, destination=destination,
-                        IS_DEBUG_MODE = IS_DEBUG_MODE, IS_FULL_DEBUG_MODE = IS_FULL_DEBUG_MODE)
+        self.setNewTrip(source, destination, trip_count, ROUTE_FROM,
+                        IS_DEBUG_MODE=IS_DEBUG_MODE, IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE,
+                        mode_of_transit=mode_of_transit,is_time_now = is_time_now, time_later_val = time_later_val)
 
-    def setNewTrip(self, source, address, postal_code, specific_poi, trip_count, ROUTE_FROM, isCurrentLocation=True,
-                   destination_coordinates=False, destination=None, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
-        if isCurrentLocation:
-            self.source = geocoder.ip('me').latlng
-        else:
-            self.source = source
+    def setNewTrip(self, source, destination, trip_count, ROUTE_FROM,
+                   IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False, mode_of_transit='car',
+                   is_time_now = True, time_later_val = None):
 
+        self.time_now = is_time_now
+        self.time_later_value = time_later_val
+        self.source = super().get_coordinates(source)
         self.ROUTE_FROM = ROUTE_FROM
-        self.specific_poi = specific_poi
         self.trip_count = trip_count
-        self.address = address
-        # self.query = None
         self.paths = []
+        self.mode_of_transit = mode_of_transit
 
         # retrieve coordinates of user's and desired destination
-        if not destination_coordinates:
-            self.destination = self.__get_coordinates(postal_code, address)
-        else:
-            self.destination = destination
+        self.destination = super().get_coordinates(destination)
 
         path_list, distances, durations = query(source=self.source,
                                                 destination=self.destination,
                                                 trip_count=self.trip_count,
                                                 IS_DEBUG_MODE=IS_DEBUG_MODE,
                                                 IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE,
-                                                ROUTE_FROM=self.ROUTE_FROM)
-        # query = queryOSRM(source=self.source, destination=self.destination, IS_DEBUG_MODE=IS_DEBUG_MODE,
-        #                   IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE)
-        # path_list, distances, durations = get_path_points(query, self.trip_count)
+                                                ROUTE_FROM=self.ROUTE_FROM,
+                                                mode_of_transit=self.mode_of_transit)
 
         for i in reversed(range(len(path_list))):
             pts = path_list[i]
             self.paths.append(Path(pts, distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM))
-
-    # gets the geocoordinates of a location
-    # requires either one of postal code or address
-    # note: postal code takes precedence
-    def __get_coordinates(self, p_code, ad):
-        coords = [0.0, 0.0]
-        if p_code != '':
-            country_code = pgeocode.Nominatim('ca')
-            postal_data = country_code.query_postal_code(p_code)
-            lat = postal_data['latitude']
-            lon = postal_data['longitude']
-        else:
-            locale = geoloc(ad)
-            lat = locale['latitude']
-            lon = locale['longitude']
-        coords = [lat, lon]
-        return coords
 
     #  Get paths from source to destination
     def plot(self):
         mid = [(self.source[0] + self.destination[0]) / 2, (self.source[1] + self.destination[1]) / 2]
         src_poi = 'Origin'
         tgt_poi = 'Destination'
-
         m = folium.Map(location=mid, zoom_start=14)
 
         # markers
@@ -121,12 +83,12 @@ class Trip_Recommender(Location):
         for path in self.paths:
             pts = path.coordinates
 
-            this_duration = str(round(path.total_duration,2)) + ' min'
+            this_duration = str(round(path.total_duration, 2)) + ' min'
             if path.total_duration >= 60:
                 this_duration = str(round(path.total_duration / 60, 2)) + " h"
 
-            trip_name = 'OSRM Trip ' + str(i + 1) + '<br>' + \
-                        str(round(path.total_distance,2)) + 'Km<br>' + \
+            trip_name = self.mode_of_transit + ': Trip ' + str(i + 1) + '<br>' + \
+                        str(round(path.total_distance, 2)) + 'Km<br>' + \
                         this_duration
 
             rand_color = 'darkblue'
@@ -138,7 +100,7 @@ class Trip_Recommender(Location):
             fg = folium.FeatureGroup(trip_name)
             folium.vector_layers.PolyLine(
                 pts,
-                popup='<b>' + trip_name + '</b>',
+                popup=trip_name,
                 tooltip=trip_name,
                 color=rand_color,
                 weight=10,
@@ -146,15 +108,19 @@ class Trip_Recommender(Location):
             ).add_to(fg)
 
             fg.add_to(m)
-
             i -= 1
 
         folium.LayerControl().add_to(m)
 
+        m.get_root().html.add_child(folium.JavascriptLink('../static/js/interactive_routes.js'))
+        my_js = '''
+        console.log('working perfectly')
+        '''
+        m.get_root().script.add_child(folium.Element(my_js))
 
         m.save(WEBNAME)
         path_to_open = 'file:///' + os.getcwd() + '/' + WEBNAME
-        webbrowser.open_new_tab(path_to_open)
+        # webbrowser.open_new_tab(path_to_open)
 
     # Prints the number of points per kilometer to get a sense of the resolution
     def get_resolution_data(self):
@@ -165,13 +131,9 @@ class Trip_Recommender(Location):
         return self.paths
 
 
-def handle_click(event):
-    print(event)
-
-# trip = Trip_Recommender(source=[43.797632, -79.421758], address='1486 Aldergrove Dr, Oshawa,', postal_code='L1K 2Y4',
-#                         specific_poi=False,trip_count=5, isCurrentLocation=True, ROUTE_FROM=ROUTE_FROM.OSRM)
+# trip = Trip_Recommender(source='300 Antibes Drive Toronto Canada', destination='York University Canada',
+#                         trip_count=5, ROUTE_FROM=ROUTE_FROM.OSRM)
 # trip.plot()
-# # print()
 # trip.get_resolution_data()
 # print("\n\n\n\n")
 # for p in trip.paths:

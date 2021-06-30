@@ -1,48 +1,288 @@
 {% extends "base.html" %}
 
+{% block libraries %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar_css.css') }}" title="cse4413" media="screen, print" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/transit_css.css') }}" title="cse4413" media="screen, print" />
+    <script src="{{ url_for('static', filename='js/range_output.js') }}"></script>
+{% endblock %}
+
 {% block title%}Home Page{% endblock %}
 
 {% block sidebar%}
 
+    <form action="#" method="get">
+        <div class="radio_query_selector" style="width: 100%;">
+            {% if session['query_from'] == "osrm" %}
+                <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');" checked>
+                <label for="osrm">OSRM</label>
+
+                <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
+                       onclick="select_query('grass_hopper');">
+                <label for="grass_hopper">Grass Hopper</label>
+            {% else %}
+                <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');">
+                <label for="osrm">OSRM</label>
+
+                <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
+                       onclick="select_query('grass_hopper');" checked>
+                <label for="grass_hopper">Grass Hopper</label>
+            {% endif %}
+        </div>
+    </form>
+
     <form action="#" method="GET" style="margin-left: 30px;margin-top: 50px;">
-        <p style="font-weight: bold;">Find destination:</p>
+        <p style="font-weight: bold;font-size: 120%;">Find a destination:</p>
 
         {% if errType == "recommender" %}
-            <p style="color: red">{{errMsg}}</p>
+            <p style="color: red; width: 90%;">{{errMsg}}</p>
         {% endif %}
 
-        <p><label>Enter a destination: </label></p>
-        <input id="destination" type="text" placeholder="enter destination here..." style="width: 90%" name="destination" value="{{destination if destination}}"/>
-        <p><label>search postal code: </label></p>
-        <input id="postal" type="text" placeholder="enter search postal code here.." style="width: 90%" name="postal" value="{{postal_code if postal_code}}"/>
+        <!--    Mode of Transit Radio Buttons    -->
+        <div class="radio-toolbar-transit" style="width: 100%;">
 
-        <br></br>
+            {% if session['mode_of_transit'] == "foot" %}
+                <input type="radio" id="car" name="mode_of_transit" value="car">
+                <label for="car">Drive</label>
+
+                <input type="radio" id="foot" name="mode_of_transit" value="foot" checked>
+                <label for="foot">Walk</label>
+
+                <input type="radio" id="bike" name="mode_of_transit" value="bike">
+                <label for="bike">Bike</label>
+            {% elif session['mode_of_transit'] == "bike" %}
+                <input type="radio" id="car" name="mode_of_transit" value="car">
+                <label for="car">Drive</label>
+
+                <input type="radio" id="foot" name="mode_of_transit" value="foot">
+                <label for="foot">Walk</label>
+
+                <input type="radio" id="bike" name="mode_of_transit" value="bike" checked>
+                <label for="bike">Bike</label>
+            {% else %}
+                <input type="radio" id="car" name="mode_of_transit" value="car" checked>
+                <label for="car">Drive</label>
+
+                <input type="radio" id="foot" name="mode_of_transit" value="foot">
+                <label for="foot">Walk</label>
+
+                <input type="radio" id="bike" name="mode_of_transit" value="bike">
+                <label for="bike">Bike</label>
+            {% endif %}
+        </div>
+
+        <!--    Point of origin input filed    -->
+        <div class="origin_pop" style="width: 80%;border-style: none;float: left;">
+            <input id="origin" type="text" placeholder="enter origin here..." style="width:100%;float: left;"
+                   name="origin" value="{{ session['origin'] if session['origin'] }}"/>
+            <span class="tooltiptext_origin">Enter a starting point</span>
+        </div>
+        <div class="origin_pop" style="width: 10%;border-style: none;float: left;">
+            <input id="compass" type="image"  src="{{ url_for('static', filename='images/compass.png') }}"
+                   style="width:90%;float: right; border-style: solid; border-width: 1px;" name="compass" />
+            <span class="tooltiptext_origin">Your current location</span>
+        </div>
+
+        <br style='display: block;content: "";margin-top: 10px;'></br>
+
+        <!--    Point of destination input filed    -->
+        <div class="origin_pop" style="width: 100%;border-style: none;">
+            <input id="destination" type="text" placeholder="enter destination here..." style="width: 90%"
+                   name="destination" value="{{ session['destination'] if session['destination'] }}"/>
+            <span class="tooltiptext_origin">Enter a destination</span>
+        </div>
+
+        <!--    Set the time of departure    -->
+        <div style="width: 100%; margin-top: 10px;">
+            {% if session['time'] == "time_later" %}
+                <div style="width: 100%; margin-top: 10px;">
+                    <input id="time_now" value="time_now" type="radio" name="time" /> leave now
+                </div>
+                <div style="width: 100%; margin-top: 10px;">
+                    <input id="time_later" value="time_later" type="radio" name="time" checked/> leave
+
+                    <input id="date_time" name="date_time" type="datetime-local" min="2021/06/25, 22:47 27"
+                           value="{{ session['date_time'] if session['date_time'] }}"
+                           style="width: 65%; float: right;margin-right: 10%;"/>
+                </div>
+            {% else %}
+                <div style="width: 100%; margin-top: 10px;">
+                    <input id="time_now" value="time_now" type="radio" name="time" checked/> leave now
+                </div>
+                <div style="width: 100%; margin-top: 10px;">
+                    <input id="time_later" value="time_later" type="radio" name="time"/> leave
+
+                    <input id="date_time" name="date_time" type="datetime-local" min="2021/06/25, 22:47 27"
+                           value="{{ session['date_time'] if session['date_time'] }}"
+                           style="width: 65%; float: right;margin-right: 10%;"/>
+                </div>
+            {% endif %}
+        </div>
+
         <p><input type="submit" name="submit_paths" /></p>
     </form>
-    <br></br>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <form action="#" method="GET" style="margin-left: 30px;margin-top: 50px;">
-        <p style="font-weight: bold;">Find POI near you:</p>
+        <p style="font-weight: bold;font-size: 120%;">Find POI near you:</p>
 
         {% if errType == "poi_shower" %}
             <p style="color: red">{{errMsg}}</p>
         {% endif %}
 
-        <p><label>Enter a category: </label></p>
-        <input id="category" type="text" placeholder="enter category here..." style="width: 90%" name="category" value="{{category if category}}"/>
-<!--        <p><label>Enter search radius: </label></p>-->
-<!--        <input id="radius" type="number" placeholder="enter search radius here.." style="width: 90%" name="radius" value="{{radius if radius}}"/>-->
-        <p><label>Enter number of results to display: </label></p>
-        <input id="K_poi" type="number" placeholder="enter search radius here.." style="width: 90%" name="K_poi" value="{{K_poi if K_poi}}"/>
+        <!--    where to look    -->
+        <div class="origin_pop" style="width: 80%;border-style: none;float: left;">
+            <input id="center" type="text" placeholder="enter center here..." style="width:100%;float: left;"
+                   name="center" value="{{ session['center'] if session['center'] }}"/>
+            <span class="tooltiptext_origin">Enter a location</span>
+        </div>
+        <div class="origin_pop" style="width: 10%;border-style: none;float: left;">
+            <input id="compass_poi" type="image"  src="{{ url_for('static', filename='images/compass.png') }}"
+                   style="width:90%;float: right; border-style: solid; border-width: 1px;" name="compass_poi" />
+            <span class="tooltiptext_origin">Your current location</span>
+        </div>
 
-        <p><label>Search radius: </label></p>
-        <input id="radius" type="range" style="width: 90%" name="radius" value="{{radius if radius}}" min="1" max="50"/>
+        <!--    Category section    -->
+        <div class="origin_pop" style="width: 100%;border-style: none;float: left; margin-top: 5px;">
+            <input id="category" type="text" placeholder="enter category here..." style="width: 90%" name="category"
+                   value="{{ session['category'] if session['category'] }}"/>
+            <span class="tooltiptext_origin">Enter search category here</span>
+        </div>
 
-<!--        <p><label>drive time: </label></p>-->
-<!--        <input id="time" type="number" placeholder="enter search radius here.." style="width: 90%" name="radius" value="{{radius if radius}}"/>-->
-<!--        -->
+        <br style='display: block;content: "";margin-top: 10px;'></br>
 
-        <br></br>
+        <!--    Number of POIs to display section    -->
+        <p style="width: 100%;margin-top: 60px;">
+            <label style="font-weight: bold;font-size: 90%;">
+                Results to display:
+            </label>
+            <label id="places_text" value="">
+            </label>
+            <input id="K_poi" type="range" name="K_poi" value="{{ session['K_poi'] if session['K_poi'] }}" min="1"
+               max="100" onclick="updatePlacesTextInput(this.value);" step="1" style="margin-left: 10px;"/>
+        </p>
+
+        <!--    Search radius section    -->
+        <p>
+            <label style="font-weight: bold;font-size: 90%;">Search radius: </label>
+            <label id="radius_text" value="">
+            </label>
+            Km
+            <input id="radius" type="range" name="radius" value="{{ session['radius'] if session['radius'] }}"  min="1"
+                   max="50" onclick="updateRadiusTextInput(this.value);" step="1" style="margin-left: 10px;" />
+        </p>
+
+        <!--   Sort By section     -->
+        <div style="width: 100%;">
+                <p><label style="font-weight: bold;font-size: 90%;width: 25%;float: left">Sort by: </label>
+                <div class="radio-toolbar-transit" style="width: 75%;float: left">
+                    {% if session['sort_by'] == "risk_of_trip" %}
+                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
+                        <label for="time_of_traver">Time</label>
+
+                        <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
+                        <label for="distance_to_travel">Distance</label>
+
+                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip" checked>
+                        <label for="risk_of_trip">Risk</label>
+                    {% elif session['sort_by'] == "distance_to_travel" %}
+                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
+                        <label for="time_of_traver">Time</label>
+
+                        <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel" checked>
+                        <label for="distance_to_travel">Distance</label>
+
+                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
+                        <label for="risk_of_trip">Risk</label>
+                    {% else %}
+                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver" checked>
+                        <label for="time_of_traver">Time</label>
+
+                        <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
+                        <label for="distance_to_travel">Distance</label>
+
+                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
+                        <label for="risk_of_trip">Risk</label>
+                    {% endif %}
+                </div>
+            </p>
+        </div>
+
+        <!--    Transport to location    -->
+        <div style="width: 100%;">
+            <p><label style="font-weight: bold;font-size: 90%;width: 25%;float: left">Travel By: </label>
+            <div class="radio-toolbar-transit" style="width: 75%;float: left">
+                {% if session['travel_poi'] == "bike_poi" %}
+                    <input type="radio" id="car_poi" name="travel_poi" value="car_poi">
+                    <label for="car_poi">Car</label>
+
+                    <input type="radio" id="walk_poi" name="travel_poi" value="walk_poi">
+                    <label for="walk_poi">Walk</label>
+
+                    <input type="radio" id="bike_poi" name="travel_poi" value="bike_poi" checked>
+                    <label for="bike_poi">Bike</label>
+
+                {% elif session['travel_poi'] == "car_poi" %}
+                    <input type="radio" id="car_poi" name="travel_poi" value="car_poi" checked>
+                    <label for="car_poi">Car</label>
+
+                    <input type="radio" id="walk_poi" name="travel_poi" value="walk_poi">
+                    <label for="walk_poi">Walk</label>
+
+                    <input type="radio" id="bike_poi" name="travel_poi" value="bike_poi">
+                    <label for="bike_poi">Bike</label>
+                {% else %}
+                    <input type="radio" id="car_poi" name="travel_poi" value="car_poi">
+                    <label for="car_poi">Car</label>
+
+                    <input type="radio" id="walk_poi" name="travel_poi" value="walk_poi" checked>
+                    <label for="walk_poi">Walk</label>
+
+                    <input type="radio" id="bike_poi" name="travel_poi" value="bike_poi" >
+                    <label for="bike_poi">Bike</label>
+                {% endif %}
+            </div>
+            </p>
+        </div>
+
+        <!--    Set the time of departure    -->
+        <div style="width: 100%; margin-top: 10px;">
+            {% if session['time_poi'] == "time_later_poi" %}
+            <div style="width: 100%; margin-top: 10px;">
+                <input id="time_now_poi" value="time_now_poi" type="radio" name="time_poi" /> leave now
+            </div>
+            <div style="width: 100%; margin-top: 10px;">
+                <input id="time_later_poi" value="time_later_poi" type="radio" name="time_poi" checked/> leave
+
+                <input id="date_time_poi" name="date_time_poi" type="datetime-local" min="2021/06/25, 22:47 27"
+                       value="{{ session['date_time_poi'] if session['date_time_poi'] }}"
+                       style="width: 65%; float: right;margin-right: 10%;"/>
+            </div>
+            {% else %}
+            <div style="width: 100%; margin-top: 10px;">
+                <input id="time_now_poi" value="time_now_poi" type="radio" name="time_poi" checked/> leave now
+            </div>
+            <div style="width: 100%; margin-top: 10px;">
+                <input id="time_later_poi" value="time_later_poi" type="radio" name="time_poi"/> leave
+
+                <input id="date_time_poi" name="date_time_poi" type="datetime-local" min="2021/06/25, 22:47 27"
+                       value="{{ session['date_time_poi'] if session['date_time_poi'] }}"
+                       style="width: 65%; float: right;margin-right: 10%;"/>
+            </div>
+            {% endif %}
+        </div>
+
         <p><input type="submit" name="submit_poi" /></p>
     </form>
 {% endblock %}

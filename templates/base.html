@@ -3,6 +3,7 @@
 <head>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <meta charset="UTF-8">
+  {% block libraries %}{% endblock %}
   <title>{% block title%}{% endblock %}</title> <!-- create  a block named content-->
 </head>
 <body>
@@ -23,5 +24,6 @@
     <h1>Trip Recommendation System</h1>
   </div>
   {% block map%}{% endblock %}
+  {% block script%}{% endblock %}
 </body>
 </html>

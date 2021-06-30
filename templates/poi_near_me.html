@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_d88ff1e9ced24aa5b674428d3daada70 {
+                #map_4740c008f43e4db7ac39ced98bcd92f3 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -34,16 +34,20 @@
         
 </head>
 <body>    
+    <script src="../static/js/interactive_poi.js"></script>
     
-            <div class="folium-map" id="map_d88ff1e9ced24aa5b674428d3daada70" ></div>
+            <div class="folium-map" id="map_4740c008f43e4db7ac39ced98bcd92f3" ></div>
         
 </body>
 <script>    
     
-            var map_d88ff1e9ced24aa5b674428d3daada70 = L.map(
-                "map_d88ff1e9ced24aa5b674428d3daada70",
+        console.log('working perfectly')
+        
+    
+            var map_4740c008f43e4db7ac39ced98bcd92f3 = L.map(
+                "map_4740c008f43e4db7ac39ced98bcd92f3",
                 {
-                    center: [43.8711, -79.4373],
+                    center: [43.7743325, -79.50027054016516],
                     crs: L.CRS.EPSG3857,
                     zoom: 14,
                     zoomControl: true,
@@ -55,38 +59,38 @@
 
         
     
-            var tile_layer_744a80ec65824490889ae6dc0144db45 = L.tileLayer(
+            var tile_layer_ea942c070c8b4f079c50ff03120abd66 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_d88ff1e9ced24aa5b674428d3daada70);
+            ).addTo(map_4740c008f43e4db7ac39ced98bcd92f3);
         
     
-            var marker_807560b035a44f579f00440cea71903e = L.marker(
-                [43.8711, -79.4373],
+            var marker_a73cade02f714e46b4ce3ac3b24b63cb = L.marker(
+                [43.7743325, -79.50027054016516],
                 {}
-            ).addTo(map_d88ff1e9ced24aa5b674428d3daada70);
+            ).addTo(map_4740c008f43e4db7ac39ced98bcd92f3);
         
     
-            var icon_7e313d6018b245458b9b560df3471c9e = L.AwesomeMarkers.icon(
+            var icon_433cffc3287348589788785205e1ba94 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "home", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
             );
-            marker_807560b035a44f579f00440cea71903e.setIcon(icon_7e313d6018b245458b9b560df3471c9e);
+            marker_a73cade02f714e46b4ce3ac3b24b63cb.setIcon(icon_433cffc3287348589788785205e1ba94);
         
     
-        var popup_12e1856fe72e400ea5d1c6f4aa559215 = L.popup({"maxWidth": "100%"});
+        var popup_1841682605aa48b0b3b1d9bfe02562c2 = L.popup({"maxWidth": "100%"});
 
         
-            var html_31c033a891654c6fb7e279cbf6b7a6b7 = $(`<div id="html_31c033a891654c6fb7e279cbf6b7a6b7" style="width: 100.0%; height: 100.0%;">Source</div>`)[0];
-            popup_12e1856fe72e400ea5d1c6f4aa559215.setContent(html_31c033a891654c6fb7e279cbf6b7a6b7);
+            var html_1f8e5767339d40968bc8d3b4ee4f46cf = $(`<div id="html_1f8e5767339d40968bc8d3b4ee4f46cf" style="width: 100.0%; height: 100.0%;">Source</div>`)[0];
+            popup_1841682605aa48b0b3b1d9bfe02562c2.setContent(html_1f8e5767339d40968bc8d3b4ee4f46cf);
         
 
-        marker_807560b035a44f579f00440cea71903e.bindPopup(popup_12e1856fe72e400ea5d1c6f4aa559215)
+        marker_a73cade02f714e46b4ce3ac3b24b63cb.bindPopup(popup_1841682605aa48b0b3b1d9bfe02562c2)
         ;
 
         
     
     
-            marker_807560b035a44f579f00440cea71903e.bindTooltip(
+            marker_a73cade02f714e46b4ce3ac3b24b63cb.bindTooltip(
                 `<div>
                      <strong>Source</strong>
                  </div>`,
@@ -94,166 +98,199 @@
             );
         
     
-            var marker_420c5944eb1d46c78af354580ae58270 = L.marker(
-                [43.876482, -79.438686],
+            var marker_2ae11aee63e74e33922bd68590cf36af = L.marker(
+                [43.777198, -79.493438],
                 {}
-            ).addTo(map_d88ff1e9ced24aa5b674428d3daada70);
+            ).addTo(map_4740c008f43e4db7ac39ced98bcd92f3);
         
     
-            var icon_9dd13ac966254d52a3cd8cd776c1d87e = L.AwesomeMarkers.icon(
+            var icon_bd4a612b246a4602a30f2cf55993f226 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_420c5944eb1d46c78af354580ae58270.setIcon(icon_9dd13ac966254d52a3cd8cd776c1d87e);
+            marker_2ae11aee63e74e33922bd68590cf36af.setIcon(icon_bd4a612b246a4602a30f2cf55993f226);
         
     
-        var popup_cf1cc66ef12747da932fbd05f59fc270 = L.popup({"maxWidth": "100%"});
+        var popup_52d2ce364b6d4ff3b64ae3264b6b8b2e = L.popup({"maxWidth": "100%"});
 
         
-            var html_7271ecd810d64f6988739fcbc55e3e94 = $(`<div id="html_7271ecd810d64f6988739fcbc55e3e94" style="width: 100.0%; height: 100.0%;">Boigon Stanley Food Brokers</div>`)[0];
-            popup_cf1cc66ef12747da932fbd05f59fc270.setContent(html_7271ecd810d64f6988739fcbc55e3e94);
+            var html_eb759c3fac0b43ffb0b66e6081c79db7 = $(`<div id="html_eb759c3fac0b43ffb0b66e6081c79db7" style="width: 100.0%; height: 100.0%;"><p> Hudson Bay Construction</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7743325, -79.50027054016516]&destination=[43.777198, -79.493438]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_52d2ce364b6d4ff3b64ae3264b6b8b2e.setContent(html_eb759c3fac0b43ffb0b66e6081c79db7);
         
 
-        marker_420c5944eb1d46c78af354580ae58270.bindPopup(popup_cf1cc66ef12747da932fbd05f59fc270)
+        marker_2ae11aee63e74e33922bd68590cf36af.bindPopup(popup_52d2ce364b6d4ff3b64ae3264b6b8b2e)
         ;
 
         
     
     
-            marker_420c5944eb1d46c78af354580ae58270.bindTooltip(
+            marker_2ae11aee63e74e33922bd68590cf36af.bindTooltip(
                 `<div>
-                     <strong>Boigon Stanley Food Brokers</strong>
+                     <strong>Hudson Bay Construction</strong>
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_75ce09b17ad543b9a5099100ea36addf = L.marker(
-                [43.878153, -79.4396],
+            var marker_d857efe0968c4ea8900ef2f31b027407 = L.marker(
+                [43.781561, -79.492716],
                 {}
-            ).addTo(map_d88ff1e9ced24aa5b674428d3daada70);
+            ).addTo(map_4740c008f43e4db7ac39ced98bcd92f3);
         
     
-            var icon_c5014c3dfa264656a3e500f104cd2aef = L.AwesomeMarkers.icon(
+            var icon_d16306f21bf1467cb521030a1557f78a = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_75ce09b17ad543b9a5099100ea36addf.setIcon(icon_c5014c3dfa264656a3e500f104cd2aef);
+            marker_d857efe0968c4ea8900ef2f31b027407.setIcon(icon_d16306f21bf1467cb521030a1557f78a);
         
     
-        var popup_1556dc6a03ac4d778cf90c639acc9695 = L.popup({"maxWidth": "100%"});
+        var popup_7dcdfd70c3d642ff97852270546f304b = L.popup({"maxWidth": "100%"});
 
         
-            var html_d495ee04b5034e1287cc61d0adea1b16 = $(`<div id="html_d495ee04b5034e1287cc61d0adea1b16" style="width: 100.0%; height: 100.0%;">Bismillah Grocers</div>`)[0];
-            popup_1556dc6a03ac4d778cf90c639acc9695.setContent(html_d495ee04b5034e1287cc61d0adea1b16);
+            var html_7539820601e84063877142e2e80db5d8 = $(`<div id="html_7539820601e84063877142e2e80db5d8" style="width: 100.0%; height: 100.0%;"><p> Hudson Electric</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7743325, -79.50027054016516]&destination=[43.781561, -79.492716]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_7dcdfd70c3d642ff97852270546f304b.setContent(html_7539820601e84063877142e2e80db5d8);
         
 
-        marker_75ce09b17ad543b9a5099100ea36addf.bindPopup(popup_1556dc6a03ac4d778cf90c639acc9695)
+        marker_d857efe0968c4ea8900ef2f31b027407.bindPopup(popup_7dcdfd70c3d642ff97852270546f304b)
         ;
 
         
     
     
-            marker_75ce09b17ad543b9a5099100ea36addf.bindTooltip(
+            marker_d857efe0968c4ea8900ef2f31b027407.bindTooltip(
                 `<div>
-                     <strong>Bismillah Grocers</strong>
+                     <strong>Hudson Electric</strong>
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_46286d5588ea44a7b5fa94287a79aa4a = L.marker(
-                [43.878846, -79.43873],
+            var marker_5a0ef13d27d6475bb3d8d99f69f88fd1 = L.marker(
+                [43.781486, -79.490158],
                 {}
-            ).addTo(map_d88ff1e9ced24aa5b674428d3daada70);
+            ).addTo(map_4740c008f43e4db7ac39ced98bcd92f3);
         
     
-            var icon_dca346089df344c291947c1214b20b4a = L.AwesomeMarkers.icon(
+            var icon_5b884117505246d680199ce05d654db6 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_46286d5588ea44a7b5fa94287a79aa4a.setIcon(icon_dca346089df344c291947c1214b20b4a);
+            marker_5a0ef13d27d6475bb3d8d99f69f88fd1.setIcon(icon_5b884117505246d680199ce05d654db6);
         
     
-        var popup_513494e613f24a4f9a180eae0f2d76c9 = L.popup({"maxWidth": "100%"});
+        var popup_7ecd88421adc42fc8a357025deb6a189 = L.popup({"maxWidth": "100%"});
 
         
-            var html_b5ccea7524db4b93aac5d1e87f4b77ba = $(`<div id="html_b5ccea7524db4b93aac5d1e87f4b77ba" style="width: 100.0%; height: 100.0%;">Tavazo</div>`)[0];
-            popup_513494e613f24a4f9a180eae0f2d76c9.setContent(html_b5ccea7524db4b93aac5d1e87f4b77ba);
+            var html_2fd6849a138e41c5829875b5c8c640d8 = $(`<div id="html_2fd6849a138e41c5829875b5c8c640d8" style="width: 100.0%; height: 100.0%;"><p> International Discount Foods</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7743325, -79.50027054016516]&destination=[43.781486, -79.490158]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_7ecd88421adc42fc8a357025deb6a189.setContent(html_2fd6849a138e41c5829875b5c8c640d8);
         
 
-        marker_46286d5588ea44a7b5fa94287a79aa4a.bindPopup(popup_513494e613f24a4f9a180eae0f2d76c9)
+        marker_5a0ef13d27d6475bb3d8d99f69f88fd1.bindPopup(popup_7ecd88421adc42fc8a357025deb6a189)
         ;
 
         
     
     
-            marker_46286d5588ea44a7b5fa94287a79aa4a.bindTooltip(
+            marker_5a0ef13d27d6475bb3d8d99f69f88fd1.bindTooltip(
                 `<div>
-                     <strong>Tavazo</strong>
+                     <strong>International Discount Foods</strong>
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_f63e3ec938ea4ff6bed15efec8d63b14 = L.marker(
-                [43.863277, -79.436006],
+            var marker_99342d1ecbbe4f5aa29468d3d4c41b2c = L.marker(
+                [43.783628, -79.482548],
                 {}
-            ).addTo(map_d88ff1e9ced24aa5b674428d3daada70);
+            ).addTo(map_4740c008f43e4db7ac39ced98bcd92f3);
         
     
-            var icon_ba6b831eeb4546daabee49faf9574cfa = L.AwesomeMarkers.icon(
+            var icon_79eacdb7e1974f2bab017f3c3377ed67 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_f63e3ec938ea4ff6bed15efec8d63b14.setIcon(icon_ba6b831eeb4546daabee49faf9574cfa);
+            marker_99342d1ecbbe4f5aa29468d3d4c41b2c.setIcon(icon_79eacdb7e1974f2bab017f3c3377ed67);
         
     
-        var popup_7bdaa7bebbf64d8da123576c75f15ec2 = L.popup({"maxWidth": "100%"});
+        var popup_1686fc4cfbe04d9db39f39145788a223 = L.popup({"maxWidth": "100%"});
 
         
-            var html_3db3c6b3aec948b5a25a418465a65bd2 = $(`<div id="html_3db3c6b3aec948b5a25a418465a65bd2" style="width: 100.0%; height: 100.0%;">Circle K</div>`)[0];
-            popup_7bdaa7bebbf64d8da123576c75f15ec2.setContent(html_3db3c6b3aec948b5a25a418465a65bd2);
+            var html_1f4d2cd186db4f69a7db1a57eed0713b = $(`<div id="html_1f4d2cd186db4f69a7db1a57eed0713b" style="width: 100.0%; height: 100.0%;"><p> Vee J's Enterprises</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7743325, -79.50027054016516]&destination=[43.783628, -79.482548]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_1686fc4cfbe04d9db39f39145788a223.setContent(html_1f4d2cd186db4f69a7db1a57eed0713b);
         
 
-        marker_f63e3ec938ea4ff6bed15efec8d63b14.bindPopup(popup_7bdaa7bebbf64d8da123576c75f15ec2)
+        marker_99342d1ecbbe4f5aa29468d3d4c41b2c.bindPopup(popup_1686fc4cfbe04d9db39f39145788a223)
         ;
 
         
     
     
-            marker_f63e3ec938ea4ff6bed15efec8d63b14.bindTooltip(
+            marker_99342d1ecbbe4f5aa29468d3d4c41b2c.bindTooltip(
                 `<div>
-                     <strong>Circle K</strong>
+                     <strong>Vee J's Enterprises</strong>
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_cbc49ab24244400da5843bdf69e4882d = L.marker(
-                [43.862263, -79.432662],
+            var marker_4908da9b26f04b60998c675d4f4cc8ce = L.marker(
+                [43.776381, -79.485808],
                 {}
-            ).addTo(map_d88ff1e9ced24aa5b674428d3daada70);
+            ).addTo(map_4740c008f43e4db7ac39ced98bcd92f3);
         
     
-            var icon_ab5b9863f41344b096d8f292c1dad3d3 = L.AwesomeMarkers.icon(
+            var icon_022aa31836a64d1887a1261e0674b8d2 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_cbc49ab24244400da5843bdf69e4882d.setIcon(icon_ab5b9863f41344b096d8f292c1dad3d3);
+            marker_4908da9b26f04b60998c675d4f4cc8ce.setIcon(icon_022aa31836a64d1887a1261e0674b8d2);
         
     
-        var popup_02445e7aff6a47ef978c4cb0af8c787d = L.popup({"maxWidth": "100%"});
+        var popup_0159bca4e2e44d77ba5d0ff536cbfa2f = L.popup({"maxWidth": "100%"});
 
         
-            var html_c3f0e38e63734d47b5389fe4311360b0 = $(`<div id="html_c3f0e38e63734d47b5389fe4311360b0" style="width: 100.0%; height: 100.0%;">T&T</div>`)[0];
-            popup_02445e7aff6a47ef978c4cb0af8c787d.setContent(html_c3f0e38e63734d47b5389fe4311360b0);
+            var html_0c2c5777fc684eaba0a6303feb913dec = $(`<div id="html_0c2c5777fc684eaba0a6303feb913dec" style="width: 100.0%; height: 100.0%;"><p> Janes Family Foods</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7743325, -79.50027054016516]&destination=[43.776381, -79.485808]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_0159bca4e2e44d77ba5d0ff536cbfa2f.setContent(html_0c2c5777fc684eaba0a6303feb913dec);
         
 
-        marker_cbc49ab24244400da5843bdf69e4882d.bindPopup(popup_02445e7aff6a47ef978c4cb0af8c787d)
+        marker_4908da9b26f04b60998c675d4f4cc8ce.bindPopup(popup_0159bca4e2e44d77ba5d0ff536cbfa2f)
         ;
 
         
     
     
-            marker_cbc49ab24244400da5843bdf69e4882d.bindTooltip(
+            marker_4908da9b26f04b60998c675d4f4cc8ce.bindTooltip(
                 `<div>
-                     <strong>T&T</strong>
+                     <strong>Janes Family Foods</strong>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_63512076504847e9b2d5c6546b453a3b = L.marker(
+                [43.769266, -79.521875],
+                {}
+            ).addTo(map_4740c008f43e4db7ac39ced98bcd92f3);
+        
+    
+            var icon_0351f84752f9487186def7a670dc74c9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_63512076504847e9b2d5c6546b453a3b.setIcon(icon_0351f84752f9487186def7a670dc74c9);
+        
+    
+        var popup_1f0e4e6a26be4dd6a9976b80c62c496f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_61edba0cc8434dec83aa1f8d95d2b7bd = $(`<div id="html_61edba0cc8434dec83aa1f8d95d2b7bd" style="width: 100.0%; height: 100.0%;"><p> Smart Choice Foodmart</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7743325, -79.50027054016516]&destination=[43.769266, -79.521875]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_1f0e4e6a26be4dd6a9976b80c62c496f.setContent(html_61edba0cc8434dec83aa1f8d95d2b7bd);
+        
+
+        marker_63512076504847e9b2d5c6546b453a3b.bindPopup(popup_1f0e4e6a26be4dd6a9976b80c62c496f)
+        ;
+
+        
+    
+    
+            marker_63512076504847e9b2d5c6546b453a3b.bindTooltip(
+                `<div>
+                     <strong>Smart Choice Foodmart</strong>
                  </div>`,
                 {"sticky": true}
             );

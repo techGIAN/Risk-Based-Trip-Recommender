@@ -52,9 +52,7 @@ class Path:
             if isFirst:
                 isFirst = False
             else:
-                # q = queryOSRM(last, line)
-                # sub_path_list, dist, dur = get_path_points(q, 2)
-                sub_path_list, dist, dur  = query(last, line, trip_count=1, ROUTE_FROM=self.ROUTE_FROM)
+                sub_path_list, dist, dur = query(last, line, trip_count=1, ROUTE_FROM=self.ROUTE_FROM)
 
                 segment_durations.append(dur)
                 segment_distances.append(dist)

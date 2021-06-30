@@ -3,7 +3,6 @@ import json
 import os
 from enum import Enum
 
-# ROUTE_FROM = 'GRASS_HOPPER' # 'OSRM' # 'HERE'
 GRASS_HOPPER_KEY = 'fc4feee8-6646-46a1-a480-ad2a14f094c2'
 
 
@@ -20,23 +19,25 @@ class ROUTE_FROM(Enum):
 
 
 # returns path_list, distances, durations
-def query(source, destination, trip_count, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False, ROUTE_FROM=ROUTE_FROM.OSRM):
+def query(source, destination, trip_count, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False, ROUTE_FROM=ROUTE_FROM.OSRM,
+          mode_of_transit='car'):
     q = None
 
     if ROUTE_FROM == ROUTE_FROM.OSRM:
-        q = queryOSRM(source, destination, IS_DEBUG_MODE, IS_FULL_DEBUG_MODE)
+        q = queryOSRM(source, destination, mode_of_transit, IS_DEBUG_MODE, IS_FULL_DEBUG_MODE)
     elif ROUTE_FROM == ROUTE_FROM.GRASS_HOPPER:
-        q = queryGrassHopper(source, destination, trip_count, IS_DEBUG_MODE, IS_FULL_DEBUG_MODE)
+        q = queryGrassHopper(source, destination, trip_count, mode_of_transit, IS_DEBUG_MODE, IS_FULL_DEBUG_MODE)
 
     return __get_path_points(q, ROUTE_FROM, trip_count)
 
+
 # Get paths from OSRM for a given source and destination
-def queryOSRM(source, destination, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
+def queryOSRM(source, destination, mode_of_transit, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
     source = source[::-1]
     destination = destination[::-1]
 
-    q = 'http://router.project-osrm.org/route/v1/foot/' + str(source[0]) + ',' + str(source[1]) + ';' + \
-            str(destination[0]) + ',' + str(destination[1]) + '?alternatives=true&geometries=geojson&overview=full'
+    q = 'http://router.project-osrm.org/route/v1/' + mode_of_transit + '/' + str(source[0]) + ',' + str(source[1]) + \
+        ';' + str(destination[0]) + ',' + str(destination[1]) + '?alternatives=true&geometries=geojson&overview=full'
 
     if IS_FULL_DEBUG_MODE and IS_DEBUG_MODE:
         print(q)
@@ -48,11 +49,11 @@ def queryOSRM(source, destination, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False
 
 
 # Get paths from OSRM for a given source and destination
-def queryGrassHopper(source, destination, trip_count, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
+def queryGrassHopper(source, destination, trip_count, mode_of_transit, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
     q = 'https://graphhopper.com/api/1/route?point=' + str(source[0]) + ',' + str(source[1]) + \
-            '&point=' + str(destination[0]) + ',' + str(destination[1]) + '&vehicle=car&calc_points=true' + \
-            '&key=' + GRASS_HOPPER_KEY + '&points_encoded=false&alternative_route.max_paths=' + str(trip_count) + \
-            '&algorithm=alternative_route'
+            '&point=' + str(destination[0]) + ',' + str(destination[1]) + '&vehicle=' + mode_of_transit + \
+            '&calc_points=true' + '&key=' + GRASS_HOPPER_KEY + '&points_encoded=false&alternative_route.max_paths=' + \
+            str(trip_count) + '&algorithm=alternative_route'
 
     if IS_FULL_DEBUG_MODE and IS_DEBUG_MODE:
         print(q)

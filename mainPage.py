@@ -135,9 +135,14 @@ def handlePOIRequests():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    global errMsg, errType
+    global errMsg, errType, RouteFrom
     errMsg = ''
     errType = None
+
+    if RouteFrom == ROUTE_FROM.OSRM:
+        session['query_from'] = 'osrm'
+    else:
+        session['query_from'] = 'grass_hopper'
 
     if request.method == 'GET' and len(request.args.to_dict()) != 0:
         print(colored('received a get request', 'red'))

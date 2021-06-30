@@ -12,19 +12,19 @@
 
     <form action="#" method="get">
         <div class="radio_query_selector" style="width: 100%;">
-            {% if session['query_from'] == "osrm" %}
-                <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');" checked>
-                <label for="osrm">OSRM</label>
-
-                <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
-                       onclick="select_query('grass_hopper');">
-                <label for="grass_hopper">Grass Hopper</label>
-            {% else %}
+            {% if session['query_from'] == "grass_hopper" %}
                 <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');">
                 <label for="osrm">OSRM</label>
 
                 <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
                        onclick="select_query('grass_hopper');" checked>
+                <label for="grass_hopper">Grass Hopper</label>
+            {% else %}
+                <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');" checked>
+                <label for="osrm">OSRM</label>
+
+                <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
+                       onclick="select_query('grass_hopper');">
                 <label for="grass_hopper">Grass Hopper</label>
             {% endif %}
         </div>

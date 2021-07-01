@@ -20,7 +20,7 @@ WEBNAME = 'templates/poi_near_me.html'
 
 class POINearMe(Location):
     # df_poi = pd.read_csv('Safegraph-Canada-Core-Free-10-Attributes.csv')
-    df_poi = pd.read_csv('ca_poi_risks_2021-04-19-one-week.csv')
+    df_poi = pd.read_csv('ca_poi_rrisks_2021-04-19-one-week.csv')
     radius = 25                 # in Km
     max_trip_duration = 60      # in minutes
     K_poi = 20                  # number of POIs to offer
@@ -133,6 +133,18 @@ class POINearMe(Location):
         self.df_poi = self.df_poi[self.df_poi['distance'] <= self.radius]
         self.df_poi = self.df_poi[self.df_poi['travel_time'] <= self.max_trip_duration]
 
+        self.df_poi['arrival'] = self.df_poi['travel_time']/60 + self.hr
+        self.df_poi['arrival'] = self.df_poi.arrival.apply(int)
+        self.df_poi['arrival'] = [v % 168 for v in self.df_poi['arrival']]
+        
+        self.df_poi['risk_arrive'] = 0.0
+        
+        for i in range(self.df_poi.shape[0]):
+            arr = self.df_poi.iloc[i,178]
+            self.df_poi.iloc[i,179] = self.df_poi.iloc[i,arr+7]
+
+        print(self.df_poi.head())
+
         if self.IS_DEBUG_MODE and self.IS_FULL_DEBUG_MODE:
             print(self.df_poi[['latitude','longitude','travel_time', 'distance', 'haversine_distance']])
 
@@ -142,6 +154,9 @@ class POINearMe(Location):
             self.df_poi.sort_values(by=['travel_time'], inplace=True, ascending=True)
         elif self.sortBy == SORT_BY.haversine_distance:
             self.df_poi.sort_values(by=['haversine_distance'], inplace=True, ascending=True)
+        elif self.sortBy == SORT_BY.Risk:
+            self.df_poi.sort_values(by=['risk_arrive'], inplace=True, ascending=True)
+
 
         self.df_poi = self.df_poi.head(self.K_poi).reset_index()
         print(self.df_poi[['travel_time', 'distance', 'haversine_distance']])
@@ -174,10 +189,19 @@ class POINearMe(Location):
                      <p><button type='button' id='poi_button' onclick="create_trip('{query}');" >go there</button></p>
                   """
 
+            if self.sortBy == SORT_BY.Distance:
+                tooltip_string = '<br><strong> DDist: </strong>' +  str(round(point_of_interest['distance'],2)) + ' km'
+            elif self.sortBy == SORT_BY.Time:
+                tooltip_string = '<br><strong> Time: </strong>' +  str(round(point_of_interest['travel_time'],2)) + ' min'
+            elif self.sortBy == SORT_BY.haversine_distance:
+                tooltip_string = '<br><strong> HDist: </strong>' +  str(round(point_of_interest['haversine_distance'],2)) + ' km'
+            elif self.sortBy == SORT_BY.Risk:
+                tooltip_string = '<br><strong> RRisk: </strong>' +  str(point_of_interest['risk_arrive'])
+
             folium.Marker(
                 location=poi_coords,
                 popup=popup, #poi_name + "<\br>"+ str(poi_coords),
-                tooltip='<strong>' + poi_name + '<br> Risk: ' + '</strong>' +  str(round(point_of_interest[self.risk_attribute],2)),
+                tooltip='<strong>' + str(index+1) + '. ' + poi_name + '</strong>' + tooltip_string,
                 icon=folium.Icon(color='blue', prefix='fa', icon='shopping-cart')
             ).add_to(m)
 

@@ -12,12 +12,15 @@ from POI import POI
 from utilityMethods import SORT_BY, ROUTE_FROM
 from termcolor import colored
 
+from datetime import datetime as dt
+
 
 WEBNAME = 'templates/poi_near_me.html'
 
 
 class POINearMe(Location):
-    df_poi = pd.read_csv('Safegraph-Canada-Core-Free-10-Attributes.csv')
+    # df_poi = pd.read_csv('Safegraph-Canada-Core-Free-10-Attributes.csv')
+    df_poi = pd.read_csv('ca_poi_risks_2021-04-19-one-week.csv')
     radius = 25                 # in Km
     max_trip_duration = 60      # in minutes
     K_poi = 20                  # number of POIs to offer
@@ -26,6 +29,11 @@ class POINearMe(Location):
     sortBy = SORT_BY.haversine_distance
     ROUTE_FROM = ROUTE_FROM.OSRM
     travel_by = 'car'
+
+    ct = dt.now()
+    hr = ct.weekday()*24 + ct.hour
+    hr = 159 # tester for Nofrills at Yonge/Steeles
+    risk_attribute = 'poiRisk_' + str(hr)
 
     def __init__(self,
                  origin,
@@ -98,15 +106,18 @@ class POINearMe(Location):
         distance = []
 
         for index, row in self.df_poi.iterrows():
+
             poi = POI(coordinate=[row['latitude'],
                                   row['longitude']],
                       origin=self.source,
+                      poi_risk=row[self.risk_attribute],
                       ROUTE_FROM=self.ROUTE_FROM,
                       IS_DEBUG_MODE=self.IS_DEBUG_MODE,
                       IS_FULL_DEBUG_MODE=self.IS_FULL_DEBUG_MODE,
                       mode_of_transit=self.travel_by,
                       is_time_now=self.time_now,
-                      time_later_val=self.time_later_value)
+                      time_later_val=self.time_later_value
+                      )
 
             time.append(poi.getTime())
             distance.append(poi.getDistance())
@@ -166,7 +177,7 @@ class POINearMe(Location):
             folium.Marker(
                 location=poi_coords,
                 popup=popup, #poi_name + "<\br>"+ str(poi_coords),
-                tooltip='<strong>' + poi_name + '</strong>',
+                tooltip='<strong>' + poi_name + '<br> Risk: ' + '</strong>' +  str(round(point_of_interest[self.risk_attribute],2)),
                 icon=folium.Icon(color='blue', prefix='fa', icon='shopping-cart')
             ).add_to(m)
 

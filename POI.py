@@ -3,9 +3,9 @@ from utilityMethods import ROUTE_FROM
 
 
 class POI(Trip_Recommender):
-    poi_risk = None
+    # poi_risk = None
 
-    def __init__(self, coordinate, origin, ROUTE_FROM=ROUTE_FROM.OSRM, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False,
+    def __init__(self, coordinate, origin, poi_risk, ROUTE_FROM=ROUTE_FROM.OSRM, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False,
                  mode_of_transit='car', is_time_now=True, time_later_val=None):
 
         super().__init__(source=origin,

@@ -11,6 +11,7 @@ class SORT_BY(Enum):
     Distance = 2
     Time = 3
     Risk = 4
+    POIScore = 5
 
 
 class ROUTE_FROM(Enum):

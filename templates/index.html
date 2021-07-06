@@ -156,7 +156,14 @@
         <!--    Category section    -->
         <div class="origin_pop" style="width: 100%;border-style: none;float: left; margin-top: 5px;">
             <input id="category" type="text" placeholder="enter category here..." style="width: 90%" name="category"
-                   value="{{ session['category'] if session['category'] }}"/>
+                   value="{{ session['category'] if session['category'] }}" list="category-suggestions"/>
+            <datalist id="category-suggestions">
+                <option value="Grocery Stores"></option>
+                <option value="Restaurants and Other Eating Places"></option>
+                <option value="Gasoline Stations"></option>
+                <option value="Health and Personal Care Stores"></option>
+                <option value="Colleges, Universities, and Professional Schools"></option>
+            </datalist>
             <span class="tooltiptext_origin">Enter search category here</span>
         </div>
 
@@ -187,15 +194,18 @@
         <div style="width: 100%;">
                 <p><label style="font-weight: bold;font-size: 90%;width: 25%;float: left">Sort by: </label>
                 <div class="radio-toolbar-transit" style="width: 75%;float: left">
-                    {% if session['sort_by'] == "risk_of_trip" %}
-                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
+                    {% if session['sort_by'] == "time_of_traver" %}
+                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver" checked>
                         <label for="time_of_traver">Time</label>
 
                         <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
                         <label for="distance_to_travel">Distance</label>
 
-                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip" checked>
+                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
                         <label for="risk_of_trip">Risk</label>
+
+                        <input type="radio" id="poi_score" name="sort_by" value="poi_score">
+                        <label for="poi_score">POI Score</label>
                     {% elif session['sort_by'] == "distance_to_travel" %}
                         <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
                         <label for="time_of_traver">Time</label>
@@ -205,8 +215,23 @@
 
                         <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
                         <label for="risk_of_trip">Risk</label>
+
+                        <input type="radio" id="poi_score" name="sort_by" value="poi_score">
+                        <label for="poi_score">POI Score</label>
+                    {% elif session['sort_by'] == "risk_of_trip" %}
+                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
+                        <label for="time_of_traver">Time</label>
+
+                        <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
+                        <label for="distance_to_travel">Distance</label>
+
+                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip" checked>
+                        <label for="risk_of_trip">Risk</label>
+
+                        <input type="radio" id="poi_score" name="sort_by" value="poi_score">
+                        <label for="poi_score">POI Score</label>
                     {% else %}
-                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver" checked>
+                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
                         <label for="time_of_traver">Time</label>
 
                         <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
@@ -214,6 +239,9 @@
 
                         <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
                         <label for="risk_of_trip">Risk</label>
+
+                        <input type="radio" id="poi_score" name="sort_by" value="poi_score" checked>
+                        <label for="poi_score">POI Score</label>
                     {% endif %}
                 </div>
             </p>

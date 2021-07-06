@@ -13,6 +13,11 @@ from utilityMethods import SORT_BY, ROUTE_FROM
 from termcolor import colored
 
 from datetime import datetime as dt
+<<<<<<< Updated upstream
+=======
+from optimizer import Optimizer
+from IconMapper import IconMapper
+>>>>>>> Stashed changes
 
 
 WEBNAME = 'templates/poi_near_me.html'
@@ -20,7 +25,11 @@ WEBNAME = 'templates/poi_near_me.html'
 
 class POINearMe(Location):
     # df_poi = pd.read_csv('Safegraph-Canada-Core-Free-10-Attributes.csv')
+<<<<<<< Updated upstream
     df_poi = pd.read_csv('ca_poi_rrisks_2021-04-19-one-week.csv')
+=======
+    df_poi = pd.read_csv('ca_poi_risks_2021-04-19-one-week.csv')
+>>>>>>> Stashed changes
     radius = 25                 # in Km
     max_trip_duration = 60      # in minutes
     K_poi = 20                  # number of POIs to offer
@@ -30,10 +39,21 @@ class POINearMe(Location):
     ROUTE_FROM = ROUTE_FROM.OSRM
     travel_by = 'car'
 
+<<<<<<< Updated upstream
     ct = dt.now()
     hr = ct.weekday()*24 + ct.hour
     hr = 159 # tester for Nofrills at Yonge/Steeles
     risk_attribute = 'poiRisk_' + str(hr)
+=======
+    # ct = dt.now()
+    # hr = ct.weekday()*24 + ct.hour
+    # # hr = 159 # tester for Nofrills at Yonge/Steeles
+    # risk_attribute = 'poiRisk_' + str(hr)
+
+    ct = None
+    hr = None
+    risk_attribute = None
+>>>>>>> Stashed changes
 
     def __init__(self,
                  origin,
@@ -64,6 +84,17 @@ class POINearMe(Location):
         self.IS_FULL_DEBUG_MODE = IS_FULL_DEBUG_MODE
         self.time_now = is_time_now
         self.time_later_value = time_later_val
+
+        self.ct = dt.now()
+        if not self.time_now:
+            frmt = '%Y-%m-%d %H:%M'
+            arry = str(self.time_later_value).split('T')
+            mod_str_dt = arry[0] + ' ' + arry[1]
+            self.ct = dt.strptime(mod_str_dt, frmt)
+
+        self.hr = self.ct.weekday()*24 + self.ct.hour
+        # hr = 159 # tester for Nofrills at Yonge/Steeles
+        self.risk_attribute = 'poiRisk_' + str(self.hr)
 
         if duration is not None:
             self.max_trip_duration = duration
@@ -143,25 +174,44 @@ class POINearMe(Location):
             arr = self.df_poi.iloc[i,178]
             self.df_poi.iloc[i,179] = self.df_poi.iloc[i,arr+7]
 
+<<<<<<< Updated upstream
         print(self.df_poi.head())
 
         if self.IS_DEBUG_MODE and self.IS_FULL_DEBUG_MODE:
             print(self.df_poi[['latitude','longitude','travel_time', 'distance', 'haversine_distance']])
+=======
+        # print(self.df_poi.head())
+
+        df_sub = pd.DataFrame(columns=['travel_time', 'distance', 'risk_arrive'])
+        df_sub[['travel_time', 'distance', 'risk_arrive']] = self.df_poi[['travel_time', 'distance', 'risk_arrive']]
+        op = Optimizer()
+        v = op.opt(np_array=df_sub.to_numpy())
+        self.df_poi['poi_score'] = v[0]*self.df_poi['travel_time'] + v[1]*self.df_poi['distance'] + v[2]*self.df_poi['risk_arrive']
+
+        # if self.IS_DEBUG_MODE and self.IS_FULL_DEBUG_MODE:
+        #     print(self.df_poi[['latitude','longitude','travel_time', 'distance', 'haversine_distance']])
+>>>>>>> Stashed changes
 
         if self.sortBy == SORT_BY.Distance:
             self.df_poi.sort_values(by=['distance'], inplace=True, ascending=True)
         elif self.sortBy == SORT_BY.Time:
             self.df_poi.sort_values(by=['travel_time'], inplace=True, ascending=True)
+<<<<<<< Updated upstream
         elif self.sortBy == SORT_BY.haversine_distance:
             self.df_poi.sort_values(by=['haversine_distance'], inplace=True, ascending=True)
+=======
+        elif self.sortBy == SORT_BY.POIScore:
+            self.df_poi.sort_values(by=['poi_score'], inplace=True, ascending=True)
+>>>>>>> Stashed changes
         elif self.sortBy == SORT_BY.Risk:
             self.df_poi.sort_values(by=['risk_arrive'], inplace=True, ascending=True)
 
 
         self.df_poi = self.df_poi.head(self.K_poi).reset_index()
-        print(self.df_poi[['travel_time', 'distance', 'haversine_distance']])
-        if self.IS_DEBUG_MODE and self.IS_FULL_DEBUG_MODE:
-            print(self.df_poi[['travel_time', 'distance', 'haversine_distance']])
+
+        # print(self.df_poi[['travel_time', 'distance', 'haversine_distance']])
+        # if self.IS_DEBUG_MODE and self.IS_FULL_DEBUG_MODE:
+        #     print(self.df_poi[['travel_time', 'distance', 'haversine_distance']])
 
     def graphPOIs(self):
         m = folium.Map(location=self.source, zoom_start=14)
@@ -172,6 +222,8 @@ class POINearMe(Location):
             tooltip='<strong>Source</strong>',
             icon=folium.Icon(color='red', prefix='fa', icon='home')
         ).add_to(m)
+
+        im = IconMapper()
 
         # for i in range(self.K_poi):
         for index, point_of_interest in self.df_poi.iterrows():
@@ -196,13 +248,26 @@ class POINearMe(Location):
             elif self.sortBy == SORT_BY.haversine_distance:
                 tooltip_string = '<br><strong> HDist: </strong>' +  str(round(point_of_interest['haversine_distance'],2)) + ' km'
             elif self.sortBy == SORT_BY.Risk:
+<<<<<<< Updated upstream
                 tooltip_string = '<br><strong> RRisk: </strong>' +  str(point_of_interest['risk_arrive'])
+=======
+                tooltip_string = '<br><strong> RRisk: </strong> [nda]'
+                # tooltip_string = '<br><strong> RRisk: </strong>' +  str(point_of_interest['risk_arrive'])
+            elif self.sortBy == SORT_BY.POIScore:
+                tooltip_string = '<br><strong> POI Score: </strong>' +  str(point_of_interest['poi_score'])
+
+            pre, ic = im.getLogo(cat=point_of_interest['top_category'])
+>>>>>>> Stashed changes
 
             folium.Marker(
                 location=poi_coords,
                 popup=popup, #poi_name + "<\br>"+ str(poi_coords),
                 tooltip='<strong>' + str(index+1) + '. ' + poi_name + '</strong>' + tooltip_string,
+<<<<<<< Updated upstream
                 icon=folium.Icon(color='blue', prefix='fa', icon='shopping-cart')
+=======
+                icon=folium.Icon(color='blue', prefix=pre, icon=ic)
+>>>>>>> Stashed changes
             ).add_to(m)
 
         m.get_root().html.add_child(folium.JavascriptLink('../static/js/interactive_poi.js'))

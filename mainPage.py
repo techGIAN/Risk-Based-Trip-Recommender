@@ -87,8 +87,10 @@ def handlePOIRequests():
             s = SORT_BY.Time
         elif sort_by == 'distance_to_travel':
             s = SORT_BY.Distance
-        else:
+        elif sort_by == 'risk_of_trip':
             s = SORT_BY.Risk
+        else:
+            s = SORT_BY.POIScore
 
         travel = None
         if travel_poi == 'car_poi':

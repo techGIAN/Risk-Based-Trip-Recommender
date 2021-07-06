@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_33ef5a6cd9b54f1f856d19a3fd7425b1 {
+                #map_cbe46bf3e1304eaf9587745efdfe60b6 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -36,7 +36,7 @@
 <body>    
     <script src="../static/js/interactive_poi.js"></script>
     
-            <div class="folium-map" id="map_33ef5a6cd9b54f1f856d19a3fd7425b1" ></div>
+            <div class="folium-map" id="map_cbe46bf3e1304eaf9587745efdfe60b6" ></div>
         
 </body>
 <script>    
@@ -44,10 +44,10 @@
         console.log('working perfectly')
         
     
-            var map_33ef5a6cd9b54f1f856d19a3fd7425b1 = L.map(
-                "map_33ef5a6cd9b54f1f856d19a3fd7425b1",
+            var map_cbe46bf3e1304eaf9587745efdfe60b6 = L.map(
+                "map_cbe46bf3e1304eaf9587745efdfe60b6",
                 {
-                    center: [43.7743325, -79.50027054016516],
+                    center: [43.7001639, -79.4156988],
                     crs: L.CRS.EPSG3857,
                     zoom: 14,
                     zoomControl: true,
@@ -59,38 +59,38 @@
 
         
     
-            var tile_layer_35e74e6ef8b145d58dec76024215e802 = L.tileLayer(
+            var tile_layer_b8f6cd8ed9804fb1b4122ce16b442cb7 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_33ef5a6cd9b54f1f856d19a3fd7425b1);
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
         
     
-            var marker_5ca8f4356597470e9e45477e5866b857 = L.marker(
-                [43.7743325, -79.50027054016516],
+            var marker_162b7f2f0c9f4bbd8d820ff094005089 = L.marker(
+                [43.7001639, -79.4156988],
                 {}
-            ).addTo(map_33ef5a6cd9b54f1f856d19a3fd7425b1);
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
         
     
-            var icon_c92a996b7a4d4e2dabd891935f5c93e6 = L.AwesomeMarkers.icon(
+            var icon_52cbe076a0b04f1a91d7fb2832e6d0b4 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "home", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
             );
-            marker_5ca8f4356597470e9e45477e5866b857.setIcon(icon_c92a996b7a4d4e2dabd891935f5c93e6);
+            marker_162b7f2f0c9f4bbd8d820ff094005089.setIcon(icon_52cbe076a0b04f1a91d7fb2832e6d0b4);
         
     
-        var popup_bd6d9f9916d142aa8ea766995cf96307 = L.popup({"maxWidth": "100%"});
+        var popup_7ec0b3743f61493d83516a9ce166a257 = L.popup({"maxWidth": "100%"});
 
         
-            var html_c79a306d36bd4972970e2e7d11385a9e = $(`<div id="html_c79a306d36bd4972970e2e7d11385a9e" style="width: 100.0%; height: 100.0%;">Source</div>`)[0];
-            popup_bd6d9f9916d142aa8ea766995cf96307.setContent(html_c79a306d36bd4972970e2e7d11385a9e);
+            var html_8a9c4ff2d02347cebaf222cc5ff93947 = $(`<div id="html_8a9c4ff2d02347cebaf222cc5ff93947" style="width: 100.0%; height: 100.0%;">Source</div>`)[0];
+            popup_7ec0b3743f61493d83516a9ce166a257.setContent(html_8a9c4ff2d02347cebaf222cc5ff93947);
         
 
-        marker_5ca8f4356597470e9e45477e5866b857.bindPopup(popup_bd6d9f9916d142aa8ea766995cf96307)
+        marker_162b7f2f0c9f4bbd8d820ff094005089.bindPopup(popup_7ec0b3743f61493d83516a9ce166a257)
         ;
 
         
     
     
-            marker_5ca8f4356597470e9e45477e5866b857.bindTooltip(
+            marker_162b7f2f0c9f4bbd8d820ff094005089.bindTooltip(
                 `<div>
                      <strong>Source</strong>
                  </div>`,
@@ -98,67 +98,331 @@
             );
         
     
-            var marker_6e6711bbd02c4c7ba397b9fa21c49214 = L.marker(
-                [43.777198, -79.493438],
+            var marker_5b6ef77d7ed142f3b113ac4a34274852 = L.marker(
+                [43.704535, -79.407614],
                 {}
-            ).addTo(map_33ef5a6cd9b54f1f856d19a3fd7425b1);
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
         
     
-            var icon_a8a186f7cca241c6b6527c6a253c4a9e = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            var icon_43b50f9d2a3e4afa9a9665bf04acd65b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
             );
-            marker_6e6711bbd02c4c7ba397b9fa21c49214.setIcon(icon_a8a186f7cca241c6b6527c6a253c4a9e);
+            marker_5b6ef77d7ed142f3b113ac4a34274852.setIcon(icon_43b50f9d2a3e4afa9a9665bf04acd65b);
         
     
-        var popup_3ad8c79b4e2b467dba14da1eb91750b1 = L.popup({"maxWidth": "100%"});
+        var popup_d2a8e55608494bf1bd1a271551c840a8 = L.popup({"maxWidth": "100%"});
 
         
-            var html_333ee42a3aac47aa83770cd33ad77573 = $(`<div id="html_333ee42a3aac47aa83770cd33ad77573" style="width: 100.0%; height: 100.0%;"><p> Hudson Bay Construction</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7743325, -79.50027054016516]&destination=[43.777198, -79.493438]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_3ad8c79b4e2b467dba14da1eb91750b1.setContent(html_333ee42a3aac47aa83770cd33ad77573);
+            var html_eedcdef395264212b8bcdef6b9d5f84f = $(`<div id="html_eedcdef395264212b8bcdef6b9d5f84f" style="width: 100.0%; height: 100.0%;"><p> A&W (Canada)</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.704535, -79.407614]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_d2a8e55608494bf1bd1a271551c840a8.setContent(html_eedcdef395264212b8bcdef6b9d5f84f);
         
 
-        marker_6e6711bbd02c4c7ba397b9fa21c49214.bindPopup(popup_3ad8c79b4e2b467dba14da1eb91750b1)
+        marker_5b6ef77d7ed142f3b113ac4a34274852.bindPopup(popup_d2a8e55608494bf1bd1a271551c840a8)
         ;
 
         
     
     
-            marker_6e6711bbd02c4c7ba397b9fa21c49214.bindTooltip(
+            marker_5b6ef77d7ed142f3b113ac4a34274852.bindTooltip(
                 `<div>
-                     <strong>Hudson Bay Construction</strong>
+                     <strong>1. A&W (Canada)</strong><br><strong> POI Score: </strong>-2.925863281574702e-07
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_fc15de7b2c234e658bbcffe08006d097 = L.marker(
-                [43.781561, -79.492716],
+            var marker_a7f02e24fa2a4cefafc19f85c5bf60de = L.marker(
+                [43.705019, -79.407675],
                 {}
-            ).addTo(map_33ef5a6cd9b54f1f856d19a3fd7425b1);
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
         
     
-            var icon_1910a1e1039b46f8ac30a6bec7b96ce4 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            var icon_fdec310d35c945a598f2a7fa26ec9570 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
             );
-            marker_fc15de7b2c234e658bbcffe08006d097.setIcon(icon_1910a1e1039b46f8ac30a6bec7b96ce4);
+            marker_a7f02e24fa2a4cefafc19f85c5bf60de.setIcon(icon_fdec310d35c945a598f2a7fa26ec9570);
         
     
-        var popup_f4ca15fb793343d78ed6d09c496f679c = L.popup({"maxWidth": "100%"});
+        var popup_b9be671350d44890ba1954875027dd74 = L.popup({"maxWidth": "100%"});
 
         
-            var html_b092bec09e50458daaba79f0b2061d32 = $(`<div id="html_b092bec09e50458daaba79f0b2061d32" style="width: 100.0%; height: 100.0%;"><p> Hudson Electric</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7743325, -79.50027054016516]&destination=[43.781561, -79.492716]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_f4ca15fb793343d78ed6d09c496f679c.setContent(html_b092bec09e50458daaba79f0b2061d32);
+            var html_853756fe73de4b1e84e9247f3f4d1ec7 = $(`<div id="html_853756fe73de4b1e84e9247f3f4d1ec7" style="width: 100.0%; height: 100.0%;"><p> Lotus Inn</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.705019, -79.407675]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_b9be671350d44890ba1954875027dd74.setContent(html_853756fe73de4b1e84e9247f3f4d1ec7);
         
 
-        marker_fc15de7b2c234e658bbcffe08006d097.bindPopup(popup_f4ca15fb793343d78ed6d09c496f679c)
+        marker_a7f02e24fa2a4cefafc19f85c5bf60de.bindPopup(popup_b9be671350d44890ba1954875027dd74)
         ;
 
         
     
     
-            marker_fc15de7b2c234e658bbcffe08006d097.bindTooltip(
+            marker_a7f02e24fa2a4cefafc19f85c5bf60de.bindTooltip(
                 `<div>
-                     <strong>Hudson Electric</strong>
+                     <strong>2. Lotus Inn</strong><br><strong> POI Score: </strong>-2.876117167548064e-07
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_907fa6c228f14dfeb6bdc0ec11c950f0 = L.marker(
+                [43.704999, -79.407741],
+                {}
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
+        
+    
+            var icon_bb123f2ca30343618f92f096347be137 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_907fa6c228f14dfeb6bdc0ec11c950f0.setIcon(icon_bb123f2ca30343618f92f096347be137);
+        
+    
+        var popup_89da6142ae1443779e4d2fb3787ce68a = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e3f331baad7d45e5acdb17936b21d284 = $(`<div id="html_e3f331baad7d45e5acdb17936b21d284" style="width: 100.0%; height: 100.0%;"><p> Sina Persian Cuisine</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.704999, -79.407741]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_89da6142ae1443779e4d2fb3787ce68a.setContent(html_e3f331baad7d45e5acdb17936b21d284);
+        
+
+        marker_907fa6c228f14dfeb6bdc0ec11c950f0.bindPopup(popup_89da6142ae1443779e4d2fb3787ce68a)
+        ;
+
+        
+    
+    
+            marker_907fa6c228f14dfeb6bdc0ec11c950f0.bindTooltip(
+                `<div>
+                     <strong>3. Sina Persian Cuisine</strong><br><strong> POI Score: </strong>-2.862114690842171e-07
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_84d9ef8481e341d9b217cbe5bd745c22 = L.marker(
+                [43.704939, -79.408239],
+                {}
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
+        
+    
+            var icon_9eedd5dcd0564ee189e77270fe537cd9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_84d9ef8481e341d9b217cbe5bd745c22.setIcon(icon_9eedd5dcd0564ee189e77270fe537cd9);
+        
+    
+        var popup_e9ff371266824015b258daf8d29921be = L.popup({"maxWidth": "100%"});
+
+        
+            var html_64985a09f9fb4d4ea209b588d7716ae1 = $(`<div id="html_64985a09f9fb4d4ea209b588d7716ae1" style="width: 100.0%; height: 100.0%;"><p> Magic Oven</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.704939, -79.408239]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_e9ff371266824015b258daf8d29921be.setContent(html_64985a09f9fb4d4ea209b588d7716ae1);
+        
+
+        marker_84d9ef8481e341d9b217cbe5bd745c22.bindPopup(popup_e9ff371266824015b258daf8d29921be)
+        ;
+
+        
+    
+    
+            marker_84d9ef8481e341d9b217cbe5bd745c22.bindTooltip(
+                `<div>
+                     <strong>4. Magic Oven</strong><br><strong> POI Score: </strong>-2.7521027929226363e-07
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c0d284ab4f1641a4a61a81eb0f10e55f = L.marker(
+                [43.704214, -79.409202],
+                {}
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
+        
+    
+            var icon_96bbc664b90d458987dc06a6889b41af = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_c0d284ab4f1641a4a61a81eb0f10e55f.setIcon(icon_96bbc664b90d458987dc06a6889b41af);
+        
+    
+        var popup_771a77b24e77401d9991897eba53b829 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_aa27454883ad41a9b37eb12a5ece3f4a = $(`<div id="html_aa27454883ad41a9b37eb12a5ece3f4a" style="width: 100.0%; height: 100.0%;"><p> Tim Hortons</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.704214, -79.409202]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_771a77b24e77401d9991897eba53b829.setContent(html_aa27454883ad41a9b37eb12a5ece3f4a);
+        
+
+        marker_c0d284ab4f1641a4a61a81eb0f10e55f.bindPopup(popup_771a77b24e77401d9991897eba53b829)
+        ;
+
+        
+    
+    
+            marker_c0d284ab4f1641a4a61a81eb0f10e55f.bindTooltip(
+                `<div>
+                     <strong>5. Tim Hortons</strong><br><strong> POI Score: </strong>-2.571880317469369e-07
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6fd28744ba1b4418888b2f910e05d7ad = L.marker(
+                [43.704149, -79.409708],
+                {}
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
+        
+    
+            var icon_94486590b5c544a6b57c31c0b0581433 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_6fd28744ba1b4418888b2f910e05d7ad.setIcon(icon_94486590b5c544a6b57c31c0b0581433);
+        
+    
+        var popup_3b8363fc0c374487bbfcdd4ddd80d765 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_df89656a9e9c46bfba3dd82003b3244d = $(`<div id="html_df89656a9e9c46bfba3dd82003b3244d" style="width: 100.0%; height: 100.0%;"><p> The Tea Emporium</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.704149, -79.409708]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_3b8363fc0c374487bbfcdd4ddd80d765.setContent(html_df89656a9e9c46bfba3dd82003b3244d);
+        
+
+        marker_6fd28744ba1b4418888b2f910e05d7ad.bindPopup(popup_3b8363fc0c374487bbfcdd4ddd80d765)
+        ;
+
+        
+    
+    
+            marker_6fd28744ba1b4418888b2f910e05d7ad.bindTooltip(
+                `<div>
+                     <strong>6. The Tea Emporium</strong><br><strong> POI Score: </strong>-2.489446050087179e-07
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_bf5914897e264cda972ad8670b145329 = L.marker(
+                [43.704106, -79.410006],
+                {}
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
+        
+    
+            var icon_ffa4fd24bb624380a9b70c0a956d20d3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_bf5914897e264cda972ad8670b145329.setIcon(icon_ffa4fd24bb624380a9b70c0a956d20d3);
+        
+    
+        var popup_dc4711ca7a4f4158b4236397089441df = L.popup({"maxWidth": "100%"});
+
+        
+            var html_72fe815af86f4a98bdb8de78e8bcdd86 = $(`<div id="html_72fe815af86f4a98bdb8de78e8bcdd86" style="width: 100.0%; height: 100.0%;"><p> Kimono Japanese Grill & Sushi</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.704106, -79.410006]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_dc4711ca7a4f4158b4236397089441df.setContent(html_72fe815af86f4a98bdb8de78e8bcdd86);
+        
+
+        marker_bf5914897e264cda972ad8670b145329.bindPopup(popup_dc4711ca7a4f4158b4236397089441df)
+        ;
+
+        
+    
+    
+            marker_bf5914897e264cda972ad8670b145329.bindTooltip(
+                `<div>
+                     <strong>7. Kimono Japanese Grill & Sushi</strong><br><strong> POI Score: </strong>-2.3983162511012134e-07
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_30ca4b0b7bec4e0aaffdaf1471c877c0 = L.marker(
+                [43.704061, -79.410239],
+                {}
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
+        
+    
+            var icon_647c89d4e9c64b13af91babc948f7039 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_30ca4b0b7bec4e0aaffdaf1471c877c0.setIcon(icon_647c89d4e9c64b13af91babc948f7039);
+        
+    
+        var popup_a1190b3cd680403b832b8633b8d08b3d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_45b616378cc34b189de8391dad991f94 = $(`<div id="html_45b616378cc34b189de8391dad991f94" style="width: 100.0%; height: 100.0%;"><p> Subway</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.704061, -79.410239]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_a1190b3cd680403b832b8633b8d08b3d.setContent(html_45b616378cc34b189de8391dad991f94);
+        
+
+        marker_30ca4b0b7bec4e0aaffdaf1471c877c0.bindPopup(popup_a1190b3cd680403b832b8633b8d08b3d)
+        ;
+
+        
+    
+    
+            marker_30ca4b0b7bec4e0aaffdaf1471c877c0.bindTooltip(
+                `<div>
+                     <strong>8. Subway</strong><br><strong> POI Score: </strong>-2.3915101236314884e-07
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_fe759e30f09d4923af01a87de542ee85 = L.marker(
+                [43.704068, -79.411954],
+                {}
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
+        
+    
+            var icon_910ef6f95a65488eac84396ae96f4774 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_fe759e30f09d4923af01a87de542ee85.setIcon(icon_910ef6f95a65488eac84396ae96f4774);
+        
+    
+        var popup_1feb5ea235474716af9310a939d05a22 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d76bae3c826f466d9df3f10bb0680d1a = $(`<div id="html_d76bae3c826f466d9df3f10bb0680d1a" style="width: 100.0%; height: 100.0%;"><p> The Bagel House</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.704068, -79.411954]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_1feb5ea235474716af9310a939d05a22.setContent(html_d76bae3c826f466d9df3f10bb0680d1a);
+        
+
+        marker_fe759e30f09d4923af01a87de542ee85.bindPopup(popup_1feb5ea235474716af9310a939d05a22)
+        ;
+
+        
+    
+    
+            marker_fe759e30f09d4923af01a87de542ee85.bindTooltip(
+                `<div>
+                     <strong>9. The Bagel House</strong><br><strong> POI Score: </strong>-2.0991614467425546e-07
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0798e42e324345c19cbe1785670d23d4 = L.marker(
+                [43.704082, -79.411845],
+                {}
+            ).addTo(map_cbe46bf3e1304eaf9587745efdfe60b6);
+        
+    
+            var icon_e96cea4da7a548d8989b9f991e2f828c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cutlery", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_0798e42e324345c19cbe1785670d23d4.setIcon(icon_e96cea4da7a548d8989b9f991e2f828c);
+        
+    
+        var popup_c138b0b8fa7a44629c4b458a2b161692 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_7fadc792f68f400d84d4ef53a56e86c1 = $(`<div id="html_7fadc792f68f400d84d4ef53a56e86c1" style="width: 100.0%; height: 100.0%;"><p> Starbucks</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.7001639, -79.4156988]&destination=[43.704082, -79.411845]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_c138b0b8fa7a44629c4b458a2b161692.setContent(html_7fadc792f68f400d84d4ef53a56e86c1);
+        
+
+        marker_0798e42e324345c19cbe1785670d23d4.bindPopup(popup_c138b0b8fa7a44629c4b458a2b161692)
+        ;
+
+        
+    
+    
+            marker_0798e42e324345c19cbe1785670d23d4.bindTooltip(
+                `<div>
+                     <strong>10. Starbucks</strong><br><strong> POI Score: </strong>-2.0497723268823575e-07
                  </div>`,
                 {"sticky": true}
             );

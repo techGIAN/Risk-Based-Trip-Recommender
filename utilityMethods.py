@@ -1,3 +1,4 @@
+import time
 import urllib.request
 import json
 import os
@@ -11,6 +12,7 @@ class SORT_BY(Enum):
     Distance = 2
     Time = 3
     Risk = 4
+    POIScore = 5
 
 
 class ROUTE_FROM(Enum):
@@ -33,18 +35,12 @@ def query(source, destination, trip_count, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MO
 
 # Get paths from OSRM for a given source and destination
 def queryOSRM(source, destination, mode_of_transit, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
-    source = source[::-1]
-    destination = destination[::-1]
-
-    q = 'http://router.project-osrm.org/route/v1/' + mode_of_transit + '/' + str(source[0]) + ',' + str(source[1]) + \
-        ';' + str(destination[0]) + ',' + str(destination[1]) + '?alternatives=true&geometries=geojson&overview=full'
+    q = 'http://router.project-osrm.org/route/v1/' + mode_of_transit + '/' + str(source[1]) + ',' + str(source[0]) + \
+        ';' + str(destination[1]) + ',' + str(destination[0]) + '?alternatives=true&geometries=geojson&overview=full'
 
     if IS_FULL_DEBUG_MODE and IS_DEBUG_MODE:
         print(q)
 
-    # return to original coordinates
-    source = source[::-1]
-    destination = destination[::-1]
     return q
 
 
@@ -69,10 +65,18 @@ def __get_path_points(q, ROUTE_FROM, num_of_routes=1):
     # obtain the coordinates of the points along the path as suggested by osrm
     routing_data = json.load(routing_file)
 
-    if ROUTE_FROM == ROUTE_FROM.OSRM:
-        routes, dist_tags, duration_tags = __get_path_points_OSRM(routing_data, num_of_routes)
-    elif ROUTE_FROM == ROUTE_FROM.GRASS_HOPPER:
-        routes, dist_tags, duration_tags = __get_path_points_GRASS_HOPPER(routing_data, num_of_routes)
+    try:
+        if ROUTE_FROM == ROUTE_FROM.OSRM:
+            routes, dist_tags, duration_tags = __get_path_points_OSRM(routing_data, num_of_routes)
+        elif ROUTE_FROM == ROUTE_FROM.GRASS_HOPPER:
+            routes, dist_tags, duration_tags = __get_path_points_GRASS_HOPPER(routing_data, num_of_routes)
+    except Exception as e:
+        print("\t\tBad Gateway, trying again after 1 second")
+        time.sleep(2)
+        if ROUTE_FROM == ROUTE_FROM.OSRM:
+            routes, dist_tags, duration_tags = __get_path_points_OSRM(routing_data, num_of_routes)
+        elif ROUTE_FROM == ROUTE_FROM.GRASS_HOPPER:
+            routes, dist_tags, duration_tags = __get_path_points_GRASS_HOPPER(routing_data, num_of_routes)
 
     # Close and delete file
     routing_file.close()
@@ -90,8 +94,8 @@ def __get_path_points_OSRM(routing_data, num_of_routes):
 
     for i in range(m_min):
         path_points = routing_data['routes'][i]['geometry']['coordinates']
-        dist_tags.append(round(routing_data['routes'][i]['distance'] / 1000.0, 5))    # Km
-        duration_tags.append(round(routing_data['routes'][i]['duration'] / 60.0, 5))  # seconds
+        dist_tags.append(round(routing_data['routes'][i]['distance'] / 1000.0, 5))    # m -> Km
+        duration_tags.append(round(routing_data['routes'][i]['duration'] / 60.0, 5))  # seconds -> minutes
 
         # swap the coordinates
         for point in path_points:
@@ -112,8 +116,8 @@ def __get_path_points_GRASS_HOPPER(routing_data, num_of_routes):
 
     for i in range(m_min):
         path_points = routing_data['paths'][i]['points']['coordinates']
-        dist_tags.append(round(routing_data['paths'][i]['distance'] / 1000.0, 5))    # Km
-        duration_tags.append(round(routing_data['paths'][i]['time'] / 60000.0, 5))  # seconds
+        dist_tags.append(round(routing_data['paths'][i]['distance'] / 1000.0, 5))    # m -> Km
+        duration_tags.append(round(routing_data['paths'][i]['time'] / 60000.0, 5))   # milliseconds -> minutes
 
         # swap the coordinates
         for point in path_points:

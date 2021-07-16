@@ -19,11 +19,13 @@ errMsg = ''
 errType = None
 
 RouteFrom = ROUTE_FROM.OSRM
+trip = None
+poiNearMe = None
 
 
 # handles the form request to get directions for a specific location
 def handlePathRequests():
-    global errMsg, errType
+    global errMsg, errType, trip
     try:
         destination = request.args['destination']
         origin = request.args['origin']
@@ -49,11 +51,18 @@ def handlePathRequests():
         else:
             session['date_time'] = None
 
-        trip = Trip_Recommender(source=origin, destination=destination,
-                                trip_count=5, ROUTE_FROM=RouteFrom,
-                                mode_of_transit=mode_of_transit,
-                                IS_DEBUG_MODE=True,
-                                IS_FULL_DEBUG_MODE=True)
+        if trip is None:
+            trip = Trip_Recommender(source=origin, destination=destination,
+                                    trip_count=5, ROUTE_FROM=RouteFrom,
+                                    mode_of_transit=mode_of_transit,
+                                    IS_DEBUG_MODE=True,
+                                    IS_FULL_DEBUG_MODE=True)
+        else:
+            trip.setNewTrip(source=origin, destination=destination,
+                            trip_count=5, ROUTE_FROM=RouteFrom,
+                            mode_of_transit=mode_of_transit,
+                            IS_DEBUG_MODE=True,
+                            IS_FULL_DEBUG_MODE=True)
 
         trip.plot()
 
@@ -64,7 +73,7 @@ def handlePathRequests():
 
 # handles the form request to get points of interest
 def handlePOIRequests():
-    global errMsg, errType
+    global errMsg, errType, poiNearMe
     try:
         category = request.args['category']
         radius = request.args['radius']
@@ -87,8 +96,10 @@ def handlePOIRequests():
             s = SORT_BY.Time
         elif sort_by == 'distance_to_travel':
             s = SORT_BY.Distance
-        else:
+        elif sort_by == 'risk_of_trip':
             s = SORT_BY.Risk
+        else:
+            s = SORT_BY.POIScore
 
         travel = None
         if travel_poi == 'car_poi':
@@ -115,18 +126,32 @@ def handlePOIRequests():
 
         is_time_now = time == 'time_now_poi'
 
-        p = POINearMe(origin=center,
-                      radius=int(radius),
-                      K_poi=int(K_poi),
-                      category=category,
-                      sortBy=s,
-                      ROUTE_FROM=RouteFrom,
-                      travel_by=travel,
-                      IS_DEBUG_MODE=True,
-                      IS_FULL_DEBUG_MODE=True,
-                      is_time_now=is_time_now,
-                      time_later_val=date_time)
-        p.graphPOIs()
+        if poiNearMe is None:
+            poiNearMe = POINearMe(origin=center,
+                                  radius=int(radius),
+                                  K_poi=int(K_poi),
+                                  category=category,
+                                  sortBy=s,
+                                  ROUTE_FROM=RouteFrom,
+                                  travel_by=travel,
+                                  IS_DEBUG_MODE=True,
+                                  IS_FULL_DEBUG_MODE=True,
+                                  is_time_now=is_time_now,
+                                  time_later_val=date_time)
+        else:
+            poiNearMe.update_request(origin=center,
+                                     radius=int(radius),
+                                     K_poi=int(K_poi),
+                                     category=category,
+                                     sortBy=s,
+                                     ROUTE_FROM=RouteFrom,
+                                     travel_by=travel,
+                                     IS_DEBUG_MODE=True,
+                                     IS_FULL_DEBUG_MODE=True,
+                                     is_time_now=is_time_now,
+                                     time_later_val=date_time)
+
+        poiNearMe.graphPOIs()
 
     except Exception as e:
         errMsg = "Error! Make sure both fields are set " + str(e)
@@ -177,26 +202,23 @@ def home():
             pass
 
         if request_from is not None:
-            print(colored('\tOrigin', 'red'))
             location = geoloc.geocode(geocoder.ip('me').latlng)
             session['origin'] = str(location.address)
-            print(session['origin'])
 
             init_map = Location()
             init_map.getGraph()
             return render_template("index.html", setMap="myLocation", errMsg=errMsg, errType=errType)
+
+        # -----------------------------------------
+        # request to set center to current location (for 2nd form)
         try:
             request_from = request.args['compass_poi.x']
         except Exception as e:
             pass
 
-        # -----------------------------------------
-        # request to set center to current location
         if request_from is not None:
-            print(colored('\tcenter', 'red'))
             location = geoloc.geocode(geocoder.ip('me').latlng)
             session['center'] = str(location.address)
-            print(session['center'])
 
             init_map = Location()
             init_map.getGraph()

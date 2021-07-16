@@ -1,459 +1,459 @@
 {% extends "base.html" %}
 
 {% block libraries %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar_css.css') }}" title="cse4413" media="screen, print" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/transit_css.css') }}" title="cse4413" media="screen, print" />
-    <script src="{{ url_for('static', filename='js/range_output.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar_css.css') }}" title="cse4413" media="screen, print" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/transit_css.css') }}" title="cse4413" media="screen, print" />
+<script src="{{ url_for('static', filename='js/range_output.js') }}"></script>
 {% endblock %}
 
 {% block title%}Home Page{% endblock %}
 
 {% block sidebar%}
 
-    <form action="#" method="get">
-        <div class="radio_query_selector" style="width: 100%;">
-            {% if session['query_from'] == "grass_hopper" %}
-                <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');">
-                <label for="osrm">OSRM</label>
+<form action="#" method="get">
+    <div class="radio_query_selector" style="width: 100%;">
+        {% if session['query_from'] == "grass_hopper" %}
+        <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');">
+        <label for="osrm">OSRM</label>
 
-                <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
-                       onclick="select_query('grass_hopper');" checked>
-                <label for="grass_hopper">Grass Hopper</label>
-            {% else %}
-                <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');" checked>
-                <label for="osrm">OSRM</label>
+        <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
+               onclick="select_query('grass_hopper');" checked>
+        <label for="grass_hopper">Grass Hopper</label>
+        {% else %}
+        <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');" checked>
+        <label for="osrm">OSRM</label>
 
-                <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
-                       onclick="select_query('grass_hopper');">
-                <label for="grass_hopper">Grass Hopper</label>
-            {% endif %}
-        </div>
-    </form>
-
-    <form action="#" method="GET" style="margin-left: 30px;margin-top: 50px;">
-        <p style="font-weight: bold;font-size: 120%;">Find a destination:</p>
-
-        {% if errType == "recommender" %}
-            <p style="color: red; width: 90%;">{{errMsg}}</p>
+        <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
+               onclick="select_query('grass_hopper');">
+        <label for="grass_hopper">Grass Hopper</label>
         {% endif %}
+    </div>
+</form>
 
-        <!--    Mode of Transit Radio Buttons    -->
-        <div class="radio-toolbar-transit" style="width: 100%;">
+<form action="#" method="GET" style="margin-left: 30px;margin-top: 50px;">
+    <p style="font-weight: bold;font-size: 120%;">Find a destination:</p>
 
-            {% if session['mode_of_transit'] == "foot" %}
-                <input type="radio" id="car" name="mode_of_transit" value="car">
-                <label for="car">Drive</label>
+    {% if errType == "recommender" %}
+    <p style="color: red; width: 90%;">{{errMsg}}</p>
+    {% endif %}
 
-                <input type="radio" id="foot" name="mode_of_transit" value="foot" checked>
-                <label for="foot">Walk</label>
+    <!--    Mode of Transit Radio Buttons    -->
+    <div class="radio-toolbar-transit" style="width: 100%;">
 
-                <input type="radio" id="bike" name="mode_of_transit" value="bike">
-                <label for="bike">Bike</label>
-            {% elif session['mode_of_transit'] == "bike" %}
-                <input type="radio" id="car" name="mode_of_transit" value="car">
-                <label for="car">Drive</label>
+        {% if session['mode_of_transit'] == "foot" %}
+        <input type="radio" id="car" name="mode_of_transit" value="car">
+        <label for="car">Drive</label>
 
-                <input type="radio" id="foot" name="mode_of_transit" value="foot">
-                <label for="foot">Walk</label>
+        <input type="radio" id="foot" name="mode_of_transit" value="foot" checked>
+        <label for="foot">Walk</label>
 
-                <input type="radio" id="bike" name="mode_of_transit" value="bike" checked>
-                <label for="bike">Bike</label>
-            {% else %}
-                <input type="radio" id="car" name="mode_of_transit" value="car" checked>
-                <label for="car">Drive</label>
+        <input type="radio" id="bike" name="mode_of_transit" value="bike">
+        <label for="bike">Bike</label>
+        {% elif session['mode_of_transit'] == "bike" %}
+        <input type="radio" id="car" name="mode_of_transit" value="car">
+        <label for="car">Drive</label>
 
-                <input type="radio" id="foot" name="mode_of_transit" value="foot">
-                <label for="foot">Walk</label>
+        <input type="radio" id="foot" name="mode_of_transit" value="foot">
+        <label for="foot">Walk</label>
 
-                <input type="radio" id="bike" name="mode_of_transit" value="bike">
-                <label for="bike">Bike</label>
-            {% endif %}
-        </div>
+        <input type="radio" id="bike" name="mode_of_transit" value="bike" checked>
+        <label for="bike">Bike</label>
+        {% else %}
+        <input type="radio" id="car" name="mode_of_transit" value="car" checked>
+        <label for="car">Drive</label>
 
-        <!--    Point of origin input filed    -->
-        <div class="origin_pop" style="width: 80%;border-style: none;float: left;">
-            <input id="origin" type="text" placeholder="enter origin here..." style="width:100%;float: left;"
-                   name="origin" value="{{ session['origin'] if session['origin'] }}"/>
-            <span class="tooltiptext_origin">Enter a starting point</span>
-        </div>
-        <div class="origin_pop" style="width: 10%;border-style: none;float: left;">
-            <input id="compass" type="image"  src="{{ url_for('static', filename='images/compass.png') }}"
-                   style="width:90%;float: right; border-style: solid; border-width: 1px;" name="compass" />
-            <span class="tooltiptext_origin">Your current location</span>
-        </div>
+        <input type="radio" id="foot" name="mode_of_transit" value="foot">
+        <label for="foot">Walk</label>
 
-        <br style='display: block;content: "";margin-top: 10px;'></br>
+        <input type="radio" id="bike" name="mode_of_transit" value="bike">
+        <label for="bike">Bike</label>
+        {% endif %}
+    </div>
 
-        <!--    Point of destination input filed    -->
-        <div class="origin_pop" style="width: 100%;border-style: none;">
-            <input id="destination" type="text" placeholder="enter destination here..." style="width: 90%"
-                   name="destination" value="{{ session['destination'] if session['destination'] }}"/>
-            <span class="tooltiptext_origin">Enter a destination</span>
-        </div>
+    <!--    Point of origin input filed    -->
+    <div class="origin_pop" style="width: 80%;border-style: none;float: left;">
+        <input id="origin" type="text" placeholder="enter origin here..." style="width:100%;float: left;"
+               name="origin" value="{{ session['origin'] if session['origin'] }}"/>
+        <span class="tooltiptext_origin">Enter a starting point</span>
+    </div>
+    <div class="origin_pop" style="width: 10%;border-style: none;float: left;">
+        <input id="compass" type="image"  src="{{ url_for('static', filename='images/compass.png') }}"
+               style="width:90%;float: right; border-style: solid; border-width: 1px;" name="compass" />
+        <span class="tooltiptext_origin">Your current location</span>
+    </div>
 
-        <!--    Set the time of departure    -->
+    <br style='display: block;content: "";margin-top: 10px;'></br>
+
+    <!--    Point of destination input filed    -->
+    <div class="origin_pop" style="width: 100%;border-style: none;">
+        <input id="destination" type="text" placeholder="enter destination here..." style="width: 90%"
+               name="destination" value="{{ session['destination'] if session['destination'] }}"/>
+        <span class="tooltiptext_origin">Enter a destination</span>
+    </div>
+
+    <!--    Set the time of departure    -->
+    <div style="width: 100%; margin-top: 10px;">
+        {% if session['time'] == "time_later" %}
         <div style="width: 100%; margin-top: 10px;">
-            {% if session['time'] == "time_later" %}
-                <div style="width: 100%; margin-top: 10px;">
-                    <input id="time_now" value="time_now" type="radio" name="time" /> leave now
-                </div>
-                <div style="width: 100%; margin-top: 10px;">
-                    <input id="time_later" value="time_later" type="radio" name="time" checked/> leave
-
-                    <input id="date_time" name="date_time" type="datetime-local" min="2021/06/25, 22:47 27"
-                           value="{{ session['date_time'] if session['date_time'] }}"
-                           style="width: 65%; float: right;margin-right: 10%;"/>
-                </div>
-            {% else %}
-                <div style="width: 100%; margin-top: 10px;">
-                    <input id="time_now" value="time_now" type="radio" name="time" checked/> leave now
-                </div>
-                <div style="width: 100%; margin-top: 10px;">
-                    <input id="time_later" value="time_later" type="radio" name="time"/> leave
-
-                    <input id="date_time" name="date_time" type="datetime-local" min="2021/06/25, 22:47 27"
-                           value="{{ session['date_time'] if session['date_time'] }}"
-                           style="width: 65%; float: right;margin-right: 10%;"/>
-                </div>
-            {% endif %}
+            <input id="time_now" value="time_now" type="radio" name="time" /> leave now
         </div>
+        <div style="width: 100%; margin-top: 10px;">
+            <input id="time_later" value="time_later" type="radio" name="time" checked/> leave
 
-        <p><input type="submit" name="submit_paths" /></p>
-    </form>
+            <input id="date_time" name="date_time" type="datetime-local" min="2021/06/25, 22:47 27"
+                   value="{{ session['date_time'] if session['date_time'] }}"
+                   style="width: 65%; float: right;margin-right: 10%;"/>
+        </div>
+        {% else %}
+        <div style="width: 100%; margin-top: 10px;">
+            <input id="time_now" value="time_now" type="radio" name="time" checked/> leave now
+        </div>
+        <div style="width: 100%; margin-top: 10px;">
+            <input id="time_later" value="time_later" type="radio" name="time"/> leave
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <form action="#" method="GET" style="margin-left: 30px;margin-top: 50px;">
-        <p style="font-weight: bold;font-size: 120%;">Find POI near you:</p>
-
-        {% if errType == "poi_shower" %}
-            <p style="color: red">{{errMsg}}</p>
+            <input id="date_time" name="date_time" type="datetime-local" min="2021/06/25, 22:47 27"
+                   value="{{ session['date_time'] if session['date_time'] }}"
+                   style="width: 65%; float: right;margin-right: 10%;"/>
+        </div>
         {% endif %}
+    </div>
 
-        <!--    where to look    -->
-        <div class="origin_pop" style="width: 80%;border-style: none;float: left;">
-            <input id="center" type="text" placeholder="enter center here..." style="width:100%;float: left;"
-                   name="center" value="{{ session['center'] if session['center'] }}"/>
-            <span class="tooltiptext_origin">Enter a location</span>
-        </div>
-        <div class="origin_pop" style="width: 10%;border-style: none;float: left;">
-            <input id="compass_poi" type="image"  src="{{ url_for('static', filename='images/compass.png') }}"
-                   style="width:90%;float: right; border-style: solid; border-width: 1px;" name="compass_poi" />
-            <span class="tooltiptext_origin">Your current location</span>
-        </div>
+    <p><input type="submit" name="submit_paths" /></p>
+</form>
 
-        <!--    Category section    -->
-        <div class="origin_pop" style="width: 100%;border-style: none;float: left; margin-top: 5px;">
-            <input id="category" type="text" placeholder="enter category here..." style="width: 90%" name="category"
-                   value="{{ session['category'] if session['category'] }}" list="category-suggestions"/>
-            <datalist id="category-suggestions">
-                <option value="Specialized Freight Trucking"></option>
-                <option value="Restaurants and Other Eating Places"></option>
-                <option value="Building Equipment Contractors"></option>
-                <option value="Grocery Stores"></option>
-                <option value="Promoters of Performing Arts, Sports, and Similar Events"></option>
-                <option value="Automotive Parts, Accessories, and Tire Stores"></option>
-                <option value="Motion Picture and Video Industries"></option>
-                <option value="Health and Personal Care Stores"></option>
-                <option value="Amusement Parks and Arcades"></option>
-                <option value="Nursing Care Facilities (Skilled Nursing Facilities)"></option>
-                <option value="Other Amusement and Recreation Industries"></option>
-                <option value="Clothing Stores"></option>
-                <option value="Traveler Accommodation"></option>
-                <option value="Lawn and Garden Equipment and Supplies Stores"></option>
-                <option value="Home Furnishings Stores"></option>
-                <option value="Other Personal Services"></option>
-                <option value="Accounting, Tax Preparation, Bookkeeping, and Payroll Services"></option>
-                <option value="Other Miscellaneous Store Retailers"></option>
-                <option value="Offices of Other Health Practitioners"></option>
-                <option value="Offices of Physicians"></option>
-                <option value="Museums, Historical Sites, and Similar Institutions"></option>
-                <option value="Lessors of Real Estate"></option>
-                <option value="Drinking Places (Alcoholic Beverages)"></option>
-                <option value="Specialty (except Psychiatric and Substance Abuse) Hospitals"></option>
-                <option value="Building Material and Supplies Dealers"></option>
-                <option value="Activities Related to Real Estate"></option>
-                <option value="General Medical and Surgical Hospitals"></option>
-                <option value="Spectator Sports"></option>
-                <option value="Florists"></option>
-                <option value="Hardware, and Plumbing and Heating Equipment and Supplies Merchant Wholesalers"></option>
-                <option value="Electronics and Appliance Stores"></option>
-                <option value="Shoe Stores"></option>
-                <option value="Book Stores and News Dealers"></option>
-                <option value="Offices of Dentists"></option>
-                <option value="Sporting Goods, Hobby, and Musical Instrument Stores"></option>
-                <option value="Personal Care Services"></option>
-                <option value="Other Financial Investment Activities"></option>
-                <option value="Other Schools and Instruction"></option>
-                <option value="Printing and Related Support Activities"></option>
-                <option value="Offices of Real Estate Agents and Brokers"></option>
-                <option value="Jewelry, Luggage, and Leather Goods Stores"></option>
-                <option value="Couriers and Express Delivery Services"></option>
-                <option value="Death Care Services"></option>
-                <option value="Activities Related to Credit Intermediation"></option>
-                <option value="Foundation, Structure, and Building Exterior Contractors"></option>
-                <option value="Gasoline Stations"></option>
-                <option value="Machinery, Equipment, and Supplies Merchant Wholesalers"></option>
-                <option value="Automotive Repair and Maintenance', 'Specialty Food Stores"></option>
-                <option value="Other Professional, Scientific, and Technical Services"></option>
-                <option value="General Merchandise Stores, including Warehouse Clubs and Supercenters"></option>
-                <option value="Automobile Dealers"></option>
-                <option value="Furniture Stores"></option>
-                <option value="Special Food Services"></option>
-                <option value="Personal and Household Goods Repair and Maintenance"></option>
-                <option value="Consumer Goods Rental"></option>
-                <option value="Other Ambulatory Health Care Services"></option>
-                <option value="Postal Service"></option>
-                <option value="Religious Organizations"></option>
-                <option value="Office Supplies, Stationery, and Gift Stores"></option>
-                <option value="Building Finishing Contractors"></option>
-                <option value="Beer, Wine, and Liquor Stores"></option>
-                <option value="Colleges, Universities, and Professional Schools"></option>
-                <option value="Drugs and Druggists' Sundries Merchant Wholesalers"></option>
-                <option value="Travel Arrangement and Reservation Services"></option>
-                <option value="Electronic and Precision Equipment Repair and Maintenance"></option>
-                <option value="Continuing Care Retirement Communities and Assisted Living Facilities for the Elderly"></option>
-                <option value="Bakeries and Tortilla Manufacturing"></option>
-                <option value="Agencies, Brokerages, and Other Insurance Related Activities"></option>
-                <option value="Used Merchandise Stores"></option>
-                <option value="Depository Credit Intermediation"></option>
-                <option value="Warehousing and Storage"></option>
-                <option value="Management, Scientific, and Technical Consulting Services"></option>
-                <option value="Architectural, Engineering, and Related Services"></option>
-                <option value="Miscellaneous Durable Goods Merchant Wholesalers"></option>
-                <option value="Automotive Equipment Rental and Leasing"></option>
-                <option value="Other Motor Vehicle Dealers"></option>
-                <option value="Advertising, Public Relations, and Related Services"></option>
-                <option value="Investigation and Security Services"></option>
-                <option value="Support Activities for Air Transportation"></option>
-                <option value="Social Advocacy Organizations"></option>
-                <option value="Department Stores"></option>
-                <option value="Legal Services"></option>
-                <option value="Gambling Industries"></option>
-                <option value="Remediation and Other Waste Management Services"></option>
-                <option value="Insurance Carriers"></option>
-                <option value="Coating, Engraving, Heat Treating, and Allied Activities"></option>
-                <option value="RV (Recreational Vehicle) Parks and Recreational Camps"></option>
-                <option value="Beverage Manufacturing"></option>
-                <option value="Support Activities for Road Transportation"></option>
-                <option value="Home Health Care Services"></option>
-                <option value="Household Appliance Manufacturing"></option>
-                <option value="Drycleaning and Laundry Services"></option>
-                <option value="Other Miscellaneous Manufacturing"></option>
-                <option value="Rail Transportation"></option>
-                <option value="Wired and Wireless Telecommunications Carriers"></option>
-                <option value="Utility System Construction"></option>
-                <option value="Individual and Family Services"></option>
-                <option value="Sound Recording Industries"></option>
-                <option value="Lumber and Other Construction Materials Merchant Wholesalers"></option>
-                <option value="Household Appliances and Electrical and Electronic Goods Merchant Wholesalers"></option>
-                <option value="Other Information Services"></option>
-                <option value="Commercial and Industrial Machinery and Equipment Rental and Leasing"></option>
-                <option value="Urban Transit Systems"></option>
-                <option value="Outpatient Care Centers"></option>
-                <option value="Child Day Care Services"></option>
-                <option value="Residential Building Construction"></option>
-                <option value="Business Schools and Computer and Management Training"></option>
-                <option value="Other Transit and Ground Passenger Transportation"></option>
-                <option value="Glass and Glass Product Manufacturing"></option>
-                <option value="Waste Treatment and Disposal"></option>
-                <option value="Justice, Public Order, and Safety Activities"></option>
-                <option value="Miscellaneous Nondurable Goods Merchant Wholesalers"></option>
-                <option value="Nondepository Credit Intermediation"></option>
-                <option value="Motor Vehicle Manufacturing"></option>
-                <option value="Motor Vehicle and Motor Vehicle Parts and Supplies Merchant Wholesalers"></option>
-                <option value="Medical and Diagnostic Laboratories"></option>
-                <option value="Performing Arts Companies"></option>
-                <option value="Waste Collection"></option>
-                <option value="Employment Services"></option>
-                <option value="Apparel Accessories and Other Apparel Manufacturing"></option>
-                <option value="Management of Companies and Enterprises"></option>
-                <option value="Elementary and Secondary Schools"></option>
-                <option value="Greenhouse, Nursery, and Floriculture Production"></option>
-                <option value="Services to Buildings and Dwellings"></option>
-                <option value="Executive, Legislative, and Other General Government Support"></option>
-                <option value="Petroleum and Petroleum Products Merchant Wholesalers"></option>
-                <option value="National Security and International Affairs"></option>
-                <option value="Grantmaking and Giving Services"></option>
-                <option value="Inland Water Transportation"></option>
-                <option value="Administration of Economic Programs"></option>
-                <option value="Data Processing, Hosting, and Related Services"></option>
-                <option value="Metal and Mineral (except Petroleum) Merchant Wholesalers"></option>
-                <option value="Clay Product and Refractory Manufacturing"></option>
-                <option value="Other Specialty Trade Contractors"></option>
-                <option value="Freight Transportation Arrangement"></option>
-                <option value="Grocery and Related Product Merchant Wholesalers"></option>
-                <option value="Taxi and Limousine Service"></option>
-                <option value="Interurban and Rural Bus Transportation"></option>
-            </datalist>
-            <span class="tooltiptext_origin">Enter search category here</span>
-        </div>
 
-        <br style='display: block;content: "";margin-top: 10px;'></br>
 
-        <!--    Number of POIs to display section    -->
-        <p style="width: 100%;margin-top: 60px;">
-            <label style="font-weight: bold;font-size: 90%;">
-                Results to display:
-            </label>
-            <label id="places_text" value="">
-            </label>
-            <input id="K_poi" type="range" name="K_poi" value="{{ session['K_poi'] if session['K_poi'] }}" min="1"
+
+
+
+
+
+
+
+
+
+
+
+<form action="#" method="GET" style="margin-left: 30px;margin-top: 50px;">
+    <p style="font-weight: bold;font-size: 120%;">Find POI near you:</p>
+
+    {% if errType == "poi_shower" %}
+    <p style="color: red">{{errMsg}}</p>
+    {% endif %}
+
+    <!--    where to look    -->
+    <div class="origin_pop" style="width: 80%;border-style: none;float: left;">
+        <input id="center" type="text" placeholder="enter center here..." style="width:100%;float: left;"
+               name="center" value="{{ session['center'] if session['center'] }}"/>
+        <span class="tooltiptext_origin">Enter a location</span>
+    </div>
+    <div class="origin_pop" style="width: 10%;border-style: none;float: left;">
+        <input id="compass_poi" type="image"  src="{{ url_for('static', filename='images/compass.png') }}"
+               style="width:90%;float: right; border-style: solid; border-width: 1px;" name="compass_poi" />
+        <span class="tooltiptext_origin">Your current location</span>
+    </div>
+
+    <!--    Category section    -->
+    <div class="origin_pop" style="width: 100%;border-style: none;float: left; margin-top: 5px;">
+        <input id="category" type="text" placeholder="enter category here..." style="width: 90%" name="category"
+               value="{{ session['category'] if session['category'] }}" list="category-suggestions"/>
+        <datalist id="category-suggestions">
+            <option value="Specialized Freight Trucking"></option>
+            <option value="Restaurants and Other Eating Places"></option>
+            <option value="Building Equipment Contractors"></option>
+            <option value="Grocery Stores"></option>
+            <option value="Promoters of Performing Arts, Sports, and Similar Events"></option>
+            <option value="Automotive Parts, Accessories, and Tire Stores"></option>
+            <option value="Motion Picture and Video Industries"></option>
+            <option value="Health and Personal Care Stores"></option>
+            <option value="Amusement Parks and Arcades"></option>
+            <option value="Nursing Care Facilities (Skilled Nursing Facilities)"></option>
+            <option value="Other Amusement and Recreation Industries"></option>
+            <option value="Clothing Stores"></option>
+            <option value="Traveler Accommodation"></option>
+            <option value="Lawn and Garden Equipment and Supplies Stores"></option>
+            <option value="Home Furnishings Stores"></option>
+            <option value="Other Personal Services"></option>
+            <option value="Accounting, Tax Preparation, Bookkeeping, and Payroll Services"></option>
+            <option value="Other Miscellaneous Store Retailers"></option>
+            <option value="Offices of Other Health Practitioners"></option>
+            <option value="Offices of Physicians"></option>
+            <option value="Museums, Historical Sites, and Similar Institutions"></option>
+            <option value="Lessors of Real Estate"></option>
+            <option value="Drinking Places (Alcoholic Beverages)"></option>
+            <option value="Specialty (except Psychiatric and Substance Abuse) Hospitals"></option>
+            <option value="Building Material and Supplies Dealers"></option>
+            <option value="Activities Related to Real Estate"></option>
+            <option value="General Medical and Surgical Hospitals"></option>
+            <option value="Spectator Sports"></option>
+            <option value="Florists"></option>
+            <option value="Hardware, and Plumbing and Heating Equipment and Supplies Merchant Wholesalers"></option>
+            <option value="Electronics and Appliance Stores"></option>
+            <option value="Shoe Stores"></option>
+            <option value="Book Stores and News Dealers"></option>
+            <option value="Offices of Dentists"></option>
+            <option value="Sporting Goods, Hobby, and Musical Instrument Stores"></option>
+            <option value="Personal Care Services"></option>
+            <option value="Other Financial Investment Activities"></option>
+            <option value="Other Schools and Instruction"></option>
+            <option value="Printing and Related Support Activities"></option>
+            <option value="Offices of Real Estate Agents and Brokers"></option>
+            <option value="Jewelry, Luggage, and Leather Goods Stores"></option>
+            <option value="Couriers and Express Delivery Services"></option>
+            <option value="Death Care Services"></option>
+            <option value="Activities Related to Credit Intermediation"></option>
+            <option value="Foundation, Structure, and Building Exterior Contractors"></option>
+            <option value="Gasoline Stations"></option>
+            <option value="Machinery, Equipment, and Supplies Merchant Wholesalers"></option>
+            <option value="Automotive Repair and Maintenance', 'Specialty Food Stores"></option>
+            <option value="Other Professional, Scientific, and Technical Services"></option>
+            <option value="General Merchandise Stores, including Warehouse Clubs and Supercenters"></option>
+            <option value="Automobile Dealers"></option>
+            <option value="Furniture Stores"></option>
+            <option value="Special Food Services"></option>
+            <option value="Personal and Household Goods Repair and Maintenance"></option>
+            <option value="Consumer Goods Rental"></option>
+            <option value="Other Ambulatory Health Care Services"></option>
+            <option value="Postal Service"></option>
+            <option value="Religious Organizations"></option>
+            <option value="Office Supplies, Stationery, and Gift Stores"></option>
+            <option value="Building Finishing Contractors"></option>
+            <option value="Beer, Wine, and Liquor Stores"></option>
+            <option value="Colleges, Universities, and Professional Schools"></option>
+            <option value="Drugs and Druggists' Sundries Merchant Wholesalers"></option>
+            <option value="Travel Arrangement and Reservation Services"></option>
+            <option value="Electronic and Precision Equipment Repair and Maintenance"></option>
+            <option value="Continuing Care Retirement Communities and Assisted Living Facilities for the Elderly"></option>
+            <option value="Bakeries and Tortilla Manufacturing"></option>
+            <option value="Agencies, Brokerages, and Other Insurance Related Activities"></option>
+            <option value="Used Merchandise Stores"></option>
+            <option value="Depository Credit Intermediation"></option>
+            <option value="Warehousing and Storage"></option>
+            <option value="Management, Scientific, and Technical Consulting Services"></option>
+            <option value="Architectural, Engineering, and Related Services"></option>
+            <option value="Miscellaneous Durable Goods Merchant Wholesalers"></option>
+            <option value="Automotive Equipment Rental and Leasing"></option>
+            <option value="Other Motor Vehicle Dealers"></option>
+            <option value="Advertising, Public Relations, and Related Services"></option>
+            <option value="Investigation and Security Services"></option>
+            <option value="Support Activities for Air Transportation"></option>
+            <option value="Social Advocacy Organizations"></option>
+            <option value="Department Stores"></option>
+            <option value="Legal Services"></option>
+            <option value="Gambling Industries"></option>
+            <option value="Remediation and Other Waste Management Services"></option>
+            <option value="Insurance Carriers"></option>
+            <option value="Coating, Engraving, Heat Treating, and Allied Activities"></option>
+            <option value="RV (Recreational Vehicle) Parks and Recreational Camps"></option>
+            <option value="Beverage Manufacturing"></option>
+            <option value="Support Activities for Road Transportation"></option>
+            <option value="Home Health Care Services"></option>
+            <option value="Household Appliance Manufacturing"></option>
+            <option value="Drycleaning and Laundry Services"></option>
+            <option value="Other Miscellaneous Manufacturing"></option>
+            <option value="Rail Transportation"></option>
+            <option value="Wired and Wireless Telecommunications Carriers"></option>
+            <option value="Utility System Construction"></option>
+            <option value="Individual and Family Services"></option>
+            <option value="Sound Recording Industries"></option>
+            <option value="Lumber and Other Construction Materials Merchant Wholesalers"></option>
+            <option value="Household Appliances and Electrical and Electronic Goods Merchant Wholesalers"></option>
+            <option value="Other Information Services"></option>
+            <option value="Commercial and Industrial Machinery and Equipment Rental and Leasing"></option>
+            <option value="Urban Transit Systems"></option>
+            <option value="Outpatient Care Centers"></option>
+            <option value="Child Day Care Services"></option>
+            <option value="Residential Building Construction"></option>
+            <option value="Business Schools and Computer and Management Training"></option>
+            <option value="Other Transit and Ground Passenger Transportation"></option>
+            <option value="Glass and Glass Product Manufacturing"></option>
+            <option value="Waste Treatment and Disposal"></option>
+            <option value="Justice, Public Order, and Safety Activities"></option>
+            <option value="Miscellaneous Nondurable Goods Merchant Wholesalers"></option>
+            <option value="Nondepository Credit Intermediation"></option>
+            <option value="Motor Vehicle Manufacturing"></option>
+            <option value="Motor Vehicle and Motor Vehicle Parts and Supplies Merchant Wholesalers"></option>
+            <option value="Medical and Diagnostic Laboratories"></option>
+            <option value="Performing Arts Companies"></option>
+            <option value="Waste Collection"></option>
+            <option value="Employment Services"></option>
+            <option value="Apparel Accessories and Other Apparel Manufacturing"></option>
+            <option value="Management of Companies and Enterprises"></option>
+            <option value="Elementary and Secondary Schools"></option>
+            <option value="Greenhouse, Nursery, and Floriculture Production"></option>
+            <option value="Services to Buildings and Dwellings"></option>
+            <option value="Executive, Legislative, and Other General Government Support"></option>
+            <option value="Petroleum and Petroleum Products Merchant Wholesalers"></option>
+            <option value="National Security and International Affairs"></option>
+            <option value="Grantmaking and Giving Services"></option>
+            <option value="Inland Water Transportation"></option>
+            <option value="Administration of Economic Programs"></option>
+            <option value="Data Processing, Hosting, and Related Services"></option>
+            <option value="Metal and Mineral (except Petroleum) Merchant Wholesalers"></option>
+            <option value="Clay Product and Refractory Manufacturing"></option>
+            <option value="Other Specialty Trade Contractors"></option>
+            <option value="Freight Transportation Arrangement"></option>
+            <option value="Grocery and Related Product Merchant Wholesalers"></option>
+            <option value="Taxi and Limousine Service"></option>
+            <option value="Interurban and Rural Bus Transportation"></option>
+        </datalist>
+        <span class="tooltiptext_origin">Enter search category here</span>
+    </div>
+
+    <br style='display: block;content: "";margin-top: 10px;'></br>
+
+    <!--    Number of POIs to display section    -->
+    <p style="width: 100%;margin-top: 60px;">
+        <label style="font-weight: bold;font-size: 90%;">
+            Results to display:
+        </label>
+        <label id="places_text" value="">
+        </label>
+        <input id="K_poi" type="range" name="K_poi" value="{{ session['K_poi'] if session['K_poi'] }}" min="1"
                max="100" onclick="updatePlacesTextInput(this.value);" step="1" style="margin-left: 10px;"/>
-        </p>
+    </p>
 
-        <!--    Search radius section    -->
-        <p>
-            <label style="font-weight: bold;font-size: 90%;">Search radius: </label>
-            <label id="radius_text" value="">
-            </label>
-            Km
-            <input id="radius" type="range" name="radius" value="{{ session['radius'] if session['radius'] }}"  min="1"
-                   max="50" onclick="updateRadiusTextInput(this.value);" step="1" style="margin-left: 10px;" />
-        </p>
+    <!--    Search radius section    -->
+    <p>
+        <label style="font-weight: bold;font-size: 90%;">Search radius: </label>
+        <label id="radius_text" value="">
+        </label>
+        Km
+        <input id="radius" type="range" name="radius" value="{{ session['radius'] if session['radius'] }}"  min="1"
+               max="50" onclick="updateRadiusTextInput(this.value);" step="1" style="margin-left: 10px;" />
+    </p>
 
-        <!--   Sort By section     -->
-        <div style="width: 100%;">
-                <p><label style="font-weight: bold;font-size: 90%;width: 25%;float: left">Sort by: </label>
-                <div class="radio-toolbar-policy" style="width: 75%;float: left">
-                    {% if session['sort_by'] == "time_of_traver" %}
-                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver" checked>
-                        <label for="time_of_traver">Time</label>
+    <!--   Sort By section     -->
+    <div style="width: 100%;">
+        <p><label style="font-weight: bold;font-size: 90%;width: 25%;float: left">Sort by: </label>
+        <div class="radio-toolbar-policy" style="width: 75%;float: left">
+            {% if session['sort_by'] == "time_of_traver" %}
+            <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver" checked>
+            <label for="time_of_traver">Time</label>
 
-                        <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
-                        <label for="distance_to_travel">Distance</label>
+            <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
+            <label for="distance_to_travel">Distance</label>
 
-                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
-                        <label for="risk_of_trip">Risk</label>
+            <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
+            <label for="risk_of_trip">Risk</label>
 
-                        <input type="radio" id="poi_score" name="sort_by" value="poi_score">
-                        <label for="poi_score" style="margin-bottom: 5px;margin-top: 5px;">Score</label>
-                    {% elif session['sort_by'] == "distance_to_travel" %}
-                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
-                        <label for="time_of_traver">Time</label>
+            <input type="radio" id="poi_score" name="sort_by" value="poi_score">
+            <label for="poi_score" style="margin-bottom: 5px;margin-top: 5px;">Score</label>
+            {% elif session['sort_by'] == "distance_to_travel" %}
+            <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
+            <label for="time_of_traver">Time</label>
 
-                        <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel" checked>
-                        <label for="distance_to_travel">Distance</label>
+            <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel" checked>
+            <label for="distance_to_travel">Distance</label>
 
-                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
-                        <label for="risk_of_trip">Risk</label>
+            <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
+            <label for="risk_of_trip">Risk</label>
 
-                        <input type="radio" id="poi_score" name="sort_by" value="poi_score">
-                        <label for="poi_score" style="margin-bottom: 5px;margin-top: 5px;">Score</label>
-                    {% elif session['sort_by'] == "risk_of_trip" %}
-                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
-                        <label for="time_of_traver">Time</label>
+            <input type="radio" id="poi_score" name="sort_by" value="poi_score">
+            <label for="poi_score" style="margin-bottom: 5px;margin-top: 5px;">Score</label>
+            {% elif session['sort_by'] == "risk_of_trip" %}
+            <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
+            <label for="time_of_traver">Time</label>
 
-                        <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
-                        <label for="distance_to_travel">Distance</label>
+            <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
+            <label for="distance_to_travel">Distance</label>
 
-                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip" checked>
-                        <label for="risk_of_trip">Risk</label>
+            <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip" checked>
+            <label for="risk_of_trip">Risk</label>
 
-                        <input type="radio" id="poi_score" name="sort_by" value="poi_score">
-                        <label for="poi_score" style="margin-bottom: 5px;margin-top: 5px;">Score</label>
-                    {% else %}
-                        <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
-                        <label for="time_of_traver" >Time</label>
-
-                        <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
-                        <label for="distance_to_travel" >Distance</label>
-
-                        <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
-                        <label for="risk_of_trip">Risk</label>
-
-                        <input type="radio" id="poi_score" name="sort_by" value="poi_score" checked>
-                        <label for="poi_score" style="margin-bottom: 5px;margin-top: 5px;">Score</label>
-                    {% endif %}
-                </div>
-            </p>
-        </div>
-
-        <!--    Transport to location    -->
-        <div style="width: 100%;">
-            <p><label style="font-weight: bold;font-size: 90%;width: 25%;float: left">Travel By: </label>
-            <div class="radio-toolbar-transit" style="width: 75%;float: left">
-                {% if session['travel_poi'] == "bike_poi" %}
-                    <input type="radio" id="car_poi" name="travel_poi" value="car_poi">
-                    <label for="car_poi">Car</label>
-
-                    <input type="radio" id="walk_poi" name="travel_poi" value="walk_poi">
-                    <label for="walk_poi">Walk</label>
-
-                    <input type="radio" id="bike_poi" name="travel_poi" value="bike_poi" checked>
-                    <label for="bike_poi">Bike</label>
-
-                {% elif session['travel_poi'] == "car_poi" %}
-                    <input type="radio" id="car_poi" name="travel_poi" value="car_poi" checked>
-                    <label for="car_poi">Car</label>
-
-                    <input type="radio" id="walk_poi" name="travel_poi" value="walk_poi">
-                    <label for="walk_poi">Walk</label>
-
-                    <input type="radio" id="bike_poi" name="travel_poi" value="bike_poi">
-                    <label for="bike_poi">Bike</label>
-                {% else %}
-                    <input type="radio" id="car_poi" name="travel_poi" value="car_poi">
-                    <label for="car_poi">Car</label>
-
-                    <input type="radio" id="walk_poi" name="travel_poi" value="walk_poi" checked>
-                    <label for="walk_poi">Walk</label>
-
-                    <input type="radio" id="bike_poi" name="travel_poi" value="bike_poi" >
-                    <label for="bike_poi">Bike</label>
-                {% endif %}
-            </div>
-            </p>
-        </div>
-
-        <!--    Set the time of departure    -->
-        <div style="width: 100%; margin-top: 10px;">
-            {% if session['time_poi'] == "time_later_poi" %}
-            <div style="width: 100%; margin-top: 10px;">
-                <input id="time_now_poi" value="time_now_poi" type="radio" name="time_poi" /> leave now
-            </div>
-            <div style="width: 100%; margin-top: 10px;">
-                <input id="time_later_poi" value="time_later_poi" type="radio" name="time_poi" checked/> leave
-
-                <input id="date_time_poi" name="date_time_poi" type="datetime-local" min="2021/06/25, 22:47 27"
-                       value="{{ session['date_time_poi'] if session['date_time_poi'] }}"
-                       style="width: 65%; float: right;margin-right: 10%;"/>
-            </div>
+            <input type="radio" id="poi_score" name="sort_by" value="poi_score">
+            <label for="poi_score" style="margin-bottom: 5px;margin-top: 5px;">Score</label>
             {% else %}
-            <div style="width: 100%; margin-top: 10px;">
-                <input id="time_now_poi" value="time_now_poi" type="radio" name="time_poi" checked/> leave now
-            </div>
-            <div style="width: 100%; margin-top: 10px;">
-                <input id="time_later_poi" value="time_later_poi" type="radio" name="time_poi"/> leave
+            <input type="radio" id="time_of_traver" name="sort_by" value="time_of_traver">
+            <label for="time_of_traver" >Time</label>
 
-                <input id="date_time_poi" name="date_time_poi" type="datetime-local" min="2021/06/25, 22:47 27"
-                       value="{{ session['date_time_poi'] if session['date_time_poi'] }}"
-                       style="width: 65%; float: right;margin-right: 10%;"/>
-            </div>
+            <input type="radio" id="distance_to_travel" name="sort_by" value="distance_to_travel">
+            <label for="distance_to_travel" >Distance</label>
+
+            <input type="radio" id="risk_of_trip" name="sort_by" value="risk_of_trip">
+            <label for="risk_of_trip">Risk</label>
+
+            <input type="radio" id="poi_score" name="sort_by" value="poi_score" checked>
+            <label for="poi_score" style="margin-bottom: 5px;margin-top: 5px;">Score</label>
             {% endif %}
         </div>
+        </p>
+    </div>
 
-        <p><input type="submit" name="submit_poi" /></p>
-    </form>
+    <!--    Transport to location    -->
+    <div style="width: 100%;">
+        <p><label style="font-weight: bold;font-size: 90%;width: 25%;float: left">Travel By: </label>
+        <div class="radio-toolbar-transit" style="width: 75%;float: left">
+            {% if session['travel_poi'] == "bike_poi" %}
+            <input type="radio" id="car_poi" name="travel_poi" value="car_poi">
+            <label for="car_poi">Car</label>
+
+            <input type="radio" id="walk_poi" name="travel_poi" value="walk_poi">
+            <label for="walk_poi">Walk</label>
+
+            <input type="radio" id="bike_poi" name="travel_poi" value="bike_poi" checked>
+            <label for="bike_poi">Bike</label>
+
+            {% elif session['travel_poi'] == "car_poi" %}
+            <input type="radio" id="car_poi" name="travel_poi" value="car_poi" checked>
+            <label for="car_poi">Car</label>
+
+            <input type="radio" id="walk_poi" name="travel_poi" value="walk_poi">
+            <label for="walk_poi">Walk</label>
+
+            <input type="radio" id="bike_poi" name="travel_poi" value="bike_poi">
+            <label for="bike_poi">Bike</label>
+            {% else %}
+            <input type="radio" id="car_poi" name="travel_poi" value="car_poi">
+            <label for="car_poi">Car</label>
+
+            <input type="radio" id="walk_poi" name="travel_poi" value="walk_poi" checked>
+            <label for="walk_poi">Walk</label>
+
+            <input type="radio" id="bike_poi" name="travel_poi" value="bike_poi" >
+            <label for="bike_poi">Bike</label>
+            {% endif %}
+        </div>
+        </p>
+    </div>
+
+    <!--    Set the time of departure    -->
+    <div style="width: 100%; margin-top: 10px;">
+        {% if session['time_poi'] == "time_later_poi" %}
+        <div style="width: 100%; margin-top: 10px;">
+            <input id="time_now_poi" value="time_now_poi" type="radio" name="time_poi" /> leave now
+        </div>
+        <div style="width: 100%; margin-top: 10px;">
+            <input id="time_later_poi" value="time_later_poi" type="radio" name="time_poi" checked/> leave
+
+            <input id="date_time_poi" name="date_time_poi" type="datetime-local" min="2021/06/25, 22:47 27"
+                   value="{{ session['date_time_poi'] if session['date_time_poi'] }}"
+                   style="width: 65%; float: right;margin-right: 10%;"/>
+        </div>
+        {% else %}
+        <div style="width: 100%; margin-top: 10px;">
+            <input id="time_now_poi" value="time_now_poi" type="radio" name="time_poi" checked/> leave now
+        </div>
+        <div style="width: 100%; margin-top: 10px;">
+            <input id="time_later_poi" value="time_later_poi" type="radio" name="time_poi"/> leave
+
+            <input id="date_time_poi" name="date_time_poi" type="datetime-local" min="2021/06/25, 22:47 27"
+                   value="{{ session['date_time_poi'] if session['date_time_poi'] }}"
+                   style="width: 65%; float: right;margin-right: 10%;"/>
+        </div>
+        {% endif %}
+    </div>
+
+    <p><input type="submit" name="submit_poi" /></p>
+</form>
 {% endblock %}
 
 {% block map%}
-    {% if setMap == "myLocation" %}
-        <iframe src="{{ url_for('myLocation') }}" style="height:90vh; width: 100%"></iframe>
-    {% elif setMap == "recommender" %}
-        <iframe src="{{ url_for('recommender') }}" style="height:90vh; width: 100%"></iframe>
-    {% elif setMap == "poi_shower" %}
-        <iframe src="{{ url_for('poi_near_me') }}" style="height:90vh; width: 100%"></iframe>
-    {% endif %}
+{% if setMap == "myLocation" %}
+<iframe src="{{ url_for('myLocation') }}" style="height:90vh; width: 100%"></iframe>
+{% elif setMap == "recommender" %}
+<iframe src="{{ url_for('recommender') }}" style="height:90vh; width: 100%"></iframe>
+{% elif setMap == "poi_shower" %}
+<iframe src="{{ url_for('poi_near_me') }}" style="height:90vh; width: 100%"></iframe>
+{% endif %}
 {% endblock %}

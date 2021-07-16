@@ -333,7 +333,7 @@ class POINearMe(Location):
                 self.df_poi[self.df_poi['placekey'] == point_of_interest['placekey']].loc[:, 'longitude'].values[0]]
 
             poi_name = \
-            self.df_poi[self.df_poi['placekey'] == point_of_interest['placekey']].loc[:, 'location_name'].values[0]
+                self.df_poi[self.df_poi['placekey'] == point_of_interest['placekey']].loc[:, 'location_name'].values[0]
 
             query = None
             if self.time_now:

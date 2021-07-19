@@ -6,6 +6,7 @@ import webbrowser
 import os
 import json
 
+from folium.plugins import MarkerCluster
 import folium
 from Location import Location
 from POI import POI
@@ -326,6 +327,11 @@ class POINearMe(Location):
 
         im = IconMapper()
 
+        coords=[]
+        popups=[]
+        tooltip_strings=[]
+        icons=[]
+
         # for i in range(self.K_poi):
         for index, point_of_interest in self.poi_results.iterrows():
             poi_coords = [
@@ -368,13 +374,16 @@ class POINearMe(Location):
             categ = categ['top_category'].values[0]
             pre, ic = im.getLogo(cat=categ)
 
-            folium.Marker(
-                location=poi_coords,
-                popup=popup,  # poi_name + "<\br>"+ str(poi_coords),
-                tooltip='<strong>' + str(index + 1) + '. ' + poi_name + '</strong>' + tooltip_string,
+            coords.append(poi_coords)
+            popups.append(popup)
+            tooltip_strings.append('<strong>' + str(index + 1) + '. ' + poi_name + '</strong>' + tooltip_string)
+            icons.append(folium.Icon(color='blue', prefix=pre, icon=ic))
 
-                icon=folium.Icon(color='blue', prefix=pre, icon=ic)
-            ).add_to(m)
+        folium.plugins.MarkerCluster(
+            locations=coords,
+            popups=popups,
+            tooltip_strings=tooltip_strings,
+            icons=icons).add_to(m)
 
         m.get_root().html.add_child(folium.JavascriptLink('../static/js/interactive_poi.js'))
         my_js = '''

@@ -15,9 +15,13 @@ class Location():
     IS_FULL_DEBUG_MODE = False
     time_now = True
     time_later_value = None
+    results_html = None
 
     def __init__(self):
         self.source = geocoder.ip('me').latlng
+
+    def get_results(self):
+        return self.results_html
 
     def getGraph(self):
         m = folium.Map(location=self.source, zoom_start=14)

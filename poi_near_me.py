@@ -17,6 +17,8 @@ from datetime import datetime as dt
 from optimizer import Optimizer
 from IconMapper import IconMapper
 
+from folium.utilities import validate_location
+
 WEBNAME = 'templates/poi_near_me.html'
 pd.options.mode.chained_assignment = None
 
@@ -34,6 +36,10 @@ class POINearMe(Location):
     ROUTE_FROM = ROUTE_FROM.OSRM
     travel_by = 'car'
     poi_results = None
+    map_val = {
+        'center_marker': None,
+        'markers':None
+    }
 
     # ct = dt.now()
     # hr = ct.weekday()*24 + ct.hour
@@ -41,7 +47,7 @@ class POINearMe(Location):
     # risk_attribute = 'poiRisk_' + str(hr)
     ct = None
     hr = None
-    risk_attribute = None
+    risk_attribute = ''
 
     def __init__(self,
                  origin,
@@ -316,14 +322,16 @@ class POINearMe(Location):
         self.__filter()
 
     def graphPOIs(self):
+        self.results_html = ''
         m = folium.Map(location=self.source, zoom_start=14)
 
-        folium.Marker(
+        self.map_val['center_marker'] = folium.Marker(
             location=self.source,
             popup='Source',
             tooltip='<strong>Source</strong>',
             icon=folium.Icon(color='red', prefix='fa', icon='home')
-        ).add_to(m)
+        )
+        self.map_val['center_marker'].add_to(m)
 
         im = IconMapper()
 
@@ -340,6 +348,13 @@ class POINearMe(Location):
 
             poi_name = \
                 self.df_poi[self.df_poi['placekey'] == point_of_interest['placekey']].loc[:, 'location_name'].values[0]
+
+            self.results_html += "<button id='recenter_poi' onclick='recenter_poi("+str(poi_coords)+")' >" + \
+                                 str(index+1) + ". " + poi_name + ":" \
+                                 '<div style="padding-left:20px;">time:' + \
+                                 str(round(point_of_interest['travel_time'],2)) + ' min</div>' \
+                                 '<div style="padding-left:20px;">distance: ' + \
+                                 str(round(point_of_interest['distance'],2)) + 'Km</div></button>'
 
             query = None
             if self.time_now:
@@ -379,11 +394,13 @@ class POINearMe(Location):
             tooltip_strings.append('<strong>' + str(index + 1) + '. ' + poi_name + '</strong>' + tooltip_string)
             icons.append(folium.Icon(color='blue', prefix=pre, icon=ic))
 
-        folium.plugins.MarkerCluster(
+        self.map_val['merkers'] = folium.plugins.MarkerCluster(
             locations=coords,
             popups=popups,
             tooltip_strings=tooltip_strings,
-            icons=icons).add_to(m)
+            icons=icons)
+
+        self.map_val['merkers'].add_to(m)
 
         m.get_root().html.add_child(folium.JavascriptLink('../static/js/interactive_poi.js'))
         my_js = '''
@@ -395,3 +412,17 @@ class POINearMe(Location):
         path_to_open = 'file:///' + os.getcwd() + '/' + WEBNAME
         print(colored("Done updating html file!", 'yellow'))
         # webbrowser.open_new_tab(path_to_open)
+
+    def updateLocation(self, center):
+        loc = super().get_coordinates(center)
+        m = folium.Map(location=loc, zoom_start=15)
+        self.map_val['center_marker'].add_to(m)
+        self.map_val['merkers'].add_to(m)
+        m.get_root().html.add_child(folium.JavascriptLink('../static/js/interactive_poi.js'))
+        my_js = '''
+        console.log('working perfectly')
+        '''
+        m.get_root().script.add_child(folium.Element(my_js))
+        m.save(WEBNAME)
+
+

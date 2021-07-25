@@ -163,7 +163,9 @@ def home():
     global errMsg, errType, RouteFrom
     errMsg = ''
     errType = None
+    results = None
 
+    # update routing source
     if RouteFrom == ROUTE_FROM.OSRM:
         session['query_from'] = 'osrm'
     else:
@@ -188,11 +190,30 @@ def home():
                 return render_template("index.html",
                                        setMap="recommender",
                                        destination=request.args['destination'],
-                                       origin=request.args['origin'])
+                                       origin=request.args['origin'],
+                                       results=trip.get_results(),
+                                       tab_val="results")
             else:
                 init_map = Location()
                 init_map.getGraph()
-                return render_template("index.html", setMap="myLocation", errMsg=errMsg, errType=errType)
+                return render_template("index.html",
+                                       setMap="myLocation",
+                                       errMsg=errMsg,
+                                       errType=errType,
+                                       tab_val="path_recommender")
+
+        # -----------------------------------------
+        # select a specific path
+        try:
+            request_from = request.args['render_paths']
+        except Exception as e:
+            pass
+
+        if request_from is not None and trip is not None:
+            return render_template("index.html",
+                                   setMap="recommender",
+                                   results=trip.get_results(),
+                                   tab_val="results")
 
         # -----------------------------------------
         # request to set origin as current location
@@ -207,7 +228,11 @@ def home():
 
             init_map = Location()
             init_map.getGraph()
-            return render_template("index.html", setMap="myLocation", errMsg=errMsg, errType=errType)
+            return render_template("index.html",
+                                   setMap="myLocation",
+                                   errMsg=errMsg,
+                                   errType=errType,
+                                   tab_val="path_recommender")
 
         # -----------------------------------------
         # request to set center to current location (for 2nd form)
@@ -222,7 +247,11 @@ def home():
 
             init_map = Location()
             init_map.getGraph()
-            return render_template("index.html", setMap="myLocation", errMsg=errMsg, errType=errType)
+            return render_template("index.html",
+                                   setMap="myLocation",
+                                   errMsg=errMsg,
+                                   errType=errType,
+                                   tab_val="poi_recommender")
 
         # -----------------------------------------
         # request to get POI's near a specified area
@@ -236,12 +265,31 @@ def home():
             handlePOIRequests()
 
             if errType is None:
-                return render_template("index.html", setMap="poi_shower")
+                return render_template("index.html",
+                                       setMap="poi_shower",
+                                       results=poiNearMe.get_results(),
+                                       tab_val="results")
+
+        # -----------------------------------------
+        # recenter based on a specific poi
+        try:
+            request_from = request.args['render_poi_search']
+        except Exception as e:
+            pass
+
+        if request_from is not None and poiNearMe is not None:
+            return render_template("index.html",
+                                   setMap="poi_shower",
+                                   results=poiNearMe.get_results(),
+                                   tab_val="results")
 
     init_map = Location()
     init_map.getGraph()
-
-    return render_template("index.html", setMap="myLocation", errMsg=errMsg, errType=errType)
+    return render_template("index.html",
+                           setMap="myLocation",
+                           errMsg=errMsg,
+                           errType=errType,
+                           tab_val="path_recommender")
 
 
 @app.route('/myLocation')
@@ -282,6 +330,27 @@ def setType():
 
     print(colored('route from =' + str(RouteFrom), 'red'))
     return redirect(url_for("home"))
+
+
+@app.route('/recenter', methods=['GET', 'POST'])
+def recenter():
+    if poiNearMe is not None:
+        center = request.args['center']
+        poiNearMe.updateLocation(center)
+        return redirect(url_for("home", render_poi_search=True))
+    else:
+        return redirect(url_for("home"))
+
+
+@app.route('/select_path', methods=['GET', 'POST'])
+def select_path():
+    if trip is not None:
+        path_num = request.args['path_num']
+        print(colored("path value that needs to change: "+ str(path_num), 'red'))
+        trip.selectPath(path_num)
+        return redirect(url_for("home", render_paths=True))
+    else:
+        return redirect(url_for("home"))
 
 
 if __name__ == "__main__":

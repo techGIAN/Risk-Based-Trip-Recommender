@@ -1,0 +1,26 @@
+/* Style the tab */
+.show_results {
+    overflow: hidden;
+    background-color: transparent;
+}
+
+/* Style the buttons inside the tab */
+.show_results button {
+    float: left;
+    cursor: pointer;
+    transition: 0.3s;
+    width:100%;
+    border:0px;
+    text-align:left;
+    color: black;
+    margin-bottom: 10px;
+}
+
+/* Change background color of buttons on hover */
+.show_results button:hover {
+    color:#de1010;
+}
+
+.show_results button:active {
+    color: black;
+}

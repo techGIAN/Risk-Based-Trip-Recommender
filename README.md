@@ -28,8 +28,11 @@ def __init__(self, locations=None, popups=None, icons=None, name=None,
         self.icon_create_function = icon_create_function
 ```
 
-## SafeGraph Data
-Use https://drive.google.com/drive/folders/1aTrklikj97VsuOBSC1Xk86uOb8QYRVxG?usp=sharing: ```ca_poi_rrisks_2021-04-19-one-week.csv```
+## Datasets
+Link here: https://drive.google.com/drive/folders/1aTrklikj97VsuOBSC1Xk86uOb8QYRVxG?usp=sharing
+* POI Risk Map: ```ca_poi_risks_2021-04-19-one-week.csv```
+* POI Relative Risk Map: ```ca_poi_rrisks_2021-04-19-one-week.csv```
+* Hex Risk Map: ```hex_gdf.csv```
 
 ## Usage
 Run <code>mainPage.py</code>, copy the url and paste into the browser. 

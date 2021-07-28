@@ -4,7 +4,7 @@ import pandas as pd
 import geopandas as gpd
 import contextily as ctx
 import matplotlib.pyplot as plt
-from functional import seq
+# from functional import seq
 from geopy.distance import distance
 from shapely.geometry import Point, Polygon
 

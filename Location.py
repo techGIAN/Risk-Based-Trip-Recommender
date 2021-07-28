@@ -13,6 +13,7 @@ class Location():
     source = None
     IS_DEBUG_MODE = False
     IS_FULL_DEBUG_MODE = False
+    GDF_FILE = 'hex_gdf.csv'
     time_now = True
     time_later_value = None
     results_html = None
@@ -41,3 +42,4 @@ class Location():
     def get_coordinates(self, ad):
         location = geoloc.geocode(ad)
         return [location.latitude, location.longitude]
+

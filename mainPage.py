@@ -19,11 +19,13 @@ errMsg = ''
 errType = None
 
 RouteFrom = ROUTE_FROM.OSRM
+trip = None
+poiNearMe = None
 
 
 # handles the form request to get directions for a specific location
 def handlePathRequests():
-    global errMsg, errType
+    global errMsg, errType, trip
     try:
         destination = request.args['destination']
         origin = request.args['origin']
@@ -49,22 +51,30 @@ def handlePathRequests():
         else:
             session['date_time'] = None
 
-        trip = Trip_Recommender(source=origin, destination=destination,
-                                trip_count=5, ROUTE_FROM=RouteFrom,
-                                mode_of_transit=mode_of_transit,
-                                IS_DEBUG_MODE=True,
-                                IS_FULL_DEBUG_MODE=True)
+        if trip is None:
+            trip = Trip_Recommender(source=origin, destination=destination,
+                                    trip_count=5, ROUTE_FROM=RouteFrom,
+                                    mode_of_transit=mode_of_transit,
+                                    IS_DEBUG_MODE=True,
+                                    IS_FULL_DEBUG_MODE=True)
+        else:
+            trip.setNewTrip(source=origin, destination=destination,
+                            trip_count=5, ROUTE_FROM=RouteFrom,
+                            mode_of_transit=mode_of_transit,
+                            IS_DEBUG_MODE=True,
+                            IS_FULL_DEBUG_MODE=True)
 
         trip.plot()
 
     except Exception as e:
-        errMsg = "Error! " + str(e)
+        errMsg = "Error! Make sure all fields are set: " + str(e)
         errType = "recommender"
 
 
 # handles the form request to get points of interest
 def handlePOIRequests():
-    global errMsg, errType
+    global errMsg, errType, poiNearMe
+
     try:
         category = request.args['category']
         radius = request.args['radius']
@@ -117,18 +127,32 @@ def handlePOIRequests():
 
         is_time_now = time == 'time_now_poi'
 
-        p = POINearMe(origin=center,
-                      radius=int(radius),
-                      K_poi=int(K_poi),
-                      category=category,
-                      sortBy=s,
-                      ROUTE_FROM=RouteFrom,
-                      travel_by=travel,
-                      IS_DEBUG_MODE=True,
-                      IS_FULL_DEBUG_MODE=True,
-                      is_time_now=is_time_now,
-                      time_later_val=date_time)
-        p.graphPOIs()
+        if poiNearMe is None:
+            poiNearMe = POINearMe(origin=center,
+                                  radius=int(radius),
+                                  K_poi=int(K_poi),
+                                  category=category,
+                                  sortBy=s,
+                                  ROUTE_FROM=RouteFrom,
+                                  travel_by=travel,
+                                  IS_DEBUG_MODE=True,
+                                  IS_FULL_DEBUG_MODE=True,
+                                  is_time_now=is_time_now,
+                                  time_later_val=date_time)
+        else:
+            poiNearMe.update_request(origin=center,
+                                     radius=int(radius),
+                                     K_poi=int(K_poi),
+                                     category=category,
+                                     sortBy=s,
+                                     ROUTE_FROM=RouteFrom,
+                                     travel_by=travel,
+                                     IS_DEBUG_MODE=True,
+                                     IS_FULL_DEBUG_MODE=True,
+                                     is_time_now=is_time_now,
+                                     time_later_val=date_time)
+
+        poiNearMe.graphPOIs()
 
     except Exception as e:
         errMsg = "Error! Make sure both fields are set " + str(e)
@@ -140,7 +164,9 @@ def home():
     global errMsg, errType, RouteFrom
     errMsg = ''
     errType = None
+    results = None
 
+    # update routing source
     if RouteFrom == ROUTE_FROM.OSRM:
         session['query_from'] = 'osrm'
     else:
@@ -165,11 +191,30 @@ def home():
                 return render_template("index.html",
                                        setMap="recommender",
                                        destination=request.args['destination'],
-                                       origin=request.args['origin'])
+                                       origin=request.args['origin'],
+                                       results=trip.get_results(),
+                                       tab_val="results")
             else:
                 init_map = Location()
                 init_map.getGraph()
-                return render_template("index.html", setMap="myLocation", errMsg=errMsg, errType=errType)
+                return render_template("index.html",
+                                       setMap="myLocation",
+                                       errMsg=errMsg,
+                                       errType=errType,
+                                       tab_val="path_recommender")
+
+        # -----------------------------------------
+        # select a specific path
+        try:
+            request_from = request.args['render_paths']
+        except Exception as e:
+            pass
+
+        if request_from is not None and trip is not None:
+            return render_template("index.html",
+                                   setMap="recommender",
+                                   results=trip.get_results(),
+                                   tab_val="results")
 
         # -----------------------------------------
         # request to set origin as current location
@@ -179,30 +224,35 @@ def home():
             pass
 
         if request_from is not None:
-            print(colored('\tOrigin', 'red'))
             location = geoloc.geocode(geocoder.ip('me').latlng)
             session['origin'] = str(location.address)
-            print(session['origin'])
 
             init_map = Location()
             init_map.getGraph()
-            return render_template("index.html", setMap="myLocation", errMsg=errMsg, errType=errType)
+            return render_template("index.html",
+                                   setMap="myLocation",
+                                   errMsg=errMsg,
+                                   errType=errType,
+                                   tab_val="path_recommender")
+
+        # -----------------------------------------
+        # request to set center to current location (for 2nd form)
         try:
             request_from = request.args['compass_poi.x']
         except Exception as e:
             pass
 
-        # -----------------------------------------
-        # request to set center to current location
         if request_from is not None:
-            print(colored('\tcenter', 'red'))
             location = geoloc.geocode(geocoder.ip('me').latlng)
             session['center'] = str(location.address)
-            print(session['center'])
 
             init_map = Location()
             init_map.getGraph()
-            return render_template("index.html", setMap="myLocation", errMsg=errMsg, errType=errType)
+            return render_template("index.html",
+                                   setMap="myLocation",
+                                   errMsg=errMsg,
+                                   errType=errType,
+                                   tab_val="poi_recommender")
 
         # -----------------------------------------
         # request to get POI's near a specified area
@@ -216,12 +266,31 @@ def home():
             handlePOIRequests()
 
             if errType is None:
-                return render_template("index.html", setMap="poi_shower")
+                return render_template("index.html",
+                                       setMap="poi_shower",
+                                       results=poiNearMe.get_results(),
+                                       tab_val="results")
+
+        # -----------------------------------------
+        # recenter based on a specific poi
+        try:
+            request_from = request.args['render_poi_search']
+        except Exception as e:
+            pass
+
+        if request_from is not None and poiNearMe is not None:
+            return render_template("index.html",
+                                   setMap="poi_shower",
+                                   results=poiNearMe.get_results(),
+                                   tab_val="results")
 
     init_map = Location()
     init_map.getGraph()
-
-    return render_template("index.html", setMap="myLocation", errMsg=errMsg, errType=errType)
+    return render_template("index.html",
+                           setMap="myLocation",
+                           errMsg=errMsg,
+                           errType=errType,
+                           tab_val="path_recommender")
 
 
 @app.route('/myLocation')
@@ -262,6 +331,27 @@ def setType():
 
     print(colored('route from =' + str(RouteFrom), 'red'))
     return redirect(url_for("home"))
+
+
+@app.route('/recenter', methods=['GET', 'POST'])
+def recenter():
+    if poiNearMe is not None:
+        center = request.args['center']
+        poiNearMe.updateLocation(center)
+        return redirect(url_for("home", render_poi_search=True))
+    else:
+        return redirect(url_for("home"))
+
+
+@app.route('/select_path', methods=['GET', 'POST'])
+def select_path():
+    if trip is not None:
+        path_num = request.args['path_num']
+        # print(colored("path value that needs to change: "+ str(path_num), 'red'))
+        trip.selectPath(path_num)
+        return redirect(url_for("home", render_paths=True))
+    else:
+        return redirect(url_for("home"))
 
 
 if __name__ == "__main__":

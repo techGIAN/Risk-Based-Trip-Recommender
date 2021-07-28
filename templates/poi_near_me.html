@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_c81afca4cdab4086960ca5573b9c6288 {
+                #map_bb8b35ce3e0a4e498a2de54fd41b004f {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -39,7 +39,7 @@
 <body>    
     <script src="../static/js/interactive_poi.js"></script>
     
-            <div class="folium-map" id="map_c81afca4cdab4086960ca5573b9c6288" ></div>
+            <div class="folium-map" id="map_bb8b35ce3e0a4e498a2de54fd41b004f" ></div>
         
 </body>
 <script>    
@@ -47,12 +47,12 @@
         console.log('working perfectly')
         
     
-            var map_c81afca4cdab4086960ca5573b9c6288 = L.map(
-                "map_c81afca4cdab4086960ca5573b9c6288",
+            var map_bb8b35ce3e0a4e498a2de54fd41b004f = L.map(
+                "map_bb8b35ce3e0a4e498a2de54fd41b004f",
                 {
-                    center: [43.8800396, -79.4254308],
+                    center: [43.6445345, -79.380381],
                     crs: L.CRS.EPSG3857,
-                    zoom: 15,
+                    zoom: 14,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -62,38 +62,38 @@
 
         
     
-            var tile_layer_3f43ce0b7ab6468f825d34da61e091cf = L.tileLayer(
+            var tile_layer_21bf50e32ea044d085a4c2b6e6a3bc42 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_c81afca4cdab4086960ca5573b9c6288);
+            ).addTo(map_bb8b35ce3e0a4e498a2de54fd41b004f);
         
     
-            var marker_73db6906e81d47edbe5a011d261d1326 = L.marker(
-                [43.871124, -79.437349],
+            var marker_bbdab75e2a0847c1bbc9409148d3aa6b = L.marker(
+                [43.6445345, -79.380381],
                 {}
-            ).addTo(map_c81afca4cdab4086960ca5573b9c6288);
+            ).addTo(map_bb8b35ce3e0a4e498a2de54fd41b004f);
         
     
-            var icon_b4228a4afbf941d48a6ee65e4f9132e3 = L.AwesomeMarkers.icon(
+            var icon_54447de7390541a8be07bd228f825e19 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "home", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
             );
-            marker_73db6906e81d47edbe5a011d261d1326.setIcon(icon_b4228a4afbf941d48a6ee65e4f9132e3);
+            marker_bbdab75e2a0847c1bbc9409148d3aa6b.setIcon(icon_54447de7390541a8be07bd228f825e19);
         
     
-        var popup_a0106ddfc6174630ad100450ab4169a7 = L.popup({"maxWidth": "100%"});
+        var popup_0b35cd8c12b94454867d460c7f2e9c85 = L.popup({"maxWidth": "100%"});
 
         
-            var html_87dec69399ad421dbc6a7adabc1a44bf = $(`<div id="html_87dec69399ad421dbc6a7adabc1a44bf" style="width: 100.0%; height: 100.0%;">Source</div>`)[0];
-            popup_a0106ddfc6174630ad100450ab4169a7.setContent(html_87dec69399ad421dbc6a7adabc1a44bf);
+            var html_2c7e92b509a84d12ae16cf722bb0f7b6 = $(`<div id="html_2c7e92b509a84d12ae16cf722bb0f7b6" style="width: 100.0%; height: 100.0%;">Source</div>`)[0];
+            popup_0b35cd8c12b94454867d460c7f2e9c85.setContent(html_2c7e92b509a84d12ae16cf722bb0f7b6);
         
 
-        marker_73db6906e81d47edbe5a011d261d1326.bindPopup(popup_a0106ddfc6174630ad100450ab4169a7)
+        marker_bbdab75e2a0847c1bbc9409148d3aa6b.bindPopup(popup_0b35cd8c12b94454867d460c7f2e9c85)
         ;
 
         
     
     
-            marker_73db6906e81d47edbe5a011d261d1326.bindTooltip(
+            marker_bbdab75e2a0847c1bbc9409148d3aa6b.bindTooltip(
                 `<div>
                      <strong>Source</strong>
                  </div>`,
@@ -101,1393 +101,2317 @@
             );
         
     
-            var marker_cluster_0e14e85174ee4a628682aef577d91660 = L.markerClusterGroup(
+            var marker_cluster_aedc256306b245d38898a424096fa0fb = L.markerClusterGroup(
                 {}
             );
-            map_c81afca4cdab4086960ca5573b9c6288.addLayer(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            map_bb8b35ce3e0a4e498a2de54fd41b004f.addLayer(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var marker_6738392a6b7c455fba0c3e042197c671 = L.marker(
-                [43.863277, -79.436006],
+            var marker_38fdca30d0464ca58f88f63b7d939afc = L.marker(
+                [43.645585, -79.379456],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_81ba5c52c2a2481487e9a06a007d83f3 = L.AwesomeMarkers.icon(
+            var icon_4c36c1c62c81499595c0a4ceacb1d26e = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_6738392a6b7c455fba0c3e042197c671.setIcon(icon_81ba5c52c2a2481487e9a06a007d83f3);
+            marker_38fdca30d0464ca58f88f63b7d939afc.setIcon(icon_4c36c1c62c81499595c0a4ceacb1d26e);
         
     
-        var popup_7802283881f9482ab71867190ca17637 = L.popup({"maxWidth": "100%"});
+        var popup_fb20a4080e89479284bf7ec14f0bf8be = L.popup({"maxWidth": "100%"});
 
         
-            var html_83cc6ff092914d928e054c7b12d5ac8d = $(`<div id="html_83cc6ff092914d928e054c7b12d5ac8d" style="width: 100.0%; height: 100.0%;"><p> Circle K</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.863277, -79.436006]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_7802283881f9482ab71867190ca17637.setContent(html_83cc6ff092914d928e054c7b12d5ac8d);
+            var html_dde419d6888b4fa99d14d6750de898ba = $(`<div id="html_dde419d6888b4fa99d14d6750de898ba" style="width: 100.0%; height: 100.0%;"><p> Nuts & Things</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.645585, -79.379456]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_fb20a4080e89479284bf7ec14f0bf8be.setContent(html_dde419d6888b4fa99d14d6750de898ba);
         
 
-        marker_6738392a6b7c455fba0c3e042197c671.bindPopup(popup_7802283881f9482ab71867190ca17637)
+        marker_38fdca30d0464ca58f88f63b7d939afc.bindPopup(popup_fb20a4080e89479284bf7ec14f0bf8be)
         ;
 
         
     
     
-            marker_6738392a6b7c455fba0c3e042197c671.bindTooltip(
+            marker_38fdca30d0464ca58f88f63b7d939afc.bindTooltip(
                 `<div>
-                     <strong>1. Circle K</strong><br><strong> POI Score: </strong>2.2013030449874432e-07
+                     <strong>1. Nuts & Things</strong><br><strong> DDist: </strong>0.0 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_162804b8757144fe8f59a35e39e73c18 = L.marker(
-                [43.878846, -79.43873],
+            var marker_8aaedefbec56474e82bc087becc5bdaa = L.marker(
+                [43.642467, -79.380993],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_afec5e921f3c45d787d337bd963ca0ed = L.AwesomeMarkers.icon(
+            var icon_1a36fff2a748426ebf0c0d70debc8e8c = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_162804b8757144fe8f59a35e39e73c18.setIcon(icon_afec5e921f3c45d787d337bd963ca0ed);
+            marker_8aaedefbec56474e82bc087becc5bdaa.setIcon(icon_1a36fff2a748426ebf0c0d70debc8e8c);
         
     
-        var popup_009c4f54bed84abebc02a16b6c153e8e = L.popup({"maxWidth": "100%"});
+        var popup_9e7647cf4a8b456f90ea4ceb644a06ff = L.popup({"maxWidth": "100%"});
 
         
-            var html_fb9577d1c3624504a90bd2dc529a97fa = $(`<div id="html_fb9577d1c3624504a90bd2dc529a97fa" style="width: 100.0%; height: 100.0%;"><p> Tavazo</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.878846, -79.43873]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_009c4f54bed84abebc02a16b6c153e8e.setContent(html_fb9577d1c3624504a90bd2dc529a97fa);
+            var html_ae3ea9d5789c4cc4a1a12ccdf0aa3e81 = $(`<div id="html_ae3ea9d5789c4cc4a1a12ccdf0aa3e81" style="width: 100.0%; height: 100.0%;"><p> Longo's</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.642467, -79.380993]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_9e7647cf4a8b456f90ea4ceb644a06ff.setContent(html_ae3ea9d5789c4cc4a1a12ccdf0aa3e81);
         
 
-        marker_162804b8757144fe8f59a35e39e73c18.bindPopup(popup_009c4f54bed84abebc02a16b6c153e8e)
+        marker_8aaedefbec56474e82bc087becc5bdaa.bindPopup(popup_9e7647cf4a8b456f90ea4ceb644a06ff)
         ;
 
         
     
     
-            marker_162804b8757144fe8f59a35e39e73c18.bindTooltip(
+            marker_8aaedefbec56474e82bc087becc5bdaa.bindTooltip(
                 `<div>
-                     <strong>2. Tavazo</strong><br><strong> POI Score: </strong>2.242924491369953e-07
+                     <strong>2. Longo's</strong><br><strong> DDist: </strong>0.44 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_5f2b6cfa0fd14c96a6d6a3891a0344b8 = L.marker(
-                [43.862263, -79.432662],
+            var marker_2fe8e4818d084e6c82be4301016a8a7e = L.marker(
+                [43.641721, -79.380227],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_a09e1f82f5074ebdbab5fe3305b78386 = L.AwesomeMarkers.icon(
+            var icon_523ca8a24e2146fe9488f23d8684027d = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_5f2b6cfa0fd14c96a6d6a3891a0344b8.setIcon(icon_a09e1f82f5074ebdbab5fe3305b78386);
+            marker_2fe8e4818d084e6c82be4301016a8a7e.setIcon(icon_523ca8a24e2146fe9488f23d8684027d);
         
     
-        var popup_b13192ba3f694b9e9f707593c2bef3ee = L.popup({"maxWidth": "100%"});
+        var popup_a28ddcd4d5ba40848b5f6475554fec00 = L.popup({"maxWidth": "100%"});
 
         
-            var html_4f8f8e9ffb2b4b2a9c2d9027c0885129 = $(`<div id="html_4f8f8e9ffb2b4b2a9c2d9027c0885129" style="width: 100.0%; height: 100.0%;"><p> T&T</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.862263, -79.432662]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_b13192ba3f694b9e9f707593c2bef3ee.setContent(html_4f8f8e9ffb2b4b2a9c2d9027c0885129);
+            var html_6ab1f30704db41d09ba9a579c6cf4561 = $(`<div id="html_6ab1f30704db41d09ba9a579c6cf4561" style="width: 100.0%; height: 100.0%;"><p> Market 63 Coppa's Fresh Market</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.641721, -79.380227]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_a28ddcd4d5ba40848b5f6475554fec00.setContent(html_6ab1f30704db41d09ba9a579c6cf4561);
         
 
-        marker_5f2b6cfa0fd14c96a6d6a3891a0344b8.bindPopup(popup_b13192ba3f694b9e9f707593c2bef3ee)
+        marker_2fe8e4818d084e6c82be4301016a8a7e.bindPopup(popup_a28ddcd4d5ba40848b5f6475554fec00)
         ;
 
         
     
     
-            marker_5f2b6cfa0fd14c96a6d6a3891a0344b8.bindTooltip(
+            marker_2fe8e4818d084e6c82be4301016a8a7e.bindTooltip(
                 `<div>
-                     <strong>3. T&T</strong><br><strong> POI Score: </strong>3.440219488516523e-07
+                     <strong>3. Market 63 Coppa's Fresh Market</strong><br><strong> DDist: </strong>0.47 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_de5ea84ce2634ee4b7babf1aa26930cb = L.marker(
-                [43.878553, -79.425557],
+            var marker_f79e7fa336434543803a30f1d7d90fd0 = L.marker(
+                [43.641879, -79.375458],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_0a4aa6b7bd9f49c997d7a7d861afdf49 = L.AwesomeMarkers.icon(
+            var icon_6053c3da93364bc587efa4eda05cc02e = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_de5ea84ce2634ee4b7babf1aa26930cb.setIcon(icon_0a4aa6b7bd9f49c997d7a7d861afdf49);
+            marker_f79e7fa336434543803a30f1d7d90fd0.setIcon(icon_6053c3da93364bc587efa4eda05cc02e);
         
     
-        var popup_6ad8a011a6bb414caa73b10337df4bcc = L.popup({"maxWidth": "100%"});
+        var popup_4bbe7ea13afb4dd5bf1e44648be937a4 = L.popup({"maxWidth": "100%"});
 
         
-            var html_13bb5bbb807b4ee48b6edcc3a4470028 = $(`<div id="html_13bb5bbb807b4ee48b6edcc3a4470028" style="width: 100.0%; height: 100.0%;"><p> Dan's Rip'n Hotsauce and Peppers</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.878553, -79.425557]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_6ad8a011a6bb414caa73b10337df4bcc.setContent(html_13bb5bbb807b4ee48b6edcc3a4470028);
+            var html_e609071738214b99b4095eeba35c0dfb = $(`<div id="html_e609071738214b99b4095eeba35c0dfb" style="width: 100.0%; height: 100.0%;"><p> Kitchen Table Grocery Stores</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.641879, -79.375458]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_4bbe7ea13afb4dd5bf1e44648be937a4.setContent(html_e609071738214b99b4095eeba35c0dfb);
         
 
-        marker_de5ea84ce2634ee4b7babf1aa26930cb.bindPopup(popup_6ad8a011a6bb414caa73b10337df4bcc)
+        marker_f79e7fa336434543803a30f1d7d90fd0.bindPopup(popup_4bbe7ea13afb4dd5bf1e44648be937a4)
         ;
 
         
     
     
-            marker_de5ea84ce2634ee4b7babf1aa26930cb.bindTooltip(
+            marker_f79e7fa336434543803a30f1d7d90fd0.bindTooltip(
                 `<div>
-                     <strong>4. Dan's Rip'n Hotsauce and Peppers</strong><br><strong> POI Score: </strong>3.7562301799066073e-07
+                     <strong>4. Kitchen Table Grocery Stores</strong><br><strong> DDist: </strong>0.61 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_ca4c194e5fb44e95a82361cbb5de3324 = L.marker(
-                [43.882324, -79.440254],
+            var marker_15f7a1b206ff41e7bea4ce7d8151ce82 = L.marker(
+                [43.640014, -79.379182],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_49571c054b7f490a948f639877538801 = L.AwesomeMarkers.icon(
+            var icon_2a7a8249f03e4b629736849e225925f9 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_ca4c194e5fb44e95a82361cbb5de3324.setIcon(icon_49571c054b7f490a948f639877538801);
+            marker_15f7a1b206ff41e7bea4ce7d8151ce82.setIcon(icon_2a7a8249f03e4b629736849e225925f9);
         
     
-        var popup_8c3c5e1adc2c42909f620bb4bb2a0fda = L.popup({"maxWidth": "100%"});
+        var popup_b159d352494a43c4ab11bfb98a1378a4 = L.popup({"maxWidth": "100%"});
 
         
-            var html_a26205e523574989b8bcd88d41806faa = $(`<div id="html_a26205e523574989b8bcd88d41806faa" style="width: 100.0%; height: 100.0%;"><p> Heeva Fine Foods</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.882324, -79.440254]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_8c3c5e1adc2c42909f620bb4bb2a0fda.setContent(html_a26205e523574989b8bcd88d41806faa);
+            var html_879ea7416cef42cdafcf10e6cb275697 = $(`<div id="html_879ea7416cef42cdafcf10e6cb275697" style="width: 100.0%; height: 100.0%;"><p> York Quay Fine Foods</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.640014, -79.379182]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_b159d352494a43c4ab11bfb98a1378a4.setContent(html_879ea7416cef42cdafcf10e6cb275697);
         
 
-        marker_ca4c194e5fb44e95a82361cbb5de3324.bindPopup(popup_8c3c5e1adc2c42909f620bb4bb2a0fda)
+        marker_15f7a1b206ff41e7bea4ce7d8151ce82.bindPopup(popup_b159d352494a43c4ab11bfb98a1378a4)
         ;
 
         
     
     
-            marker_ca4c194e5fb44e95a82361cbb5de3324.bindTooltip(
+            marker_15f7a1b206ff41e7bea4ce7d8151ce82.bindTooltip(
                 `<div>
-                     <strong>5. Heeva Fine Foods</strong><br><strong> POI Score: </strong>3.8138527731215845e-07
+                     <strong>5. York Quay Fine Foods</strong><br><strong> DDist: </strong>0.83 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_7d437c4e011749999fa6c29feadf5b7b = L.marker(
-                [43.876713, -79.425841],
+            var marker_0afd5320c1a24572962e2ee80d5c6310 = L.marker(
+                [43.639394, -79.385373],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_e7f8fc019b4b4f31a4e6241c5c1909da = L.AwesomeMarkers.icon(
+            var icon_9dda0425960f40c0acc50e23a94b9b95 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_7d437c4e011749999fa6c29feadf5b7b.setIcon(icon_e7f8fc019b4b4f31a4e6241c5c1909da);
+            marker_0afd5320c1a24572962e2ee80d5c6310.setIcon(icon_9dda0425960f40c0acc50e23a94b9b95);
         
     
-        var popup_8001b0f29be84279abeda802bb77c7ce = L.popup({"maxWidth": "100%"});
+        var popup_3d210d91dafd49ee955fa3e68e4f957b = L.popup({"maxWidth": "100%"});
 
         
-            var html_087532c3453e484f97354014e03a79c8 = $(`<div id="html_087532c3453e484f97354014e03a79c8" style="width: 100.0%; height: 100.0%;"><p> AME Son Holdings</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.876713, -79.425841]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_8001b0f29be84279abeda802bb77c7ce.setContent(html_087532c3453e484f97354014e03a79c8);
+            var html_a3c8fdf9f1554e04988ccfbeec8d2b7a = $(`<div id="html_a3c8fdf9f1554e04988ccfbeec8d2b7a" style="width: 100.0%; height: 100.0%;"><p> Rabba Fine Foods</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.639394, -79.385373]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_3d210d91dafd49ee955fa3e68e4f957b.setContent(html_a3c8fdf9f1554e04988ccfbeec8d2b7a);
         
 
-        marker_7d437c4e011749999fa6c29feadf5b7b.bindPopup(popup_8001b0f29be84279abeda802bb77c7ce)
+        marker_0afd5320c1a24572962e2ee80d5c6310.bindPopup(popup_3d210d91dafd49ee955fa3e68e4f957b)
         ;
 
         
     
     
-            marker_7d437c4e011749999fa6c29feadf5b7b.bindTooltip(
+            marker_0afd5320c1a24572962e2ee80d5c6310.bindTooltip(
                 `<div>
-                     <strong>6. AME Son Holdings</strong><br><strong> POI Score: </strong>4.22159740982395e-07
+                     <strong>6. Rabba Fine Foods</strong><br><strong> DDist: </strong>1.07 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_7cb0e4bc3d644397ab785320e0d29f2e = L.marker(
-                [43.875479, -79.416326],
+            var marker_61a844c79e5e4db481733ae5f2f323d9 = L.marker(
+                [43.647489, -79.38393],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_259f2a95038f4b0e979c800daa2dc8d6 = L.AwesomeMarkers.icon(
+            var icon_66e60683f08e44d48fc7cf39ee1651d0 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_7cb0e4bc3d644397ab785320e0d29f2e.setIcon(icon_259f2a95038f4b0e979c800daa2dc8d6);
+            marker_61a844c79e5e4db481733ae5f2f323d9.setIcon(icon_66e60683f08e44d48fc7cf39ee1651d0);
         
     
-        var popup_763ac84192ef4702a4c54f013839f325 = L.popup({"maxWidth": "100%"});
+        var popup_d38c02fbc2434e35a2e9eca427a22198 = L.popup({"maxWidth": "100%"});
 
         
-            var html_be0ec45709a247e88599a566df8e2330 = $(`<div id="html_be0ec45709a247e88599a566df8e2330" style="width: 100.0%; height: 100.0%;"><p> Mackenzie's Convenience</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.875479, -79.416326]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_763ac84192ef4702a4c54f013839f325.setContent(html_be0ec45709a247e88599a566df8e2330);
+            var html_70af3234289447e3b826472b3cc99909 = $(`<div id="html_70af3234289447e3b826472b3cc99909" style="width: 100.0%; height: 100.0%;"><p> Marcello's Market & Deli</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.647489, -79.38393]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_d38c02fbc2434e35a2e9eca427a22198.setContent(html_70af3234289447e3b826472b3cc99909);
         
 
-        marker_7cb0e4bc3d644397ab785320e0d29f2e.bindPopup(popup_763ac84192ef4702a4c54f013839f325)
+        marker_61a844c79e5e4db481733ae5f2f323d9.bindPopup(popup_d38c02fbc2434e35a2e9eca427a22198)
         ;
 
         
     
     
-            marker_7cb0e4bc3d644397ab785320e0d29f2e.bindTooltip(
+            marker_61a844c79e5e4db481733ae5f2f323d9.bindTooltip(
                 `<div>
-                     <strong>7. Mackenzie's Convenience</strong><br><strong> POI Score: </strong>4.3280879255081317e-07
+                     <strong>7. Marcello's Market & Deli</strong><br><strong> DDist: </strong>1.19 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_e332b9e2b22b41cf91d289354551923b = L.marker(
-                [43.882913, -79.441715],
+            var marker_07b6b8401e9248bba1180be88b4a6bfe = L.marker(
+                [43.649181, -79.377091],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_22ef2e4856ed4ce2a0aaa1353b1902d3 = L.AwesomeMarkers.icon(
+            var icon_59f4cdbabbd84182abf87278b9607262 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_e332b9e2b22b41cf91d289354551923b.setIcon(icon_22ef2e4856ed4ce2a0aaa1353b1902d3);
+            marker_07b6b8401e9248bba1180be88b4a6bfe.setIcon(icon_59f4cdbabbd84182abf87278b9607262);
         
     
-        var popup_e1237259fd984accab3eebeb2464c197 = L.popup({"maxWidth": "100%"});
+        var popup_edf66a27068e44c899069da3d5fa65f8 = L.popup({"maxWidth": "100%"});
 
         
-            var html_8b3b492bbfed454f8d5ee448fc1fac5e = $(`<div id="html_8b3b492bbfed454f8d5ee448fc1fac5e" style="width: 100.0%; height: 100.0%;"><p> Nofrills</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.882913, -79.441715]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_e1237259fd984accab3eebeb2464c197.setContent(html_8b3b492bbfed454f8d5ee448fc1fac5e);
+            var html_56a9a1e8f5114417a22af2248d57359e = $(`<div id="html_56a9a1e8f5114417a22af2248d57359e" style="width: 100.0%; height: 100.0%;"><p> King Grocery</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.649181, -79.377091]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_edf66a27068e44c899069da3d5fa65f8.setContent(html_56a9a1e8f5114417a22af2248d57359e);
         
 
-        marker_e332b9e2b22b41cf91d289354551923b.bindPopup(popup_e1237259fd984accab3eebeb2464c197)
+        marker_07b6b8401e9248bba1180be88b4a6bfe.bindPopup(popup_edf66a27068e44c899069da3d5fa65f8)
         ;
 
         
     
     
-            marker_e332b9e2b22b41cf91d289354551923b.bindTooltip(
+            marker_07b6b8401e9248bba1180be88b4a6bfe.bindTooltip(
                 `<div>
-                     <strong>8. Nofrills</strong><br><strong> POI Score: </strong>4.436805273450293e-07
+                     <strong>8. King Grocery</strong><br><strong> DDist: </strong>1.29 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_862e4cbec44b49c0a37600c47f5e95a3 = L.marker(
-                [43.879381, -79.425699],
+            var marker_753465a0144e47a4b473801a63c386c4 = L.marker(
+                [43.64961, -79.384639],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_0fc10bfa98054b0fb0d2efff9abcb3d5 = L.AwesomeMarkers.icon(
+            var icon_b0ad9577427b4bb08b54814d827404ef = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_862e4cbec44b49c0a37600c47f5e95a3.setIcon(icon_0fc10bfa98054b0fb0d2efff9abcb3d5);
+            marker_753465a0144e47a4b473801a63c386c4.setIcon(icon_b0ad9577427b4bb08b54814d827404ef);
         
     
-        var popup_d75ec038a15048f18efb7837cede8541 = L.popup({"maxWidth": "100%"});
+        var popup_0f373ae34dca44608b66f39f9e8183bf = L.popup({"maxWidth": "100%"});
 
         
-            var html_518dd423346a41cfa3f66ca39017a872 = $(`<div id="html_518dd423346a41cfa3f66ca39017a872" style="width: 100.0%; height: 100.0%;"><p> Richmond Hill Community Food Bank</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.879381, -79.425699]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_d75ec038a15048f18efb7837cede8541.setContent(html_518dd423346a41cfa3f66ca39017a872);
+            var html_2c852cd96b4147059b6369f072cce77c = $(`<div id="html_2c852cd96b4147059b6369f072cce77c" style="width: 100.0%; height: 100.0%;"><p> Adelaide Eats</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.64961, -79.384639]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_0f373ae34dca44608b66f39f9e8183bf.setContent(html_2c852cd96b4147059b6369f072cce77c);
         
 
-        marker_862e4cbec44b49c0a37600c47f5e95a3.bindPopup(popup_d75ec038a15048f18efb7837cede8541)
+        marker_753465a0144e47a4b473801a63c386c4.bindPopup(popup_0f373ae34dca44608b66f39f9e8183bf)
         ;
 
         
     
     
-            marker_862e4cbec44b49c0a37600c47f5e95a3.bindTooltip(
+            marker_753465a0144e47a4b473801a63c386c4.bindTooltip(
                 `<div>
-                     <strong>9. Richmond Hill Community Food Bank</strong><br><strong> POI Score: </strong>4.6831410077561334e-07
+                     <strong>9. Adelaide Eats</strong><br><strong> DDist: </strong>1.42 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_9a5858de177741aebe5dc8b048d66eb8 = L.marker(
-                [43.867242, -79.458914],
+            var marker_6e4fe8ca24ae423f9b414f5ca72fec3e = L.marker(
+                [43.649523, -79.377115],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_deb338fab36441b9a74287c83a810fc1 = L.AwesomeMarkers.icon(
+            var icon_723fe3a633904238aba410b0132aee86 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_9a5858de177741aebe5dc8b048d66eb8.setIcon(icon_deb338fab36441b9a74287c83a810fc1);
+            marker_6e4fe8ca24ae423f9b414f5ca72fec3e.setIcon(icon_723fe3a633904238aba410b0132aee86);
         
     
-        var popup_cd006a8f60e5438c8fdb26c290dd7416 = L.popup({"maxWidth": "100%"});
+        var popup_59481a8576ed4614b50e2271be3a81cd = L.popup({"maxWidth": "100%"});
 
         
-            var html_ea2fe7769c8a46c282c42a02f0098fc1 = $(`<div id="html_ea2fe7769c8a46c282c42a02f0098fc1" style="width: 100.0%; height: 100.0%;"><p> Daisy Mart</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.867242, -79.458914]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_cd006a8f60e5438c8fdb26c290dd7416.setContent(html_ea2fe7769c8a46c282c42a02f0098fc1);
+            var html_6748ad491d024904af9a17d8f8dc59b2 = $(`<div id="html_6748ad491d024904af9a17d8f8dc59b2" style="width: 100.0%; height: 100.0%;"><p> Vistas Restaurants</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.649523, -79.377115]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_59481a8576ed4614b50e2271be3a81cd.setContent(html_6748ad491d024904af9a17d8f8dc59b2);
         
 
-        marker_9a5858de177741aebe5dc8b048d66eb8.bindPopup(popup_cd006a8f60e5438c8fdb26c290dd7416)
+        marker_6e4fe8ca24ae423f9b414f5ca72fec3e.bindPopup(popup_59481a8576ed4614b50e2271be3a81cd)
         ;
 
         
     
     
-            marker_9a5858de177741aebe5dc8b048d66eb8.bindTooltip(
+            marker_6e4fe8ca24ae423f9b414f5ca72fec3e.bindTooltip(
                 `<div>
-                     <strong>10. Daisy Mart</strong><br><strong> POI Score: </strong>4.812351653649737e-07
+                     <strong>10. Vistas Restaurants</strong><br><strong> DDist: </strong>1.42 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_520e99e5e1bc4acfba5ac723bb373503 = L.marker(
-                [43.887124, -79.442406],
+            var marker_9564680737884ddcbf3067287628bc43 = L.marker(
+                [43.649116, -79.372927],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_2b30521593a4437ba7cf66a84d1a0080 = L.AwesomeMarkers.icon(
+            var icon_0f39940f91d842d3b61af6ff66e32e54 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_520e99e5e1bc4acfba5ac723bb373503.setIcon(icon_2b30521593a4437ba7cf66a84d1a0080);
+            marker_9564680737884ddcbf3067287628bc43.setIcon(icon_0f39940f91d842d3b61af6ff66e32e54);
         
     
-        var popup_ad37f1f730f14dab871485dc0158b764 = L.popup({"maxWidth": "100%"});
+        var popup_0bf28db91de145c3a0fd94974ca872c7 = L.popup({"maxWidth": "100%"});
 
         
-            var html_519f277355bf4dbd95082d20b3c8dd4a = $(`<div id="html_519f277355bf4dbd95082d20b3c8dd4a" style="width: 100.0%; height: 100.0%;"><p> Richmond Halal Meat & Groceries</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.887124, -79.442406]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_ad37f1f730f14dab871485dc0158b764.setContent(html_519f277355bf4dbd95082d20b3c8dd4a);
+            var html_c85028433cd74b15a1a65e27e7eba7ea = $(`<div id="html_c85028433cd74b15a1a65e27e7eba7ea" style="width: 100.0%; height: 100.0%;"><p> Metro</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.649116, -79.372927]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_0bf28db91de145c3a0fd94974ca872c7.setContent(html_c85028433cd74b15a1a65e27e7eba7ea);
         
 
-        marker_520e99e5e1bc4acfba5ac723bb373503.bindPopup(popup_ad37f1f730f14dab871485dc0158b764)
+        marker_9564680737884ddcbf3067287628bc43.bindPopup(popup_0bf28db91de145c3a0fd94974ca872c7)
         ;
 
         
     
     
-            marker_520e99e5e1bc4acfba5ac723bb373503.bindTooltip(
+            marker_9564680737884ddcbf3067287628bc43.bindTooltip(
                 `<div>
-                     <strong>11. Richmond Halal Meat & Groceries</strong><br><strong> POI Score: </strong>4.979749509812088e-07
+                     <strong>11. Metro</strong><br><strong> DDist: </strong>1.46 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_e3abc7dbd4514693bd372255e5c9ac84 = L.marker(
-                [43.856119, -79.432055],
+            var marker_9dfc3362bf3940799cb2dc149a5f274d = L.marker(
+                [43.649186, -79.371508],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_b1c18144c95d4a18813beb08aa5ba741 = L.AwesomeMarkers.icon(
+            var icon_7c2211b1ba15437f83c6ad20b14b5fad = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_e3abc7dbd4514693bd372255e5c9ac84.setIcon(icon_b1c18144c95d4a18813beb08aa5ba741);
+            marker_9dfc3362bf3940799cb2dc149a5f274d.setIcon(icon_7c2211b1ba15437f83c6ad20b14b5fad);
         
     
-        var popup_33a2a39f48274993909e0b426d930ca7 = L.popup({"maxWidth": "100%"});
+        var popup_179e2e0df7504f2aa40d592662f118b5 = L.popup({"maxWidth": "100%"});
 
         
-            var html_1972af8beb3e4b7ca8fd9a8602e5f224 = $(`<div id="html_1972af8beb3e4b7ca8fd9a8602e5f224" style="width: 100.0%; height: 100.0%;"><p> Supercentre</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.856119, -79.432055]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_33a2a39f48274993909e0b426d930ca7.setContent(html_1972af8beb3e4b7ca8fd9a8602e5f224);
+            var html_a53531c9baef4569aa8e60d982013529 = $(`<div id="html_a53531c9baef4569aa8e60d982013529" style="width: 100.0%; height: 100.0%;"><p> St Lawrence Market Juice Bar</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.649186, -79.371508]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_179e2e0df7504f2aa40d592662f118b5.setContent(html_a53531c9baef4569aa8e60d982013529);
         
 
-        marker_e3abc7dbd4514693bd372255e5c9ac84.bindPopup(popup_33a2a39f48274993909e0b426d930ca7)
+        marker_9dfc3362bf3940799cb2dc149a5f274d.bindPopup(popup_179e2e0df7504f2aa40d592662f118b5)
         ;
 
         
     
     
-            marker_e3abc7dbd4514693bd372255e5c9ac84.bindTooltip(
+            marker_9dfc3362bf3940799cb2dc149a5f274d.bindTooltip(
                 `<div>
-                     <strong>12. Supercentre</strong><br><strong> POI Score: </strong>5.706829316976121e-07
+                     <strong>12. St Lawrence Market Juice Bar</strong><br><strong> DDist: </strong>1.48 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_6ff3d6c61bcf4154839255c9f02b52d0 = L.marker(
-                [43.856069, -79.432127],
+            var marker_3efb3792420e45a7ad8e82d141c5ad1d = L.marker(
+                [43.640442, -79.394325],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_b27b125c5abf40d6bdacb0d266bf6064 = L.AwesomeMarkers.icon(
+            var icon_2b1a453a1c9c441b8a69425888b45a2d = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_6ff3d6c61bcf4154839255c9f02b52d0.setIcon(icon_b27b125c5abf40d6bdacb0d266bf6064);
+            marker_3efb3792420e45a7ad8e82d141c5ad1d.setIcon(icon_2b1a453a1c9c441b8a69425888b45a2d);
         
     
-        var popup_bdc5dfc4a1c24ac297926062ce736110 = L.popup({"maxWidth": "100%"});
+        var popup_0b524fc2136a41a0869b3d83f917df27 = L.popup({"maxWidth": "100%"});
 
         
-            var html_edd6021a277c42419db3718beea6b5a0 = $(`<div id="html_edd6021a277c42419db3718beea6b5a0" style="width: 100.0%; height: 100.0%;"><p> Nofrills</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.856069, -79.432127]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_bdc5dfc4a1c24ac297926062ce736110.setContent(html_edd6021a277c42419db3718beea6b5a0);
+            var html_1fea74444b1c4ced9f9f52544ec7ace4 = $(`<div id="html_1fea74444b1c4ced9f9f52544ec7ace4" style="width: 100.0%; height: 100.0%;"><p> Sobeys</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.640442, -79.394325]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_0b524fc2136a41a0869b3d83f917df27.setContent(html_1fea74444b1c4ced9f9f52544ec7ace4);
         
 
-        marker_6ff3d6c61bcf4154839255c9f02b52d0.bindPopup(popup_bdc5dfc4a1c24ac297926062ce736110)
+        marker_3efb3792420e45a7ad8e82d141c5ad1d.bindPopup(popup_0b524fc2136a41a0869b3d83f917df27)
         ;
 
         
     
     
-            marker_6ff3d6c61bcf4154839255c9f02b52d0.bindTooltip(
+            marker_3efb3792420e45a7ad8e82d141c5ad1d.bindTooltip(
                 `<div>
-                     <strong>13. Nofrills</strong><br><strong> POI Score: </strong>5.706829316976121e-07
+                     <strong>13. Sobeys</strong><br><strong> DDist: </strong>1.71 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_259fd0ebb7634b6dbff1e8d603d414a8 = L.marker(
-                [43.890344, -79.440824],
+            var marker_cf454edd91994af5af14ee229c474184 = L.marker(
+                [43.646782, -79.390095],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_5b518a2b92c4484aa9d36fddea642d21 = L.AwesomeMarkers.icon(
+            var icon_b6e4c9d5c46a40799dd32afd162bafcb = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_259fd0ebb7634b6dbff1e8d603d414a8.setIcon(icon_5b518a2b92c4484aa9d36fddea642d21);
+            marker_cf454edd91994af5af14ee229c474184.setIcon(icon_b6e4c9d5c46a40799dd32afd162bafcb);
         
     
-        var popup_8d0213e4f0e34bcc8571bad330fd4a2a = L.popup({"maxWidth": "100%"});
+        var popup_5a28fbd2392e432eb0703398db7d1024 = L.popup({"maxWidth": "100%"});
 
         
-            var html_1e6f4300a7b444ce9e4c0e5c3d8f2ab1 = $(`<div id="html_1e6f4300a7b444ce9e4c0e5c3d8f2ab1" style="width: 100.0%; height: 100.0%;"><p> Khaike Paan Meri Jaan</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.890344, -79.440824]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_8d0213e4f0e34bcc8571bad330fd4a2a.setContent(html_1e6f4300a7b444ce9e4c0e5c3d8f2ab1);
+            var html_dfd1d89a18214e9fb1cdfea26ca88367 = $(`<div id="html_dfd1d89a18214e9fb1cdfea26ca88367" style="width: 100.0%; height: 100.0%;"><p> Santinos Food Company Limited</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.646782, -79.390095]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_5a28fbd2392e432eb0703398db7d1024.setContent(html_dfd1d89a18214e9fb1cdfea26ca88367);
         
 
-        marker_259fd0ebb7634b6dbff1e8d603d414a8.bindPopup(popup_8d0213e4f0e34bcc8571bad330fd4a2a)
+        marker_cf454edd91994af5af14ee229c474184.bindPopup(popup_5a28fbd2392e432eb0703398db7d1024)
         ;
 
         
     
     
-            marker_259fd0ebb7634b6dbff1e8d603d414a8.bindTooltip(
+            marker_cf454edd91994af5af14ee229c474184.bindTooltip(
                 `<div>
-                     <strong>14. Khaike Paan Meri Jaan</strong><br><strong> POI Score: </strong>5.949632050357091e-07
+                     <strong>14. Santinos Food Company Limited</strong><br><strong> DDist: </strong>1.76 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_48e48cead6634e11bd9036802213f51b = L.marker(
-                [43.876482, -79.410541],
+            var marker_90d9a48010de4364a03e17581b89c9da = L.marker(
+                [43.646949, -79.390992],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_41c928627f9f41b597311bf9a8f99f1e = L.AwesomeMarkers.icon(
+            var icon_c5d85b3de3884d75abaed6847f021b56 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_48e48cead6634e11bd9036802213f51b.setIcon(icon_41c928627f9f41b597311bf9a8f99f1e);
+            marker_90d9a48010de4364a03e17581b89c9da.setIcon(icon_c5d85b3de3884d75abaed6847f021b56);
         
     
-        var popup_3e77790f982b4d75ad5a5c76d2e9a117 = L.popup({"maxWidth": "100%"});
+        var popup_f0bea068d674409eb8a73163fcc5af78 = L.popup({"maxWidth": "100%"});
 
         
-            var html_899ade4ec2fa43cf9e308f317f567d2e = $(`<div id="html_899ade4ec2fa43cf9e308f317f567d2e" style="width: 100.0%; height: 100.0%;"><p> Variety Plus</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.876482, -79.410541]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_3e77790f982b4d75ad5a5c76d2e9a117.setContent(html_899ade4ec2fa43cf9e308f317f567d2e);
+            var html_fc50fce5bc2640afb40d1c1ebed87425 = $(`<div id="html_fc50fce5bc2640afb40d1c1ebed87425" style="width: 100.0%; height: 100.0%;"><p> Champs Food Supplies</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.646949, -79.390992]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_f0bea068d674409eb8a73163fcc5af78.setContent(html_fc50fce5bc2640afb40d1c1ebed87425);
         
 
-        marker_48e48cead6634e11bd9036802213f51b.bindPopup(popup_3e77790f982b4d75ad5a5c76d2e9a117)
+        marker_90d9a48010de4364a03e17581b89c9da.bindPopup(popup_f0bea068d674409eb8a73163fcc5af78)
         ;
 
         
     
     
-            marker_48e48cead6634e11bd9036802213f51b.bindTooltip(
+            marker_90d9a48010de4364a03e17581b89c9da.bindTooltip(
                 `<div>
-                     <strong>15. Variety Plus</strong><br><strong> POI Score: </strong>5.970852484201038e-07
+                     <strong>15. Champs Food Supplies</strong><br><strong> DDist: </strong>1.83 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_40d98c84417a47509e06eba9a5e080a5 = L.marker(
-                [43.852048, -79.433902],
+            var marker_10665adc24b14dc8a7f2e3be62c09f23 = L.marker(
+                [43.64462, -79.392929],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_caa61f88cf1541fb9e59983a001b99e2 = L.AwesomeMarkers.icon(
+            var icon_a54a43c9ca49455296e46ccf4e9c909b = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_40d98c84417a47509e06eba9a5e080a5.setIcon(icon_caa61f88cf1541fb9e59983a001b99e2);
+            marker_10665adc24b14dc8a7f2e3be62c09f23.setIcon(icon_a54a43c9ca49455296e46ccf4e9c909b);
         
     
-        var popup_db6a5e3c9c2f48eca652fb0e38651895 = L.popup({"maxWidth": "100%"});
+        var popup_a0e3199fb99f4e69ad910c95167690e4 = L.popup({"maxWidth": "100%"});
 
         
-            var html_6258af1bf36542b9899f0c368879edd1 = $(`<div id="html_6258af1bf36542b9899f0c368879edd1" style="width: 100.0%; height: 100.0%;"><p> Manilla Halal Meat</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.852048, -79.433902]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_db6a5e3c9c2f48eca652fb0e38651895.setContent(html_6258af1bf36542b9899f0c368879edd1);
+            var html_c15b4d9e0bca4fe6af3332f3e8904659 = $(`<div id="html_c15b4d9e0bca4fe6af3332f3e8904659" style="width: 100.0%; height: 100.0%;"><p> Frankie's Tacos</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.64462, -79.392929]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_a0e3199fb99f4e69ad910c95167690e4.setContent(html_c15b4d9e0bca4fe6af3332f3e8904659);
         
 
-        marker_40d98c84417a47509e06eba9a5e080a5.bindPopup(popup_db6a5e3c9c2f48eca652fb0e38651895)
+        marker_10665adc24b14dc8a7f2e3be62c09f23.bindPopup(popup_a0e3199fb99f4e69ad910c95167690e4)
         ;
 
         
     
     
-            marker_40d98c84417a47509e06eba9a5e080a5.bindTooltip(
+            marker_10665adc24b14dc8a7f2e3be62c09f23.bindTooltip(
                 `<div>
-                     <strong>16. Manilla Halal Meat</strong><br><strong> POI Score: </strong>6.101651437996296e-07
+                     <strong>16. Frankie's Tacos</strong><br><strong> DDist: </strong>1.91 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_92449cf0dc6544f4989d4bbff7930e39 = L.marker(
-                [43.877819, -79.411035],
+            var marker_ccfd08d178a243908e51b4b2323a4f22 = L.marker(
+                [43.65124, -79.366251],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_215f8dc4861a4ed39e28db24e658e7a5 = L.AwesomeMarkers.icon(
+            var icon_e7c1afc0fd1f4351bf939a5123305dea = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_92449cf0dc6544f4989d4bbff7930e39.setIcon(icon_215f8dc4861a4ed39e28db24e658e7a5);
+            marker_ccfd08d178a243908e51b4b2323a4f22.setIcon(icon_e7c1afc0fd1f4351bf939a5123305dea);
         
     
-        var popup_cc73985cb3934c29a6efbde358000c26 = L.popup({"maxWidth": "100%"});
+        var popup_d3e26b02369e478ebbfb5fd1cf48b8b6 = L.popup({"maxWidth": "100%"});
 
         
-            var html_201c8d8a830e4e4497e10a3b6b15dfcb = $(`<div id="html_201c8d8a830e4e4497e10a3b6b15dfcb" style="width: 100.0%; height: 100.0%;"><p> Our Butcher Shop</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.877819, -79.411035]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_cc73985cb3934c29a6efbde358000c26.setContent(html_201c8d8a830e4e4497e10a3b6b15dfcb);
+            var html_b47b34804a744125a13cb2d9d13d2d6c = $(`<div id="html_b47b34804a744125a13cb2d9d13d2d6c" style="width: 100.0%; height: 100.0%;"><p> Nofrills</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.65124, -79.366251]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_d3e26b02369e478ebbfb5fd1cf48b8b6.setContent(html_b47b34804a744125a13cb2d9d13d2d6c);
         
 
-        marker_92449cf0dc6544f4989d4bbff7930e39.bindPopup(popup_cc73985cb3934c29a6efbde358000c26)
+        marker_ccfd08d178a243908e51b4b2323a4f22.bindPopup(popup_d3e26b02369e478ebbfb5fd1cf48b8b6)
         ;
 
         
     
     
-            marker_92449cf0dc6544f4989d4bbff7930e39.bindTooltip(
+            marker_ccfd08d178a243908e51b4b2323a4f22.bindTooltip(
                 `<div>
-                     <strong>17. Our Butcher Shop</strong><br><strong> POI Score: </strong>6.133452557561343e-07
+                     <strong>17. Nofrills</strong><br><strong> DDist: </strong>2.01 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_5cdb2ded2f5741ecb1146b9667edbb75 = L.marker(
-                [43.867489, -79.412773],
+            var marker_be229c0c9b6d45c4b869486a705285dd = L.marker(
+                [43.649979, -79.391341],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_a3237918a1474c30ab8da245ed927db2 = L.AwesomeMarkers.icon(
+            var icon_ee4626827f5c4691955bebcb46a31097 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_5cdb2ded2f5741ecb1146b9667edbb75.setIcon(icon_a3237918a1474c30ab8da245ed927db2);
+            marker_be229c0c9b6d45c4b869486a705285dd.setIcon(icon_ee4626827f5c4691955bebcb46a31097);
         
     
-        var popup_314c94ee8a5a416c8d52649806f15d07 = L.popup({"maxWidth": "100%"});
+        var popup_b95675a2a4ed4ba5a91564a8de9ad210 = L.popup({"maxWidth": "100%"});
 
         
-            var html_59ebda0024c345c2b9a735898524aaff = $(`<div id="html_59ebda0024c345c2b9a735898524aaff" style="width: 100.0%; height: 100.0%;"><p> Bruno's Fine Foods</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.867489, -79.412773]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_314c94ee8a5a416c8d52649806f15d07.setContent(html_59ebda0024c345c2b9a735898524aaff);
+            var html_6d48bf5983c841d18c09ee44a970dd81 = $(`<div id="html_6d48bf5983c841d18c09ee44a970dd81" style="width: 100.0%; height: 100.0%;"><p> Gardenview Convenience</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.649979, -79.391341]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_b95675a2a4ed4ba5a91564a8de9ad210.setContent(html_6d48bf5983c841d18c09ee44a970dd81);
         
 
-        marker_5cdb2ded2f5741ecb1146b9667edbb75.bindPopup(popup_314c94ee8a5a416c8d52649806f15d07)
+        marker_be229c0c9b6d45c4b869486a705285dd.bindPopup(popup_b95675a2a4ed4ba5a91564a8de9ad210)
         ;
 
         
     
     
-            marker_5cdb2ded2f5741ecb1146b9667edbb75.bindTooltip(
+            marker_be229c0c9b6d45c4b869486a705285dd.bindTooltip(
                 `<div>
-                     <strong>18. Bruno's Fine Foods</strong><br><strong> POI Score: </strong>6.862095577527379e-07
+                     <strong>18. Gardenview Convenience</strong><br><strong> DDist: </strong>2.07 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_eba56ed4fc284e6e95ef978531ff5705 = L.marker(
-                [43.89195, -79.444002],
+            var marker_680b3ce11b2446f9a0670bfe04af82a5 = L.marker(
+                [43.650557, -79.364009],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_f97c44cc203746fc88341d7dc40b608e = L.AwesomeMarkers.icon(
+            var icon_3d20cb86c4ff487896ce1230f9e1585a = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_eba56ed4fc284e6e95ef978531ff5705.setIcon(icon_f97c44cc203746fc88341d7dc40b608e);
+            marker_680b3ce11b2446f9a0670bfe04af82a5.setIcon(icon_3d20cb86c4ff487896ce1230f9e1585a);
         
     
-        var popup_40f4407061ee4b75aa9589fc320b4c1d = L.popup({"maxWidth": "100%"});
+        var popup_93a78e4751fb487b865aa478a6f87f27 = L.popup({"maxWidth": "100%"});
 
         
-            var html_815d2edafbbd4124aca6961368fa426e = $(`<div id="html_815d2edafbbd4124aca6961368fa426e" style="width: 100.0%; height: 100.0%;"><p> Longo's</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.89195, -79.444002]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_40f4407061ee4b75aa9589fc320b4c1d.setContent(html_815d2edafbbd4124aca6961368fa426e);
+            var html_e6640f55744a4f98a74b840917af7f94 = $(`<div id="html_e6640f55744a4f98a74b840917af7f94" style="width: 100.0%; height: 100.0%;"><p> Bassett & Walker Int</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.650557, -79.364009]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_93a78e4751fb487b865aa478a6f87f27.setContent(html_e6640f55744a4f98a74b840917af7f94);
         
 
-        marker_eba56ed4fc284e6e95ef978531ff5705.bindPopup(popup_40f4407061ee4b75aa9589fc320b4c1d)
+        marker_680b3ce11b2446f9a0670bfe04af82a5.bindPopup(popup_93a78e4751fb487b865aa478a6f87f27)
         ;
 
         
     
     
-            marker_eba56ed4fc284e6e95ef978531ff5705.bindTooltip(
+            marker_680b3ce11b2446f9a0670bfe04af82a5.bindTooltip(
                 `<div>
-                     <strong>19. Longo's</strong><br><strong> POI Score: </strong>7.165048156802472e-07
+                     <strong>19. Bassett & Walker Int</strong><br><strong> DDist: </strong>2.14 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_ab97d4f9b36647c0a7aeeaef1800d41f = L.marker(
-                [43.844793, -79.431684],
+            var marker_29bc0c7c38504b919ceacfab7898f363 = L.marker(
+                [43.636179, -79.399718],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_35ee56d9d8aa43be80e521bb9e9101b8 = L.AwesomeMarkers.icon(
+            var icon_785cccdb843f451caa839cb66efc28ce = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_ab97d4f9b36647c0a7aeeaef1800d41f.setIcon(icon_35ee56d9d8aa43be80e521bb9e9101b8);
+            marker_29bc0c7c38504b919ceacfab7898f363.setIcon(icon_785cccdb843f451caa839cb66efc28ce);
         
     
-        var popup_5f3963fc2e6740fb98437d417210ade8 = L.popup({"maxWidth": "100%"});
+        var popup_5f86b5b4a9f340dc9f2e82526fcf6f2a = L.popup({"maxWidth": "100%"});
 
         
-            var html_c368ab7eef1a41bf84fc5ae5150e24cc = $(`<div id="html_c368ab7eef1a41bf84fc5ae5150e24cc" style="width: 100.0%; height: 100.0%;"><p> Sunshine Health Foods</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.844793, -79.431684]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_5f3963fc2e6740fb98437d417210ade8.setContent(html_c368ab7eef1a41bf84fc5ae5150e24cc);
+            var html_4f1861c7baa940e3a13d340fd8fc0131 = $(`<div id="html_4f1861c7baa940e3a13d340fd8fc0131" style="width: 100.0%; height: 100.0%;"><p> Circle K</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.636179, -79.399718]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_5f86b5b4a9f340dc9f2e82526fcf6f2a.setContent(html_4f1861c7baa940e3a13d340fd8fc0131);
         
 
-        marker_ab97d4f9b36647c0a7aeeaef1800d41f.bindPopup(popup_5f3963fc2e6740fb98437d417210ade8)
+        marker_29bc0c7c38504b919ceacfab7898f363.bindPopup(popup_5f86b5b4a9f340dc9f2e82526fcf6f2a)
         ;
 
         
     
     
-            marker_ab97d4f9b36647c0a7aeeaef1800d41f.bindTooltip(
+            marker_29bc0c7c38504b919ceacfab7898f363.bindTooltip(
                 `<div>
-                     <strong>20. Sunshine Health Foods</strong><br><strong> POI Score: </strong>7.267325133720898e-07
+                     <strong>20. Circle K</strong><br><strong> DDist: </strong>2.18 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_45d7a6bbe6fb48ebad62df3cff3d77f2 = L.marker(
-                [43.844812, -79.431678],
+            var marker_3b7e7d92a7164c7cb0de30c1570ee922 = L.marker(
+                [43.636921, -79.399305],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_953a8985e8f946c5a05909db801ec54c = L.AwesomeMarkers.icon(
+            var icon_2869b7287c004e49838216e55fd6c5d6 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_45d7a6bbe6fb48ebad62df3cff3d77f2.setIcon(icon_953a8985e8f946c5a05909db801ec54c);
+            marker_3b7e7d92a7164c7cb0de30c1570ee922.setIcon(icon_2869b7287c004e49838216e55fd6c5d6);
         
     
-        var popup_fcf2fec8604a4c75b9a58df5b134fdcb = L.popup({"maxWidth": "100%"});
+        var popup_030f9bdef2264c309fcd43a129628c11 = L.popup({"maxWidth": "100%"});
 
         
-            var html_d45587794a7a47c385e4a0880f5e9fb6 = $(`<div id="html_d45587794a7a47c385e4a0880f5e9fb6" style="width: 100.0%; height: 100.0%;"><p> Saatoor Butchery</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.844812, -79.431678]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_fcf2fec8604a4c75b9a58df5b134fdcb.setContent(html_d45587794a7a47c385e4a0880f5e9fb6);
+            var html_2c986a5c0e364cdbb9a024e9dd834463 = $(`<div id="html_2c986a5c0e364cdbb9a024e9dd834463" style="width: 100.0%; height: 100.0%;"><p> Loblaws</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.636921, -79.399305]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_030f9bdef2264c309fcd43a129628c11.setContent(html_2c986a5c0e364cdbb9a024e9dd834463);
         
 
-        marker_45d7a6bbe6fb48ebad62df3cff3d77f2.bindPopup(popup_fcf2fec8604a4c75b9a58df5b134fdcb)
+        marker_3b7e7d92a7164c7cb0de30c1570ee922.bindPopup(popup_030f9bdef2264c309fcd43a129628c11)
         ;
 
         
     
     
-            marker_45d7a6bbe6fb48ebad62df3cff3d77f2.bindTooltip(
+            marker_3b7e7d92a7164c7cb0de30c1570ee922.bindTooltip(
                 `<div>
-                     <strong>21. Saatoor Butchery</strong><br><strong> POI Score: </strong>7.267325133720898e-07
+                     <strong>21. Loblaws</strong><br><strong> DDist: </strong>2.21 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_3d3e8cfc0881444289dc8e8075bd39d0 = L.marker(
-                [43.895761, -79.442203],
+            var marker_2273e591f43f467a9701d983ef006d1f = L.marker(
+                [43.655824, -79.388058],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_6186b90f11164da8a06851dd5628db75 = L.AwesomeMarkers.icon(
+            var icon_009feafe27ce4b8bb2b9734c52bcfcff = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_3d3e8cfc0881444289dc8e8075bd39d0.setIcon(icon_6186b90f11164da8a06851dd5628db75);
+            marker_2273e591f43f467a9701d983ef006d1f.setIcon(icon_009feafe27ce4b8bb2b9734c52bcfcff);
         
     
-        var popup_88e3d06772f44365bcb851c8f39c2b6d = L.popup({"maxWidth": "100%"});
+        var popup_d23cd74c3d8d40a88eaf636813ac140c = L.popup({"maxWidth": "100%"});
 
         
-            var html_c549249befc0420dbee561f4d1692df9 = $(`<div id="html_c549249befc0420dbee561f4d1692df9" style="width: 100.0%; height: 100.0%;"><p> Bulk Barn</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.895761, -79.442203]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_88e3d06772f44365bcb851c8f39c2b6d.setContent(html_c549249befc0420dbee561f4d1692df9);
+            var html_33751852b9eb475ca1a4b659b1b89489 = $(`<div id="html_33751852b9eb475ca1a4b659b1b89489" style="width: 100.0%; height: 100.0%;"><p> Nobs'</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.655824, -79.388058]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_d23cd74c3d8d40a88eaf636813ac140c.setContent(html_33751852b9eb475ca1a4b659b1b89489);
         
 
-        marker_3d3e8cfc0881444289dc8e8075bd39d0.bindPopup(popup_88e3d06772f44365bcb851c8f39c2b6d)
+        marker_2273e591f43f467a9701d983ef006d1f.bindPopup(popup_d23cd74c3d8d40a88eaf636813ac140c)
         ;
 
         
     
     
-            marker_3d3e8cfc0881444289dc8e8075bd39d0.bindTooltip(
+            marker_2273e591f43f467a9701d983ef006d1f.bindTooltip(
                 `<div>
-                     <strong>22. Bulk Barn</strong><br><strong> POI Score: </strong>7.444666842096458e-07
+                     <strong>22. Nobs'</strong><br><strong> DDist: </strong>2.23 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_21cb3418c7b24605915cfc3397e02a8d = L.marker(
-                [43.892784, -79.428467],
+            var marker_6adb82ce87c446f68924951d07c30a8a = L.marker(
+                [43.63568, -79.398788],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_8e048a60a37047e9827dc8c4477b6eb4 = L.AwesomeMarkers.icon(
+            var icon_7dd0461b1eb14f2896f962c7db3c609a = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_21cb3418c7b24605915cfc3397e02a8d.setIcon(icon_8e048a60a37047e9827dc8c4477b6eb4);
+            marker_6adb82ce87c446f68924951d07c30a8a.setIcon(icon_7dd0461b1eb14f2896f962c7db3c609a);
         
     
-        var popup_d3c062b18b2c4e608ae3d7a69e2efeaa = L.popup({"maxWidth": "100%"});
+        var popup_127653c26f654b60a5b7c065035ce45c = L.popup({"maxWidth": "100%"});
 
         
-            var html_8df92532aaf94c4ebc315a6a0587d8ba = $(`<div id="html_8df92532aaf94c4ebc315a6a0587d8ba" style="width: 100.0%; height: 100.0%;"><p> Elgin Mills Convenience</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.892784, -79.428467]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_d3c062b18b2c4e608ae3d7a69e2efeaa.setContent(html_8df92532aaf94c4ebc315a6a0587d8ba);
+            var html_ec5ba886526948dc8ab2fe911baa8741 = $(`<div id="html_ec5ba886526948dc8ab2fe911baa8741" style="width: 100.0%; height: 100.0%;"><p> Harbour Green Farms</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.63568, -79.398788]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_127653c26f654b60a5b7c065035ce45c.setContent(html_ec5ba886526948dc8ab2fe911baa8741);
         
 
-        marker_21cb3418c7b24605915cfc3397e02a8d.bindPopup(popup_d3c062b18b2c4e608ae3d7a69e2efeaa)
+        marker_6adb82ce87c446f68924951d07c30a8a.bindPopup(popup_127653c26f654b60a5b7c065035ce45c)
         ;
 
         
     
     
-            marker_21cb3418c7b24605915cfc3397e02a8d.bindTooltip(
+            marker_6adb82ce87c446f68924951d07c30a8a.bindTooltip(
                 `<div>
-                     <strong>23. Elgin Mills Convenience</strong><br><strong> POI Score: </strong>7.555295594784566e-07
+                     <strong>23. Harbour Green Farms</strong><br><strong> DDist: </strong>2.24 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_ca14ef2421d0486092b5bf3db00aa2e4 = L.marker(
-                [43.894711, -79.439745],
+            var marker_51708cd31ac1477bb1ff90f8280cd1b6 = L.marker(
+                [43.645668, -79.394574],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_3eb2b6039c7b4ba5a646a0bea61fe357 = L.AwesomeMarkers.icon(
+            var icon_6769d17fc597449183db1393a7969472 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_ca14ef2421d0486092b5bf3db00aa2e4.setIcon(icon_3eb2b6039c7b4ba5a646a0bea61fe357);
+            marker_51708cd31ac1477bb1ff90f8280cd1b6.setIcon(icon_6769d17fc597449183db1393a7969472);
         
     
-        var popup_22572677842544c3b5b946bc1234adfb = L.popup({"maxWidth": "100%"});
+        var popup_c8545bbff0d24e6587248f581dacd66d = L.popup({"maxWidth": "100%"});
 
         
-            var html_14ea427fc32c4da99745d41fb0ea8b10 = $(`<div id="html_14ea427fc32c4da99745d41fb0ea8b10" style="width: 100.0%; height: 100.0%;"><p> Loblaws</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.894711, -79.439745]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_22572677842544c3b5b946bc1234adfb.setContent(html_14ea427fc32c4da99745d41fb0ea8b10);
+            var html_4709dcc955bc47e89a52dfe6a69c8e72 = $(`<div id="html_4709dcc955bc47e89a52dfe6a69c8e72" style="width: 100.0%; height: 100.0%;"><p> Great Gulf Hudson Construction Site</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.645668, -79.394574]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_c8545bbff0d24e6587248f581dacd66d.setContent(html_4709dcc955bc47e89a52dfe6a69c8e72);
         
 
-        marker_ca14ef2421d0486092b5bf3db00aa2e4.bindPopup(popup_22572677842544c3b5b946bc1234adfb)
+        marker_51708cd31ac1477bb1ff90f8280cd1b6.bindPopup(popup_c8545bbff0d24e6587248f581dacd66d)
         ;
 
         
     
     
-            marker_ca14ef2421d0486092b5bf3db00aa2e4.bindTooltip(
+            marker_51708cd31ac1477bb1ff90f8280cd1b6.bindTooltip(
                 `<div>
-                     <strong>24. Loblaws</strong><br><strong> POI Score: </strong>7.66343845865229e-07
+                     <strong>24. Great Gulf Hudson Construction Site</strong><br><strong> DDist: </strong>2.32 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_6fa2460c5cfb4f708a78cf6141445539 = L.marker(
-                [43.849376, -79.44466],
+            var marker_53dab95e8b324f368e59d1f6c26e5f58 = L.marker(
+                [43.64568, -79.39482],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_352301ff653942cdabe61329ac1116fb = L.AwesomeMarkers.icon(
+            var icon_4e009168ed144126a0bee7cedd93fabf = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_6fa2460c5cfb4f708a78cf6141445539.setIcon(icon_352301ff653942cdabe61329ac1116fb);
+            marker_53dab95e8b324f368e59d1f6c26e5f58.setIcon(icon_4e009168ed144126a0bee7cedd93fabf);
         
     
-        var popup_85ee1c56ea8b41189d9308a2e8cf1db3 = L.popup({"maxWidth": "100%"});
+        var popup_bdca73d495f74e50bae7af3506ef6eba = L.popup({"maxWidth": "100%"});
 
         
-            var html_f732293a1488426ba05431632e85f129 = $(`<div id="html_f732293a1488426ba05431632e85f129" style="width: 100.0%; height: 100.0%;"><p> Variety</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.849376, -79.44466]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_85ee1c56ea8b41189d9308a2e8cf1db3.setContent(html_f732293a1488426ba05431632e85f129);
+            var html_5ca90e117c0944a2b910dfca7ec760d4 = $(`<div id="html_5ca90e117c0944a2b910dfca7ec760d4" style="width: 100.0%; height: 100.0%;"><p> Fresh & Wild</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.64568, -79.39482]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_bdca73d495f74e50bae7af3506ef6eba.setContent(html_5ca90e117c0944a2b910dfca7ec760d4);
         
 
-        marker_6fa2460c5cfb4f708a78cf6141445539.bindPopup(popup_85ee1c56ea8b41189d9308a2e8cf1db3)
+        marker_53dab95e8b324f368e59d1f6c26e5f58.bindPopup(popup_bdca73d495f74e50bae7af3506ef6eba)
         ;
 
         
     
     
-            marker_6fa2460c5cfb4f708a78cf6141445539.bindTooltip(
+            marker_53dab95e8b324f368e59d1f6c26e5f58.bindTooltip(
                 `<div>
-                     <strong>25. Variety</strong><br><strong> POI Score: </strong>7.977219066619803e-07
+                     <strong>25. Fresh & Wild</strong><br><strong> DDist: </strong>2.32 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_8f99bcaef2b64bcdaed30b9b589dcacd = L.marker(
-                [43.880109, -79.396121],
+            var marker_267b7663edf6479ca11e621f406d0201 = L.marker(
+                [43.656213, -79.388451],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_6de0cdaa42264ac38e2c51829d767696 = L.AwesomeMarkers.icon(
+            var icon_b406513d7b744874a1743b2a0a850dc5 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_8f99bcaef2b64bcdaed30b9b589dcacd.setIcon(icon_6de0cdaa42264ac38e2c51829d767696);
+            marker_267b7663edf6479ca11e621f406d0201.setIcon(icon_b406513d7b744874a1743b2a0a850dc5);
         
     
-        var popup_f8e7fef2e99b4315a6aece860d277f97 = L.popup({"maxWidth": "100%"});
+        var popup_a89bf789a426419f9f4a9aac6387d902 = L.popup({"maxWidth": "100%"});
 
         
-            var html_4a88573b75424665bcc2218a2a8ba710 = $(`<div id="html_4a88573b75424665bcc2218a2a8ba710" style="width: 100.0%; height: 100.0%;"><p> Kitchen Food Fair</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.880109, -79.396121]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_f8e7fef2e99b4315a6aece860d277f97.setContent(html_4a88573b75424665bcc2218a2a8ba710);
+            var html_68307a0158704e39aa75a4c9befcb2ef = $(`<div id="html_68307a0158704e39aa75a4c9befcb2ef" style="width: 100.0%; height: 100.0%;"><p> International News</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.656213, -79.388451]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_a89bf789a426419f9f4a9aac6387d902.setContent(html_68307a0158704e39aa75a4c9befcb2ef);
         
 
-        marker_8f99bcaef2b64bcdaed30b9b589dcacd.bindPopup(popup_f8e7fef2e99b4315a6aece860d277f97)
+        marker_267b7663edf6479ca11e621f406d0201.bindPopup(popup_a89bf789a426419f9f4a9aac6387d902)
         ;
 
         
     
     
-            marker_8f99bcaef2b64bcdaed30b9b589dcacd.bindTooltip(
+            marker_267b7663edf6479ca11e621f406d0201.bindTooltip(
                 `<div>
-                     <strong>26. Kitchen Food Fair</strong><br><strong> POI Score: </strong>8.059325032873968e-07
+                     <strong>26. International News</strong><br><strong> DDist: </strong>2.33 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_94219218e997492e8f1d29036b2dd573 = L.marker(
-                [43.898039, -79.44407],
+            var marker_c2597231a49145338f8dec35fb033629 = L.marker(
+                [43.652591, -79.36288],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_6d036cd02485418f97efb8b4a68bc9ae = L.AwesomeMarkers.icon(
+            var icon_8627beb3de574b288c535c52772e5594 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_94219218e997492e8f1d29036b2dd573.setIcon(icon_6d036cd02485418f97efb8b4a68bc9ae);
+            marker_c2597231a49145338f8dec35fb033629.setIcon(icon_8627beb3de574b288c535c52772e5594);
         
     
-        var popup_8f3c53bedf45470ea9671e9aaee3dc64 = L.popup({"maxWidth": "100%"});
+        var popup_9b9bcf221486436ead3ccc605a8bc885 = L.popup({"maxWidth": "100%"});
 
         
-            var html_9a595359d09e42a9b6c3b1145acd0155 = $(`<div id="html_9a595359d09e42a9b6c3b1145acd0155" style="width: 100.0%; height: 100.0%;"><p> Variety Plus</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.898039, -79.44407]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_8f3c53bedf45470ea9671e9aaee3dc64.setContent(html_9a595359d09e42a9b6c3b1145acd0155);
+            var html_3aaad07035924cd7ba87897d8281f364 = $(`<div id="html_3aaad07035924cd7ba87897d8281f364" style="width: 100.0%; height: 100.0%;"><p> C Stores</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.652591, -79.36288]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_9b9bcf221486436ead3ccc605a8bc885.setContent(html_3aaad07035924cd7ba87897d8281f364);
         
 
-        marker_94219218e997492e8f1d29036b2dd573.bindPopup(popup_8f3c53bedf45470ea9671e9aaee3dc64)
+        marker_c2597231a49145338f8dec35fb033629.bindPopup(popup_9b9bcf221486436ead3ccc605a8bc885)
         ;
 
         
     
     
-            marker_94219218e997492e8f1d29036b2dd573.bindTooltip(
+            marker_c2597231a49145338f8dec35fb033629.bindTooltip(
                 `<div>
-                     <strong>27. Variety Plus</strong><br><strong> POI Score: </strong>8.37945333313926e-07
+                     <strong>27. C Stores</strong><br><strong> DDist: </strong>2.35 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_f86aa195ef084be5af3018df3593b2dc = L.marker(
-                [43.880505, -79.395268],
+            var marker_e8714a0c59cc4ce891955fc1fec31c43 = L.marker(
+                [43.656717, -79.374906],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_66e3887c8f9e47c0a9ce7b9bdf33ca1e = L.AwesomeMarkers.icon(
+            var icon_79ae9a89568e40e59b770ab494a55fbc = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_f86aa195ef084be5af3018df3593b2dc.setIcon(icon_66e3887c8f9e47c0a9ce7b9bdf33ca1e);
+            marker_e8714a0c59cc4ce891955fc1fec31c43.setIcon(icon_79ae9a89568e40e59b770ab494a55fbc);
         
     
-        var popup_ea9d5152e3b343fe9e1c1412a8fc96fc = L.popup({"maxWidth": "100%"});
+        var popup_31f7f5c359cb4891a6918ef2c7c13f2c = L.popup({"maxWidth": "100%"});
 
         
-            var html_2820152abcfd4eb68bd0dd362e018f47 = $(`<div id="html_2820152abcfd4eb68bd0dd362e018f47" style="width: 100.0%; height: 100.0%;"><p> Azar Trading</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.880505, -79.395268]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_ea9d5152e3b343fe9e1c1412a8fc96fc.setContent(html_2820152abcfd4eb68bd0dd362e018f47);
+            var html_fc83be580bae495e808ce96deb988a83 = $(`<div id="html_fc83be580bae495e808ce96deb988a83" style="width: 100.0%; height: 100.0%;"><p> Bargain Bin Plus Supermarket</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.656717, -79.374906]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_31f7f5c359cb4891a6918ef2c7c13f2c.setContent(html_fc83be580bae495e808ce96deb988a83);
         
 
-        marker_f86aa195ef084be5af3018df3593b2dc.bindPopup(popup_ea9d5152e3b343fe9e1c1412a8fc96fc)
+        marker_e8714a0c59cc4ce891955fc1fec31c43.bindPopup(popup_31f7f5c359cb4891a6918ef2c7c13f2c)
         ;
 
         
     
     
-            marker_f86aa195ef084be5af3018df3593b2dc.bindTooltip(
+            marker_e8714a0c59cc4ce891955fc1fec31c43.bindTooltip(
                 `<div>
-                     <strong>28. Azar Trading</strong><br><strong> POI Score: </strong>9.198089732010934e-07
+                     <strong>28. Bargain Bin Plus Supermarket</strong><br><strong> DDist: </strong>2.36 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_f001c05908da48b68353ad6aaaed9ea1 = L.marker(
-                [43.857291, -79.411484],
+            var marker_e1065981cc3f434c87124a7f5c3f1aab = L.marker(
+                [43.656759, -79.37486],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_1fb51135f7be481eb1a758f62671f08f = L.AwesomeMarkers.icon(
+            var icon_5c6ff85d71244991a5f2754c923c13ed = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_f001c05908da48b68353ad6aaaed9ea1.setIcon(icon_1fb51135f7be481eb1a758f62671f08f);
+            marker_e1065981cc3f434c87124a7f5c3f1aab.setIcon(icon_5c6ff85d71244991a5f2754c923c13ed);
         
     
-        var popup_78b88b1e4f094f0fa1f913c607f8fdf8 = L.popup({"maxWidth": "100%"});
+        var popup_454306324540472fb294f64dce903754 = L.popup({"maxWidth": "100%"});
 
         
-            var html_a15238c0556948a1974d515db1e418ea = $(`<div id="html_a15238c0556948a1974d515db1e418ea" style="width: 100.0%; height: 100.0%;"><p> Circle K</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.857291, -79.411484]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_78b88b1e4f094f0fa1f913c607f8fdf8.setContent(html_a15238c0556948a1974d515db1e418ea);
+            var html_69b9470df1f2457ba273b4b9fc845713 = $(`<div id="html_69b9470df1f2457ba273b4b9fc845713" style="width: 100.0%; height: 100.0%;"><p> Kohmyung Trading Company</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.656759, -79.37486]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_454306324540472fb294f64dce903754.setContent(html_69b9470df1f2457ba273b4b9fc845713);
         
 
-        marker_f001c05908da48b68353ad6aaaed9ea1.bindPopup(popup_78b88b1e4f094f0fa1f913c607f8fdf8)
+        marker_e1065981cc3f434c87124a7f5c3f1aab.bindPopup(popup_454306324540472fb294f64dce903754)
         ;
 
         
     
     
-            marker_f001c05908da48b68353ad6aaaed9ea1.bindTooltip(
+            marker_e1065981cc3f434c87124a7f5c3f1aab.bindTooltip(
                 `<div>
-                     <strong>29. Circle K</strong><br><strong> POI Score: </strong>9.212630068862098e-07
+                     <strong>29. Kohmyung Trading Company</strong><br><strong> DDist: </strong>2.36 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_970f7e93ac9c4d66af0924d1aa129d7b = L.marker(
-                [43.884771, -79.466581],
+            var marker_949f5aa7a31146c2af09c9367e2af7a7 = L.marker(
+                [43.654973, -79.368159],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_52e60dcb397d49ca941cd805b8df8763 = L.AwesomeMarkers.icon(
+            var icon_061aae17ad224f708bb365c6bcb17686 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_970f7e93ac9c4d66af0924d1aa129d7b.setIcon(icon_52e60dcb397d49ca941cd805b8df8763);
+            marker_949f5aa7a31146c2af09c9367e2af7a7.setIcon(icon_061aae17ad224f708bb365c6bcb17686);
         
     
-        var popup_87ac26d8e6cc4c90ad1c993c11d71ba0 = L.popup({"maxWidth": "100%"});
+        var popup_6a09c2028c474072ba55ef42de204790 = L.popup({"maxWidth": "100%"});
 
         
-            var html_7426c70d21c442dab331f562104d6852 = $(`<div id="html_7426c70d21c442dab331f562104d6852" style="width: 100.0%; height: 100.0%;"><p> Woodland Convenience</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.884771, -79.466581]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_87ac26d8e6cc4c90ad1c993c11d71ba0.setContent(html_7426c70d21c442dab331f562104d6852);
+            var html_86758d7d021743518e9520277d197692 = $(`<div id="html_86758d7d021743518e9520277d197692" style="width: 100.0%; height: 100.0%;"><p> Mini Variety Store</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.654973, -79.368159]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_6a09c2028c474072ba55ef42de204790.setContent(html_86758d7d021743518e9520277d197692);
         
 
-        marker_970f7e93ac9c4d66af0924d1aa129d7b.bindPopup(popup_87ac26d8e6cc4c90ad1c993c11d71ba0)
+        marker_949f5aa7a31146c2af09c9367e2af7a7.bindPopup(popup_6a09c2028c474072ba55ef42de204790)
         ;
 
         
     
     
-            marker_970f7e93ac9c4d66af0924d1aa129d7b.bindTooltip(
+            marker_949f5aa7a31146c2af09c9367e2af7a7.bindTooltip(
                 `<div>
-                     <strong>30. Woodland Convenience</strong><br><strong> POI Score: </strong>9.486675641226648e-07
+                     <strong>30. Mini Variety Store</strong><br><strong> DDist: </strong>2.4 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_447d875434264cc7bc69b1f45fc8fb52 = L.marker(
-                [43.874452, -79.392727],
+            var marker_c2df1ece3d054adf8a1e185d3f0e85ec = L.marker(
+                [43.655313, -79.38486],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_50c8d3d3a00949d19166d1bb69f5b369 = L.AwesomeMarkers.icon(
+            var icon_b61fd730758848bfb17c69d716adc9f3 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_447d875434264cc7bc69b1f45fc8fb52.setIcon(icon_50c8d3d3a00949d19166d1bb69f5b369);
+            marker_c2df1ece3d054adf8a1e185d3f0e85ec.setIcon(icon_b61fd730758848bfb17c69d716adc9f3);
         
     
-        var popup_44d98e65a1f04bf5ad5622cd5410cc76 = L.popup({"maxWidth": "100%"});
+        var popup_3903ed5437cf4ee2843956d69ed60f30 = L.popup({"maxWidth": "100%"});
 
         
-            var html_3b8f1fa2b7ab4d09849253b0d89c3c7b = $(`<div id="html_3b8f1fa2b7ab4d09849253b0d89c3c7b" style="width: 100.0%; height: 100.0%;"><p> Spectra Foods</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.874452, -79.392727]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_44d98e65a1f04bf5ad5622cd5410cc76.setContent(html_3b8f1fa2b7ab4d09849253b0d89c3c7b);
+            var html_e06eabdae0e749ecb6f1c92c54ef47d7 = $(`<div id="html_e06eabdae0e749ecb6f1c92c54ef47d7" style="width: 100.0%; height: 100.0%;"><p> Longo's</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.655313, -79.38486]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_3903ed5437cf4ee2843956d69ed60f30.setContent(html_e06eabdae0e749ecb6f1c92c54ef47d7);
         
 
-        marker_447d875434264cc7bc69b1f45fc8fb52.bindPopup(popup_44d98e65a1f04bf5ad5622cd5410cc76)
+        marker_c2df1ece3d054adf8a1e185d3f0e85ec.bindPopup(popup_3903ed5437cf4ee2843956d69ed60f30)
         ;
 
         
     
     
-            marker_447d875434264cc7bc69b1f45fc8fb52.bindTooltip(
+            marker_c2df1ece3d054adf8a1e185d3f0e85ec.bindTooltip(
                 `<div>
-                     <strong>31. Spectra Foods</strong><br><strong> POI Score: </strong>9.5814667735353e-07
+                     <strong>31. Longo's</strong><br><strong> DDist: </strong>2.4 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_2766fd9e3cb943ff8dfb21458aaf46b0 = L.marker(
-                [43.849, -79.458277],
+            var marker_099665011b4d45b3b5080c1218241e86 = L.marker(
+                [43.647046, -79.395151],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_c16fe72041c34a5fa0d7bb9582e3baa6 = L.AwesomeMarkers.icon(
+            var icon_5d83d258f43e4b348c4904224697be98 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_2766fd9e3cb943ff8dfb21458aaf46b0.setIcon(icon_c16fe72041c34a5fa0d7bb9582e3baa6);
+            marker_099665011b4d45b3b5080c1218241e86.setIcon(icon_5d83d258f43e4b348c4904224697be98);
         
     
-        var popup_b01bcf3c8d9c47ddb1bf7abc3fa3b174 = L.popup({"maxWidth": "100%"});
+        var popup_e4d7401ef39044cb91b6b7a42bc6e7d8 = L.popup({"maxWidth": "100%"});
 
         
-            var html_94ca6eee1cb648d3a31fbd4cb112e857 = $(`<div id="html_94ca6eee1cb648d3a31fbd4cb112e857" style="width: 100.0%; height: 100.0%;"><p> Bathurst St Deli</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.849, -79.458277]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_b01bcf3c8d9c47ddb1bf7abc3fa3b174.setContent(html_94ca6eee1cb648d3a31fbd4cb112e857);
+            var html_fbf0738413dd45589e779bd43234510a = $(`<div id="html_fbf0738413dd45589e779bd43234510a" style="width: 100.0%; height: 100.0%;"><p> Icelandia Plc</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.647046, -79.395151]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_e4d7401ef39044cb91b6b7a42bc6e7d8.setContent(html_fbf0738413dd45589e779bd43234510a);
         
 
-        marker_2766fd9e3cb943ff8dfb21458aaf46b0.bindPopup(popup_b01bcf3c8d9c47ddb1bf7abc3fa3b174)
+        marker_099665011b4d45b3b5080c1218241e86.bindPopup(popup_e4d7401ef39044cb91b6b7a42bc6e7d8)
         ;
 
         
     
     
-            marker_2766fd9e3cb943ff8dfb21458aaf46b0.bindTooltip(
+            marker_099665011b4d45b3b5080c1218241e86.bindTooltip(
                 `<div>
-                     <strong>32. Bathurst St Deli</strong><br><strong> POI Score: </strong>9.592130079372599e-07
+                     <strong>32. Icelandia Plc</strong><br><strong> DDist: </strong>2.41 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_c741cb7a6b034c238326c378ef49e552 = L.marker(
-                [43.848261, -79.458288],
+            var marker_bc92c9c629f042c591e0198c9aa2fbfa = L.marker(
+                [43.653512, -79.383987],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_c257c4a5d68f420ca25788386df1e26b = L.AwesomeMarkers.icon(
+            var icon_654a61adc0594bd5beadbf641421d8b9 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_c741cb7a6b034c238326c378ef49e552.setIcon(icon_c257c4a5d68f420ca25788386df1e26b);
+            marker_bc92c9c629f042c591e0198c9aa2fbfa.setIcon(icon_654a61adc0594bd5beadbf641421d8b9);
         
     
-        var popup_350d957ad4094ce0ba0a06f31cbaf874 = L.popup({"maxWidth": "100%"});
+        var popup_1af948f501744b56a6c2473311e00cfc = L.popup({"maxWidth": "100%"});
 
         
-            var html_5d421797c242482a8f24a716d4bf4510 = $(`<div id="html_5d421797c242482a8f24a716d4bf4510" style="width: 100.0%; height: 100.0%;"><p> Sahara Market</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.848261, -79.458288]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_350d957ad4094ce0ba0a06f31cbaf874.setContent(html_5d421797c242482a8f24a716d4bf4510);
+            var html_db7490af29594fa08be30c68c3fa0549 = $(`<div id="html_db7490af29594fa08be30c68c3fa0549" style="width: 100.0%; height: 100.0%;"><p> The Toronto Sun</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.653512, -79.383987]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_1af948f501744b56a6c2473311e00cfc.setContent(html_db7490af29594fa08be30c68c3fa0549);
         
 
-        marker_c741cb7a6b034c238326c378ef49e552.bindPopup(popup_350d957ad4094ce0ba0a06f31cbaf874)
+        marker_bc92c9c629f042c591e0198c9aa2fbfa.bindPopup(popup_1af948f501744b56a6c2473311e00cfc)
         ;
 
         
     
     
-            marker_c741cb7a6b034c238326c378ef49e552.bindTooltip(
+            marker_bc92c9c629f042c591e0198c9aa2fbfa.bindTooltip(
                 `<div>
-                     <strong>33. Sahara Market</strong><br><strong> POI Score: </strong>9.727498082231928e-07
+                     <strong>33. The Toronto Sun</strong><br><strong> DDist: </strong>2.54 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_75288fe4adcf461d8c251957e290c2ec = L.marker(
-                [43.863428, -79.483724],
+            var marker_ec5dd8f5078b457493d4e9cf85b58f2e = L.marker(
+                [43.636259, -79.403377],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_798a28a052894d14a89cf049856e1500 = L.AwesomeMarkers.icon(
+            var icon_e01f8fe5b3374abeabc70c095c5e7f34 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_75288fe4adcf461d8c251957e290c2ec.setIcon(icon_798a28a052894d14a89cf049856e1500);
+            marker_ec5dd8f5078b457493d4e9cf85b58f2e.setIcon(icon_e01f8fe5b3374abeabc70c095c5e7f34);
         
     
-        var popup_f3cbb4a5cf29401aba4e696949156aae = L.popup({"maxWidth": "100%"});
+        var popup_0522d4f6038244b7ba6d0c035059c714 = L.popup({"maxWidth": "100%"});
 
         
-            var html_280b83f031454fa599812de09bdd7944 = $(`<div id="html_280b83f031454fa599812de09bdd7944" style="width: 100.0%; height: 100.0%;"><p> Yummy Market</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.863428, -79.483724]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_f3cbb4a5cf29401aba4e696949156aae.setContent(html_280b83f031454fa599812de09bdd7944);
+            var html_596fb04df417437a83dbc7fda818729d = $(`<div id="html_596fb04df417437a83dbc7fda818729d" style="width: 100.0%; height: 100.0%;"><p> Healthy Island Food Store</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.636259, -79.403377]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_0522d4f6038244b7ba6d0c035059c714.setContent(html_596fb04df417437a83dbc7fda818729d);
         
 
-        marker_75288fe4adcf461d8c251957e290c2ec.bindPopup(popup_f3cbb4a5cf29401aba4e696949156aae)
+        marker_ec5dd8f5078b457493d4e9cf85b58f2e.bindPopup(popup_0522d4f6038244b7ba6d0c035059c714)
         ;
 
         
     
     
-            marker_75288fe4adcf461d8c251957e290c2ec.bindTooltip(
+            marker_ec5dd8f5078b457493d4e9cf85b58f2e.bindTooltip(
                 `<div>
-                     <strong>34. Yummy Market</strong><br><strong> POI Score: </strong>9.803179435312266e-07
+                     <strong>34. Healthy Island Food Store</strong><br><strong> DDist: </strong>2.61 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_7f066241fe1142f6b417e7ba99477dc8 = L.marker(
-                [43.851444, -79.409422],
+            var marker_0dc7b1f46bf642efafd79e28ce84d35f = L.marker(
+                [43.661214, -79.382855],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_f925241b7e0942d4b064883b7ac14797 = L.AwesomeMarkers.icon(
+            var icon_ea48a83a5a54454faa54618af1221411 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_7f066241fe1142f6b417e7ba99477dc8.setIcon(icon_f925241b7e0942d4b064883b7ac14797);
+            marker_0dc7b1f46bf642efafd79e28ce84d35f.setIcon(icon_ea48a83a5a54454faa54618af1221411);
         
     
-        var popup_d75d2b82c9324e8f82d64b8a009bf22a = L.popup({"maxWidth": "100%"});
+        var popup_f2266c19b0bc4fddb4a065c89e610c72 = L.popup({"maxWidth": "100%"});
 
         
-            var html_f0ae42c3ca3d4a96ae10b398c7445e74 = $(`<div id="html_f0ae42c3ca3d4a96ae10b398c7445e74" style="width: 100.0%; height: 100.0%;"><p> Happy Variety</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.851444, -79.409422]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_d75d2b82c9324e8f82d64b8a009bf22a.setContent(html_f0ae42c3ca3d4a96ae10b398c7445e74);
+            var html_2edd84b2db2345118cd36d762ea6c339 = $(`<div id="html_2edd84b2db2345118cd36d762ea6c339" style="width: 100.0%; height: 100.0%;"><p> 7-Eleven</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.661214, -79.382855]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_f2266c19b0bc4fddb4a065c89e610c72.setContent(html_2edd84b2db2345118cd36d762ea6c339);
         
 
-        marker_7f066241fe1142f6b417e7ba99477dc8.bindPopup(popup_d75d2b82c9324e8f82d64b8a009bf22a)
+        marker_0dc7b1f46bf642efafd79e28ce84d35f.bindPopup(popup_f2266c19b0bc4fddb4a065c89e610c72)
         ;
 
         
     
     
-            marker_7f066241fe1142f6b417e7ba99477dc8.bindTooltip(
+            marker_0dc7b1f46bf642efafd79e28ce84d35f.bindTooltip(
                 `<div>
-                     <strong>35. Happy Variety</strong><br><strong> POI Score: </strong>1.0273567999906762e-06
+                     <strong>35. 7-Eleven</strong><br><strong> DDist: </strong>2.61 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_ca44f2356c7b48c1b74afd9aa78ca077 = L.marker(
-                [43.859693, -79.488929],
+            var marker_e0633cadb5f045ce942ed9f262289060 = L.marker(
+                [43.661214, -79.382855],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_c71b3e78123641dbb55e91531dd32db3 = L.AwesomeMarkers.icon(
+            var icon_bfcaea9a236c461096325df21291a21d = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_ca44f2356c7b48c1b74afd9aa78ca077.setIcon(icon_c71b3e78123641dbb55e91531dd32db3);
+            marker_e0633cadb5f045ce942ed9f262289060.setIcon(icon_bfcaea9a236c461096325df21291a21d);
         
     
-        var popup_051766caf91043fbba6ae39af004240d = L.popup({"maxWidth": "100%"});
+        var popup_3a97e573287345a6ac9a4cd458208653 = L.popup({"maxWidth": "100%"});
 
         
-            var html_190f3efefdd04e98bf52ec8c72e6084e = $(`<div id="html_190f3efefdd04e98bf52ec8c72e6084e" style="width: 100.0%; height: 100.0%;"><p> George's Convenience</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.859693, -79.488929]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_051766caf91043fbba6ae39af004240d.setContent(html_190f3efefdd04e98bf52ec8c72e6084e);
+            var html_cc8e187502a24d4bb3aee11521b59ee8 = $(`<div id="html_cc8e187502a24d4bb3aee11521b59ee8" style="width: 100.0%; height: 100.0%;"><p> 7-Eleven</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.661214, -79.382855]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_3a97e573287345a6ac9a4cd458208653.setContent(html_cc8e187502a24d4bb3aee11521b59ee8);
         
 
-        marker_ca44f2356c7b48c1b74afd9aa78ca077.bindPopup(popup_051766caf91043fbba6ae39af004240d)
+        marker_e0633cadb5f045ce942ed9f262289060.bindPopup(popup_3a97e573287345a6ac9a4cd458208653)
         ;
 
         
     
     
-            marker_ca44f2356c7b48c1b74afd9aa78ca077.bindTooltip(
+            marker_e0633cadb5f045ce942ed9f262289060.bindTooltip(
                 `<div>
-                     <strong>36. George's Convenience</strong><br><strong> POI Score: </strong>1.0457695013617333e-06
+                     <strong>36. 7-Eleven</strong><br><strong> DDist: </strong>2.61 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_f9ce7a892eae4e4b9106a77f28b99fda = L.marker(
-                [43.861871, -79.488394],
+            var marker_93921c6db1a34f21b446087f48937807 = L.marker(
+                [43.653866, -79.360215],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_6d6b231610534c94945b7fa0fbccc983 = L.AwesomeMarkers.icon(
+            var icon_bff9cb52df764b6d9f904243ab150bad = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_f9ce7a892eae4e4b9106a77f28b99fda.setIcon(icon_6d6b231610534c94945b7fa0fbccc983);
+            marker_93921c6db1a34f21b446087f48937807.setIcon(icon_bff9cb52df764b6d9f904243ab150bad);
         
     
-        var popup_9a38f67de6ed4e8e94552b4f9b8a96cc = L.popup({"maxWidth": "100%"});
+        var popup_8e2bfcf1a7a44bd2818f8b5e90601274 = L.popup({"maxWidth": "100%"});
 
         
-            var html_98b112c966e146efa5c453cef9b759a7 = $(`<div id="html_98b112c966e146efa5c453cef9b759a7" style="width: 100.0%; height: 100.0%;"><p> Circle K</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.861871, -79.488394]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_9a38f67de6ed4e8e94552b4f9b8a96cc.setContent(html_98b112c966e146efa5c453cef9b759a7);
+            var html_6207b42ea15d4a1d907b6b7681da193b = $(`<div id="html_6207b42ea15d4a1d907b6b7681da193b" style="width: 100.0%; height: 100.0%;"><p> Terroni Sud Forno Produzione e Spaccio</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.653866, -79.360215]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_8e2bfcf1a7a44bd2818f8b5e90601274.setContent(html_6207b42ea15d4a1d907b6b7681da193b);
         
 
-        marker_f9ce7a892eae4e4b9106a77f28b99fda.bindPopup(popup_9a38f67de6ed4e8e94552b4f9b8a96cc)
+        marker_93921c6db1a34f21b446087f48937807.bindPopup(popup_8e2bfcf1a7a44bd2818f8b5e90601274)
         ;
 
         
     
     
-            marker_f9ce7a892eae4e4b9106a77f28b99fda.bindTooltip(
+            marker_93921c6db1a34f21b446087f48937807.bindTooltip(
                 `<div>
-                     <strong>37. Circle K</strong><br><strong> POI Score: </strong>1.0544414126581644e-06
+                     <strong>37. Terroni Sud Forno Produzione e Spaccio</strong><br><strong> DDist: </strong>2.71 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_15bbba9bae2c46f885ce554962732602 = L.marker(
-                [43.84783, -79.461442],
+            var marker_d6186742012b4237acccea27359c418a = L.marker(
+                [43.658746, -79.384628],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_c3c5d0e17426425380868cd42c7ea6dc = L.AwesomeMarkers.icon(
+            var icon_77c5a947feb849f3aa107f20ce9ff1c8 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_15bbba9bae2c46f885ce554962732602.setIcon(icon_c3c5d0e17426425380868cd42c7ea6dc);
+            marker_d6186742012b4237acccea27359c418a.setIcon(icon_77c5a947feb849f3aa107f20ce9ff1c8);
         
     
-        var popup_2769609855fc4746a273aa7d0e812445 = L.popup({"maxWidth": "100%"});
+        var popup_1331ba78bd494ffa9830e11ddd0fd6e1 = L.popup({"maxWidth": "100%"});
 
         
-            var html_bc570d52c5d7469c8ee3755e8dcda88c = $(`<div id="html_bc570d52c5d7469c8ee3755e8dcda88c" style="width: 100.0%; height: 100.0%;"><p> Longo's</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.84783, -79.461442]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_2769609855fc4746a273aa7d0e812445.setContent(html_bc570d52c5d7469c8ee3755e8dcda88c);
+            var html_ac957edb840d47a58a514e1cb1418003 = $(`<div id="html_ac957edb840d47a58a514e1cb1418003" style="width: 100.0%; height: 100.0%;"><p> Fine Food Market</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.658746, -79.384628]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_1331ba78bd494ffa9830e11ddd0fd6e1.setContent(html_ac957edb840d47a58a514e1cb1418003);
         
 
-        marker_15bbba9bae2c46f885ce554962732602.bindPopup(popup_2769609855fc4746a273aa7d0e812445)
+        marker_d6186742012b4237acccea27359c418a.bindPopup(popup_1331ba78bd494ffa9830e11ddd0fd6e1)
         ;
 
         
     
     
-            marker_15bbba9bae2c46f885ce554962732602.bindTooltip(
+            marker_d6186742012b4237acccea27359c418a.bindTooltip(
                 `<div>
-                     <strong>38. Longo's</strong><br><strong> POI Score: </strong>1.060962214524269e-06
+                     <strong>38. Fine Food Market</strong><br><strong> DDist: </strong>2.72 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_b3061770f64749569333235b0377603b = L.marker(
-                [43.846715, -79.458922],
+            var marker_5f2d6ea425f14b71b84b917e0575b462 = L.marker(
+                [43.658149, -79.390782],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_b77e4aded2674e58aa05e989fa820fea = L.AwesomeMarkers.icon(
+            var icon_30fc7ccb7b91411eadcae7a9d997cbce = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_b3061770f64749569333235b0377603b.setIcon(icon_b77e4aded2674e58aa05e989fa820fea);
+            marker_5f2d6ea425f14b71b84b917e0575b462.setIcon(icon_30fc7ccb7b91411eadcae7a9d997cbce);
         
     
-        var popup_f9f8aeca932c402a85e7820603d4ac6a = L.popup({"maxWidth": "100%"});
+        var popup_de4328c6635c43329b362417e908517f = L.popup({"maxWidth": "100%"});
 
         
-            var html_37e000f2b7d8422786ad04420556c653 = $(`<div id="html_37e000f2b7d8422786ad04420556c653" style="width: 100.0%; height: 100.0%;"><p> Variety Plus</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.846715, -79.458922]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_f9f8aeca932c402a85e7820603d4ac6a.setContent(html_37e000f2b7d8422786ad04420556c653);
+            var html_8fc61094bf544ff090a6219755228dd3 = $(`<div id="html_8fc61094bf544ff090a6219755228dd3" style="width: 100.0%; height: 100.0%;"><p> Nicholbyos 1010</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.658149, -79.390782]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_de4328c6635c43329b362417e908517f.setContent(html_8fc61094bf544ff090a6219755228dd3);
         
 
-        marker_b3061770f64749569333235b0377603b.bindPopup(popup_f9f8aeca932c402a85e7820603d4ac6a)
+        marker_5f2d6ea425f14b71b84b917e0575b462.bindPopup(popup_de4328c6635c43329b362417e908517f)
         ;
 
         
     
     
-            marker_b3061770f64749569333235b0377603b.bindTooltip(
+            marker_5f2d6ea425f14b71b84b917e0575b462.bindTooltip(
                 `<div>
-                     <strong>39. Variety Plus</strong><br><strong> POI Score: </strong>1.0754218548614776e-06
+                     <strong>39. Nicholbyos 1010</strong><br><strong> DDist: </strong>2.73 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_c3cafeeac478475aa8c126606e296499 = L.marker(
-                [43.901489, -79.424235],
+            var marker_9b53d8899a4346d5b764b28148d8c04d = L.marker(
+                [43.660621, -79.383599],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_ffa5cc0ad59b4b5a833b06ff92062509 = L.AwesomeMarkers.icon(
+            var icon_2b1cf814840d400fb9b8a5c22ea0286e = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_c3cafeeac478475aa8c126606e296499.setIcon(icon_ffa5cc0ad59b4b5a833b06ff92062509);
+            marker_9b53d8899a4346d5b764b28148d8c04d.setIcon(icon_2b1cf814840d400fb9b8a5c22ea0286e);
         
     
-        var popup_37745a973b074d27ae0daa82ee18ce7d = L.popup({"maxWidth": "100%"});
+        var popup_fa5ea432c0de4daa951f626d1a0e91c5 = L.popup({"maxWidth": "100%"});
 
         
-            var html_4fdf33ca23a64b909deb124eaea41d51 = $(`<div id="html_4fdf33ca23a64b909deb124eaea41d51" style="width: 100.0%; height: 100.0%;"><p> Fruits of the Sea</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.901489, -79.424235]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_37745a973b074d27ae0daa82ee18ce7d.setContent(html_4fdf33ca23a64b909deb124eaea41d51);
+            var html_ee51d0ccd40c4b94abc722dfb952bafe = $(`<div id="html_ee51d0ccd40c4b94abc722dfb952bafe" style="width: 100.0%; height: 100.0%;"><p> Metro</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.660621, -79.383599]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_fa5ea432c0de4daa951f626d1a0e91c5.setContent(html_ee51d0ccd40c4b94abc722dfb952bafe);
         
 
-        marker_c3cafeeac478475aa8c126606e296499.bindPopup(popup_37745a973b074d27ae0daa82ee18ce7d)
+        marker_9b53d8899a4346d5b764b28148d8c04d.bindPopup(popup_fa5ea432c0de4daa951f626d1a0e91c5)
         ;
 
         
     
     
-            marker_c3cafeeac478475aa8c126606e296499.bindTooltip(
+            marker_9b53d8899a4346d5b764b28148d8c04d.bindTooltip(
                 `<div>
-                     <strong>40. Fruits of the Sea</strong><br><strong> POI Score: </strong>1.1972018986484061e-06
+                     <strong>40. Metro</strong><br><strong> DDist: </strong>2.73 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_5195f5853d774ded918aa4329eee6616 = L.marker(
-                [43.91201, -79.448985],
+            var marker_a64e65306da147febfa56274d27c37be = L.marker(
+                [43.661399, -79.383626],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_4b0ec36c2f75443ca3c8524bb09901fe = L.AwesomeMarkers.icon(
+            var icon_6a10ccd8688f4e5ea46fd66168b30d57 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_5195f5853d774ded918aa4329eee6616.setIcon(icon_4b0ec36c2f75443ca3c8524bb09901fe);
+            marker_a64e65306da147febfa56274d27c37be.setIcon(icon_6a10ccd8688f4e5ea46fd66168b30d57);
         
     
-        var popup_98f81651d52d468a8694c438be4c56dc = L.popup({"maxWidth": "100%"});
+        var popup_23ab83b272ca45aea81a61eae9f430db = L.popup({"maxWidth": "100%"});
 
         
-            var html_dbdc5116b63f4d8d9b1b2c28885d9304 = $(`<div id="html_dbdc5116b63f4d8d9b1b2c28885d9304" style="width: 100.0%; height: 100.0%;"><p> Sobeys</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.91201, -79.448985]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_98f81651d52d468a8694c438be4c56dc.setContent(html_dbdc5116b63f4d8d9b1b2c28885d9304);
+            var html_c2a04860ec5045e6afb8078d64172ab8 = $(`<div id="html_c2a04860ec5045e6afb8078d64172ab8" style="width: 100.0%; height: 100.0%;"><p> Gateway Newstand</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.661399, -79.383626]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_23ab83b272ca45aea81a61eae9f430db.setContent(html_c2a04860ec5045e6afb8078d64172ab8);
         
 
-        marker_5195f5853d774ded918aa4329eee6616.bindPopup(popup_98f81651d52d468a8694c438be4c56dc)
+        marker_a64e65306da147febfa56274d27c37be.bindPopup(popup_23ab83b272ca45aea81a61eae9f430db)
         ;
 
         
     
     
-            marker_5195f5853d774ded918aa4329eee6616.bindTooltip(
+            marker_a64e65306da147febfa56274d27c37be.bindTooltip(
                 `<div>
-                     <strong>41. Sobeys</strong><br><strong> POI Score: </strong>1.221990212341201e-06
+                     <strong>41. Gateway Newstand</strong><br><strong> DDist: </strong>2.74 km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_76592b7966824c8dafab23051f6e8c0a = L.marker(
-                [43.843, -79.410904],
+            var marker_3b3c04e552d144fa98ecb0f9aa5f1e65 = L.marker(
+                [43.660224, -79.375987],
                 {}
-            ).addTo(marker_cluster_0e14e85174ee4a628682aef577d91660);
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
         
     
-            var icon_53a5e73c57c7456ca3d1267261ab061f = L.AwesomeMarkers.icon(
+            var icon_add4d5f4833f499087f42795bfddf58d = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_76592b7966824c8dafab23051f6e8c0a.setIcon(icon_53a5e73c57c7456ca3d1267261ab061f);
+            marker_3b3c04e552d144fa98ecb0f9aa5f1e65.setIcon(icon_add4d5f4833f499087f42795bfddf58d);
         
     
-        var popup_9d13ec6a90584761844133f0caebfe20 = L.popup({"maxWidth": "100%"});
+        var popup_f9d7f37bd2bd49b690bc1968c480c6c1 = L.popup({"maxWidth": "100%"});
 
         
-            var html_95f5f6293dc24ab1bd3edf4f664e425c = $(`<div id="html_95f5f6293dc24ab1bd3edf4f664e425c" style="width: 100.0%; height: 100.0%;"><p> Loblaws</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.871124, -79.437349]&destination=[43.843, -79.410904]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
-            popup_9d13ec6a90584761844133f0caebfe20.setContent(html_95f5f6293dc24ab1bd3edf4f664e425c);
+            var html_7ee276639197468eb850f60a2ddac0b6 = $(`<div id="html_7ee276639197468eb850f60a2ddac0b6" style="width: 100.0%; height: 100.0%;"><p> Super Snack Market</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.660224, -79.375987]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_f9d7f37bd2bd49b690bc1968c480c6c1.setContent(html_7ee276639197468eb850f60a2ddac0b6);
         
 
-        marker_76592b7966824c8dafab23051f6e8c0a.bindPopup(popup_9d13ec6a90584761844133f0caebfe20)
+        marker_3b3c04e552d144fa98ecb0f9aa5f1e65.bindPopup(popup_f9d7f37bd2bd49b690bc1968c480c6c1)
         ;
 
         
     
     
-            marker_76592b7966824c8dafab23051f6e8c0a.bindTooltip(
+            marker_3b3c04e552d144fa98ecb0f9aa5f1e65.bindTooltip(
                 `<div>
-                     <strong>42. Loblaws</strong><br><strong> POI Score: </strong>1.2551030922759399e-06
+                     <strong>42. Super Snack Market</strong><br><strong> DDist: </strong>2.74 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_cfd2b9c6358548ebae669b0fd5ebafc4 = L.marker(
+                [43.658115, -79.371276],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_a88b47764bf74f74aabba8c2b01c3884 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_cfd2b9c6358548ebae669b0fd5ebafc4.setIcon(icon_a88b47764bf74f74aabba8c2b01c3884);
+        
+    
+        var popup_3c167542b7e445e49b4d10a0f62d144d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a96897dfa69346898ec0ca95209c90f5 = $(`<div id="html_a96897dfa69346898ec0ca95209c90f5" style="width: 100.0%; height: 100.0%;"><p> Sams Food Store</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.658115, -79.371276]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_3c167542b7e445e49b4d10a0f62d144d.setContent(html_a96897dfa69346898ec0ca95209c90f5);
+        
+
+        marker_cfd2b9c6358548ebae669b0fd5ebafc4.bindPopup(popup_3c167542b7e445e49b4d10a0f62d144d)
+        ;
+
+        
+    
+    
+            marker_cfd2b9c6358548ebae669b0fd5ebafc4.bindTooltip(
+                `<div>
+                     <strong>43. Sams Food Store</strong><br><strong> DDist: </strong>2.74 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f23041d2175f47a6b97d143af0395b46 = L.marker(
+                [43.659423, -79.385477],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_d9dc8e5c7d3d4ef6836590a51cee9f8c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_f23041d2175f47a6b97d143af0395b46.setIcon(icon_d9dc8e5c7d3d4ef6836590a51cee9f8c);
+        
+    
+        var popup_ee586ad06d0142aca2eaa5019e89c76d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_29127bf24c934bc6970eb01967949258 = $(`<div id="html_29127bf24c934bc6970eb01967949258" style="width: 100.0%; height: 100.0%;"><p> Joy Convenience</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.659423, -79.385477]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_ee586ad06d0142aca2eaa5019e89c76d.setContent(html_29127bf24c934bc6970eb01967949258);
+        
+
+        marker_f23041d2175f47a6b97d143af0395b46.bindPopup(popup_ee586ad06d0142aca2eaa5019e89c76d)
+        ;
+
+        
+    
+    
+            marker_f23041d2175f47a6b97d143af0395b46.bindTooltip(
+                `<div>
+                     <strong>44. Joy Convenience</strong><br><strong> DDist: </strong>2.75 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_eaa9f95380514cf9b0f3eff1a8d45d48 = L.marker(
+                [43.649395, -79.394486],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_6ab3072636b64ac38886fd536183712f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_eaa9f95380514cf9b0f3eff1a8d45d48.setIcon(icon_6ab3072636b64ac38886fd536183712f);
+        
+    
+        var popup_757837617deb4b1292b35b916613f952 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_3f8a069ab0764510bc563225ddbd5d3f = $(`<div id="html_3f8a069ab0764510bc563225ddbd5d3f" style="width: 100.0%; height: 100.0%;"><p> Convenience Plus</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.649395, -79.394486]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_757837617deb4b1292b35b916613f952.setContent(html_3f8a069ab0764510bc563225ddbd5d3f);
+        
+
+        marker_eaa9f95380514cf9b0f3eff1a8d45d48.bindPopup(popup_757837617deb4b1292b35b916613f952)
+        ;
+
+        
+    
+    
+            marker_eaa9f95380514cf9b0f3eff1a8d45d48.bindTooltip(
+                `<div>
+                     <strong>45. Convenience Plus</strong><br><strong> DDist: </strong>2.77 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5fb217b43cc84ff3b7eaf42200d7b195 = L.marker(
+                [43.661953, -79.383559],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_1cf9a79e204047d78bf97ffff0618fd2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_5fb217b43cc84ff3b7eaf42200d7b195.setIcon(icon_1cf9a79e204047d78bf97ffff0618fd2);
+        
+    
+        var popup_9007652bc8b6444bb7fa046b338e925f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_57bb05024b444f68860ba644b1a79d55 = $(`<div id="html_57bb05024b444f68860ba644b1a79d55" style="width: 100.0%; height: 100.0%;"><p> Basic Food & Convenience</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.661953, -79.383559]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_9007652bc8b6444bb7fa046b338e925f.setContent(html_57bb05024b444f68860ba644b1a79d55);
+        
+
+        marker_5fb217b43cc84ff3b7eaf42200d7b195.bindPopup(popup_9007652bc8b6444bb7fa046b338e925f)
+        ;
+
+        
+    
+    
+            marker_5fb217b43cc84ff3b7eaf42200d7b195.bindTooltip(
+                `<div>
+                     <strong>46. Basic Food & Convenience</strong><br><strong> DDist: </strong>2.77 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e03e164a53a8416e996eb886b21a3acc = L.marker(
+                [43.663452, -79.383701],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_32d8db2cd98b407ba5dd9080c68f7194 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_e03e164a53a8416e996eb886b21a3acc.setIcon(icon_32d8db2cd98b407ba5dd9080c68f7194);
+        
+    
+        var popup_8f65356029104b65a872e6a27c94696e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5719d745ea7f442a8ca68e20c658fd1c = $(`<div id="html_5719d745ea7f442a8ca68e20c658fd1c" style="width: 100.0%; height: 100.0%;"><p> Contite</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.663452, -79.383701]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_8f65356029104b65a872e6a27c94696e.setContent(html_5719d745ea7f442a8ca68e20c658fd1c);
+        
+
+        marker_e03e164a53a8416e996eb886b21a3acc.bindPopup(popup_8f65356029104b65a872e6a27c94696e)
+        ;
+
+        
+    
+    
+            marker_e03e164a53a8416e996eb886b21a3acc.bindTooltip(
+                `<div>
+                     <strong>47. Contite</strong><br><strong> DDist: </strong>2.9 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_ad7f1a07ec584b88aa89a5d6df80494c = L.marker(
+                [43.661115, -79.376584],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_308b6659e8984fa8a775f2cf4d22d2c4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_ad7f1a07ec584b88aa89a5d6df80494c.setIcon(icon_308b6659e8984fa8a775f2cf4d22d2c4);
+        
+    
+        var popup_8d524552eaf0425595c044ac50c73b0a = L.popup({"maxWidth": "100%"});
+
+        
+            var html_7cc4a52aeb4e462a926ee10ca0daf74f = $(`<div id="html_7cc4a52aeb4e462a926ee10ca0daf74f" style="width: 100.0%; height: 100.0%;"><p> Kc's Convenience</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.661115, -79.376584]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_8d524552eaf0425595c044ac50c73b0a.setContent(html_7cc4a52aeb4e462a926ee10ca0daf74f);
+        
+
+        marker_ad7f1a07ec584b88aa89a5d6df80494c.bindPopup(popup_8d524552eaf0425595c044ac50c73b0a)
+        ;
+
+        
+    
+    
+            marker_ad7f1a07ec584b88aa89a5d6df80494c.bindTooltip(
+                `<div>
+                     <strong>48. Kc's Convenience</strong><br><strong> DDist: </strong>2.96 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_20dd17e8169f420d94b2f3d7a9c67abd = L.marker(
+                [43.652027, -79.397411],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_b9f606389e5246829bce41aa354dcafc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_20dd17e8169f420d94b2f3d7a9c67abd.setIcon(icon_b9f606389e5246829bce41aa354dcafc);
+        
+    
+        var popup_bd07eaf8700046f9882f4bfafa2d425e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_88075748c83a484ea4ffd4c482d9a1ec = $(`<div id="html_88075748c83a484ea4ffd4c482d9a1ec" style="width: 100.0%; height: 100.0%;"><p> Hua Long Market</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.652027, -79.397411]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_bd07eaf8700046f9882f4bfafa2d425e.setContent(html_88075748c83a484ea4ffd4c482d9a1ec);
+        
+
+        marker_20dd17e8169f420d94b2f3d7a9c67abd.bindPopup(popup_bd07eaf8700046f9882f4bfafa2d425e)
+        ;
+
+        
+    
+    
+            marker_20dd17e8169f420d94b2f3d7a9c67abd.bindTooltip(
+                `<div>
+                     <strong>49. Hua Long Market</strong><br><strong> DDist: </strong>3.0 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_cd6812c3a2f444a3bc8579a57b2f5747 = L.marker(
+                [43.661987, -79.379605],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_8a418f6ce1f34b6d84443b89658893cf = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_cd6812c3a2f444a3bc8579a57b2f5747.setIcon(icon_8a418f6ce1f34b6d84443b89658893cf);
+        
+    
+        var popup_5586940c169f41f8ad93f302e0eadecc = L.popup({"maxWidth": "100%"});
+
+        
+            var html_4c73ac25eb3e4cdd864d0635c0f77a6a = $(`<div id="html_4c73ac25eb3e4cdd864d0635c0f77a6a" style="width: 100.0%; height: 100.0%;"><p> Loblaws</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.661987, -79.379605]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_5586940c169f41f8ad93f302e0eadecc.setContent(html_4c73ac25eb3e4cdd864d0635c0f77a6a);
+        
+
+        marker_cd6812c3a2f444a3bc8579a57b2f5747.bindPopup(popup_5586940c169f41f8ad93f302e0eadecc)
+        ;
+
+        
+    
+    
+            marker_cd6812c3a2f444a3bc8579a57b2f5747.bindTooltip(
+                `<div>
+                     <strong>50. Loblaws</strong><br><strong> DDist: </strong>3.02 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_ba54c5e1e0f3475a8b0d9f6f32302325 = L.marker(
+                [43.658177, -79.365729],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_09eb57d3d8ae4a75aa7fcca94e53b820 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_ba54c5e1e0f3475a8b0d9f6f32302325.setIcon(icon_09eb57d3d8ae4a75aa7fcca94e53b820);
+        
+    
+        var popup_643587a6703e4e678b9facca600028eb = L.popup({"maxWidth": "100%"});
+
+        
+            var html_68f33068c21d4e6f892d3d28ab761bd4 = $(`<div id="html_68f33068c21d4e6f892d3d28ab761bd4" style="width: 100.0%; height: 100.0%;"><p> Iman Grocery & Spices Store</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.658177, -79.365729]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_643587a6703e4e678b9facca600028eb.setContent(html_68f33068c21d4e6f892d3d28ab761bd4);
+        
+
+        marker_ba54c5e1e0f3475a8b0d9f6f32302325.bindPopup(popup_643587a6703e4e678b9facca600028eb)
+        ;
+
+        
+    
+    
+            marker_ba54c5e1e0f3475a8b0d9f6f32302325.bindTooltip(
+                `<div>
+                     <strong>51. Iman Grocery & Spices Store</strong><br><strong> DDist: </strong>3.02 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_52b01cfc19814d79a4eceb019adb83e5 = L.marker(
+                [43.658973, -79.368726],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_4544ed0ba70247da983dfe84c521729f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_52b01cfc19814d79a4eceb019adb83e5.setIcon(icon_4544ed0ba70247da983dfe84c521729f);
+        
+    
+        var popup_3de132a3e9124778bc2231e309b939ed = L.popup({"maxWidth": "100%"});
+
+        
+            var html_294fa0f6180244179ae056fe28112a44 = $(`<div id="html_294fa0f6180244179ae056fe28112a44" style="width: 100.0%; height: 100.0%;"><p> Chen Variety</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.658973, -79.368726]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_3de132a3e9124778bc2231e309b939ed.setContent(html_294fa0f6180244179ae056fe28112a44);
+        
+
+        marker_52b01cfc19814d79a4eceb019adb83e5.bindPopup(popup_3de132a3e9124778bc2231e309b939ed)
+        ;
+
+        
+    
+    
+            marker_52b01cfc19814d79a4eceb019adb83e5.bindTooltip(
+                `<div>
+                     <strong>52. Chen Variety</strong><br><strong> DDist: </strong>3.03 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_accada4b968f456dba4a707c974fedc3 = L.marker(
+                [43.65247, -79.397332],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_d62af9e9ea4c4cc9b5392f6ec76d674e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_accada4b968f456dba4a707c974fedc3.setIcon(icon_d62af9e9ea4c4cc9b5392f6ec76d674e);
+        
+    
+        var popup_017b3ca06f0341db87c48945306e0494 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_7753d8f153cf4bdd8be14a676ef872f7 = $(`<div id="html_7753d8f153cf4bdd8be14a676ef872f7" style="width: 100.0%; height: 100.0%;"><p> Wing Shing China's Herb Centre</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.65247, -79.397332]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_017b3ca06f0341db87c48945306e0494.setContent(html_7753d8f153cf4bdd8be14a676ef872f7);
+        
+
+        marker_accada4b968f456dba4a707c974fedc3.bindPopup(popup_017b3ca06f0341db87c48945306e0494)
+        ;
+
+        
+    
+    
+            marker_accada4b968f456dba4a707c974fedc3.bindTooltip(
+                `<div>
+                     <strong>53. Wing Shing China's Herb Centre</strong><br><strong> DDist: </strong>3.03 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_cf69ae56d75c47898d0f73025c282a18 = L.marker(
+                [43.658489, -79.365847],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_99a61c7360004ca68c4c70dedbc6268b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_cf69ae56d75c47898d0f73025c282a18.setIcon(icon_99a61c7360004ca68c4c70dedbc6268b);
+        
+    
+        var popup_47a5280615324d798095a0fe2273ab54 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_76c3772fdd4d4574ba96e68f1a936772 = $(`<div id="html_76c3772fdd4d4574ba96e68f1a936772" style="width: 100.0%; height: 100.0%;"><p> Dire Dawa Restaurant</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.658489, -79.365847]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_47a5280615324d798095a0fe2273ab54.setContent(html_76c3772fdd4d4574ba96e68f1a936772);
+        
+
+        marker_cf69ae56d75c47898d0f73025c282a18.bindPopup(popup_47a5280615324d798095a0fe2273ab54)
+        ;
+
+        
+    
+    
+            marker_cf69ae56d75c47898d0f73025c282a18.bindTooltip(
+                `<div>
+                     <strong>54. Dire Dawa Restaurant</strong><br><strong> DDist: </strong>3.04 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5c0adfcb20684b599088c09a0c2bd9f4 = L.marker(
+                [43.643437, -79.404103],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_de6cb113ca1d4376b5a150bc6f180f02 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_5c0adfcb20684b599088c09a0c2bd9f4.setIcon(icon_de6cb113ca1d4376b5a150bc6f180f02);
+        
+    
+        var popup_ea673e286b56492e8b88ebe06d58edeb = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ddb03e75a6bb471592fbfa44e909e1dd = $(`<div id="html_ddb03e75a6bb471592fbfa44e909e1dd" style="width: 100.0%; height: 100.0%;"><p> Kitchen Table</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.643437, -79.404103]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_ea673e286b56492e8b88ebe06d58edeb.setContent(html_ddb03e75a6bb471592fbfa44e909e1dd);
+        
+
+        marker_5c0adfcb20684b599088c09a0c2bd9f4.bindPopup(popup_ea673e286b56492e8b88ebe06d58edeb)
+        ;
+
+        
+    
+    
+            marker_5c0adfcb20684b599088c09a0c2bd9f4.bindTooltip(
+                `<div>
+                     <strong>55. Kitchen Table</strong><br><strong> DDist: </strong>3.05 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_432441055ff84a00b0c283b49fadd76b = L.marker(
+                [43.650336, -79.399924],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_1a0489dfd5324f02821512804b3d7539 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_432441055ff84a00b0c283b49fadd76b.setIcon(icon_1a0489dfd5324f02821512804b3d7539);
+        
+    
+        var popup_e6ebd81180b94b6384e6540ef73bcd10 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c113d14856cc406fa36113a41f41d736 = $(`<div id="html_c113d14856cc406fa36113a41f41d736" style="width: 100.0%; height: 100.0%;"><p> Alexandra Tuck Shop</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.650336, -79.399924]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_e6ebd81180b94b6384e6540ef73bcd10.setContent(html_c113d14856cc406fa36113a41f41d736);
+        
+
+        marker_432441055ff84a00b0c283b49fadd76b.bindPopup(popup_e6ebd81180b94b6384e6540ef73bcd10)
+        ;
+
+        
+    
+    
+            marker_432441055ff84a00b0c283b49fadd76b.bindTooltip(
+                `<div>
+                     <strong>56. Alexandra Tuck Shop</strong><br><strong> DDist: </strong>3.05 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_25097b70e78d44fbbc573a2d005b6d21 = L.marker(
+                [43.656306, -79.392963],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_6b521f3fc649464186bb922143515c64 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_25097b70e78d44fbbc573a2d005b6d21.setIcon(icon_6b521f3fc649464186bb922143515c64);
+        
+    
+        var popup_686fd6a8e6b44963af1beddd398b70d4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e7df55680eb64113aa8f0339ca0d48f4 = $(`<div id="html_e7df55680eb64113aa8f0339ca0d48f4" style="width: 100.0%; height: 100.0%;"><p> Baldwin Naturals Organic Food Market</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.656306, -79.392963]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_686fd6a8e6b44963af1beddd398b70d4.setContent(html_e7df55680eb64113aa8f0339ca0d48f4);
+        
+
+        marker_25097b70e78d44fbbc573a2d005b6d21.bindPopup(popup_686fd6a8e6b44963af1beddd398b70d4)
+        ;
+
+        
+    
+    
+            marker_25097b70e78d44fbbc573a2d005b6d21.bindTooltip(
+                `<div>
+                     <strong>57. Baldwin Naturals Organic Food Market</strong><br><strong> DDist: </strong>3.07 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_68127dabfbc6412898d7b581b5b89f5d = L.marker(
+                [43.663847, -79.37996],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_6a30824afe064c73aa7e6d811c886272 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_68127dabfbc6412898d7b581b5b89f5d.setIcon(icon_6a30824afe064c73aa7e6d811c886272);
+        
+    
+        var popup_b65cdeea73394edfad87c07d456c1aca = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d18546369b7047109ebe96bb3816cc0d = $(`<div id="html_d18546369b7047109ebe96bb3816cc0d" style="width: 100.0%; height: 100.0%;"><p> Maple Leaf Convenience Mart</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.663847, -79.37996]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_b65cdeea73394edfad87c07d456c1aca.setContent(html_d18546369b7047109ebe96bb3816cc0d);
+        
+
+        marker_68127dabfbc6412898d7b581b5b89f5d.bindPopup(popup_b65cdeea73394edfad87c07d456c1aca)
+        ;
+
+        
+    
+    
+            marker_68127dabfbc6412898d7b581b5b89f5d.bindTooltip(
+                `<div>
+                     <strong>58. Maple Leaf Convenience Mart</strong><br><strong> DDist: </strong>3.07 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_39aebd1ed48542718ef893ba59ffda5b = L.marker(
+                [43.647075, -79.401812],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_e8fb344e469544b2a0ebf23ee44f68c9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_39aebd1ed48542718ef893ba59ffda5b.setIcon(icon_e8fb344e469544b2a0ebf23ee44f68c9);
+        
+    
+        var popup_973cc83caa0f47b98825b18b901a4054 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5fac1b676c6341a29739d00de28729d2 = $(`<div id="html_5fac1b676c6341a29739d00de28729d2" style="width: 100.0%; height: 100.0%;"><p> Loblaws</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.647075, -79.401812]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_973cc83caa0f47b98825b18b901a4054.setContent(html_5fac1b676c6341a29739d00de28729d2);
+        
+
+        marker_39aebd1ed48542718ef893ba59ffda5b.bindPopup(popup_973cc83caa0f47b98825b18b901a4054)
+        ;
+
+        
+    
+    
+            marker_39aebd1ed48542718ef893ba59ffda5b.bindTooltip(
+                `<div>
+                     <strong>59. Loblaws</strong><br><strong> DDist: </strong>3.09 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_3989c7433799469b8306359e28871a39 = L.marker(
+                [43.657332, -79.362103],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_0e4660c2f7d04c84bddcc906310d9b54 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_3989c7433799469b8306359e28871a39.setIcon(icon_0e4660c2f7d04c84bddcc906310d9b54);
+        
+    
+        var popup_cac123cb2d634567a1b8669491d45849 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_dda0e793cad5407fbc60026efc98f03d = $(`<div id="html_dda0e793cad5407fbc60026efc98f03d" style="width: 100.0%; height: 100.0%;"><p> Argiloff Boris Grocy</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.657332, -79.362103]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_cac123cb2d634567a1b8669491d45849.setContent(html_dda0e793cad5407fbc60026efc98f03d);
+        
+
+        marker_3989c7433799469b8306359e28871a39.bindPopup(popup_cac123cb2d634567a1b8669491d45849)
+        ;
+
+        
+    
+    
+            marker_3989c7433799469b8306359e28871a39.bindTooltip(
+                `<div>
+                     <strong>60. Argiloff Boris Grocy</strong><br><strong> DDist: </strong>3.09 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_bfda09681d73456eada95bc4136ecc67 = L.marker(
+                [43.664777, -79.384824],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_62d9a53fe3804dca9507394c1752bcf0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_bfda09681d73456eada95bc4136ecc67.setIcon(icon_62d9a53fe3804dca9507394c1752bcf0);
+        
+    
+        var popup_7cd8e7c6d54a4341b089957dc05bfd93 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_be36facb65584ca09d3554cdc454ee20 = $(`<div id="html_be36facb65584ca09d3554cdc454ee20" style="width: 100.0%; height: 100.0%;"><p> Ultra Convenience</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.664777, -79.384824]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_7cd8e7c6d54a4341b089957dc05bfd93.setContent(html_be36facb65584ca09d3554cdc454ee20);
+        
+
+        marker_bfda09681d73456eada95bc4136ecc67.bindPopup(popup_7cd8e7c6d54a4341b089957dc05bfd93)
+        ;
+
+        
+    
+    
+            marker_bfda09681d73456eada95bc4136ecc67.bindTooltip(
+                `<div>
+                     <strong>61. Ultra Convenience</strong><br><strong> DDist: </strong>3.11 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b942ea7e277344bab8a779cc632012fb = L.marker(
+                [43.657457, -79.362116],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_ea768b61181341f4bc66fc2f6a4e4948 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_b942ea7e277344bab8a779cc632012fb.setIcon(icon_ea768b61181341f4bc66fc2f6a4e4948);
+        
+    
+        var popup_46461deef494471e9d0e8be2822220ec = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6d4163c08aeb48bb8b9d6f351b72ee58 = $(`<div id="html_6d4163c08aeb48bb8b9d6f351b72ee58" style="width: 100.0%; height: 100.0%;"><p> B A Grocers</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.657457, -79.362116]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_46461deef494471e9d0e8be2822220ec.setContent(html_6d4163c08aeb48bb8b9d6f351b72ee58);
+        
+
+        marker_b942ea7e277344bab8a779cc632012fb.bindPopup(popup_46461deef494471e9d0e8be2822220ec)
+        ;
+
+        
+    
+    
+            marker_b942ea7e277344bab8a779cc632012fb.bindTooltip(
+                `<div>
+                     <strong>62. B A Grocers</strong><br><strong> DDist: </strong>3.11 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_ffdadf7a7099488faeb74bd637e4c133 = L.marker(
+                [43.652604, -79.396066],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_0a163f179c234b32bcd9a162669ca4c0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_ffdadf7a7099488faeb74bd637e4c133.setIcon(icon_0a163f179c234b32bcd9a162669ca4c0);
+        
+    
+        var popup_0272841e083b4726a3f2ceac2ad5de65 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c7c464a4f6c041609ed3947a3f4f0809 = $(`<div id="html_c7c464a4f6c041609ed3947a3f4f0809" style="width: 100.0%; height: 100.0%;"><p> Gao Company</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.652604, -79.396066]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_0272841e083b4726a3f2ceac2ad5de65.setContent(html_c7c464a4f6c041609ed3947a3f4f0809);
+        
+
+        marker_ffdadf7a7099488faeb74bd637e4c133.bindPopup(popup_0272841e083b4726a3f2ceac2ad5de65)
+        ;
+
+        
+    
+    
+            marker_ffdadf7a7099488faeb74bd637e4c133.bindTooltip(
+                `<div>
+                     <strong>63. Gao Company</strong><br><strong> DDist: </strong>3.14 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_49586e508d294a579ce5ff96c5f11a9b = L.marker(
+                [43.645578, -79.403593],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_2ea4f864432444d489eb79353bb51008 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_49586e508d294a579ce5ff96c5f11a9b.setIcon(icon_2ea4f864432444d489eb79353bb51008);
+        
+    
+        var popup_5b9c2fa73faa4ca0ab7307a80842fb50 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d3ea16a499c14d2f82679e0ec013b47f = $(`<div id="html_d3ea16a499c14d2f82679e0ec013b47f" style="width: 100.0%; height: 100.0%;"><p> Collins M</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.645578, -79.403593]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_5b9c2fa73faa4ca0ab7307a80842fb50.setContent(html_d3ea16a499c14d2f82679e0ec013b47f);
+        
+
+        marker_49586e508d294a579ce5ff96c5f11a9b.bindPopup(popup_5b9c2fa73faa4ca0ab7307a80842fb50)
+        ;
+
+        
+    
+    
+            marker_49586e508d294a579ce5ff96c5f11a9b.bindTooltip(
+                `<div>
+                     <strong>64. Collins M</strong><br><strong> DDist: </strong>3.14 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c338bc59bca549d9be24b25a2eb496e4 = L.marker(
+                [43.652157, -79.395368],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_53e48d8398624c618d956eabdc388390 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_c338bc59bca549d9be24b25a2eb496e4.setIcon(icon_53e48d8398624c618d956eabdc388390);
+        
+    
+        var popup_877179a07cfe4f8da4ca413c0903f391 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1c0bc9c9911a4601b2fa53c5a0a81504 = $(`<div id="html_1c0bc9c9911a4601b2fa53c5a0a81504" style="width: 100.0%; height: 100.0%;"><p> Gim Horn Poultry</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.652157, -79.395368]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_877179a07cfe4f8da4ca413c0903f391.setContent(html_1c0bc9c9911a4601b2fa53c5a0a81504);
+        
+
+        marker_c338bc59bca549d9be24b25a2eb496e4.bindPopup(popup_877179a07cfe4f8da4ca413c0903f391)
+        ;
+
+        
+    
+    
+            marker_c338bc59bca549d9be24b25a2eb496e4.bindTooltip(
+                `<div>
+                     <strong>65. Gim Horn Poultry</strong><br><strong> DDist: </strong>3.15 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0f1ee5a92607419188e1d5696510150f = L.marker(
+                [43.664624, -79.384835],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_62ddad92ba51486e91ed374e7215dc6a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_0f1ee5a92607419188e1d5696510150f.setIcon(icon_62ddad92ba51486e91ed374e7215dc6a);
+        
+    
+        var popup_0a75021eebee434194b0545c178086e2 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_b9dd970d7f3247b28cdddca60407d119 = $(`<div id="html_b9dd970d7f3247b28cdddca60407d119" style="width: 100.0%; height: 100.0%;"><p> Galleria Supermarket</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.664624, -79.384835]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_0a75021eebee434194b0545c178086e2.setContent(html_b9dd970d7f3247b28cdddca60407d119);
+        
+
+        marker_0f1ee5a92607419188e1d5696510150f.bindPopup(popup_0a75021eebee434194b0545c178086e2)
+        ;
+
+        
+    
+    
+            marker_0f1ee5a92607419188e1d5696510150f.bindTooltip(
+                `<div>
+                     <strong>66. Galleria Supermarket</strong><br><strong> DDist: </strong>3.15 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6a173fbbb1984525bd92f0eb7f070e2a = L.marker(
+                [43.663925, -79.376598],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_fd5c8b1a71f64feea02454452f1f4b7f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_6a173fbbb1984525bd92f0eb7f070e2a.setIcon(icon_fd5c8b1a71f64feea02454452f1f4b7f);
+        
+    
+        var popup_6542690a776e4b4e8be165c87f69ed4a = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6e2cba0253ad4d0c8425dbbbf77c56ae = $(`<div id="html_6e2cba0253ad4d0c8425dbbbf77c56ae" style="width: 100.0%; height: 100.0%;"><p> Global Market Global</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.663925, -79.376598]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_6542690a776e4b4e8be165c87f69ed4a.setContent(html_6e2cba0253ad4d0c8425dbbbf77c56ae);
+        
+
+        marker_6a173fbbb1984525bd92f0eb7f070e2a.bindPopup(popup_6542690a776e4b4e8be165c87f69ed4a)
+        ;
+
+        
+    
+    
+            marker_6a173fbbb1984525bd92f0eb7f070e2a.bindTooltip(
+                `<div>
+                     <strong>67. Global Market Global</strong><br><strong> DDist: </strong>3.21 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_2a4e5581982a4b1fb0194c91bf85923e = L.marker(
+                [43.647496, -79.403435],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_f01d12a64d194b169ba4ae5dc0b79a78 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_2a4e5581982a4b1fb0194c91bf85923e.setIcon(icon_f01d12a64d194b169ba4ae5dc0b79a78);
+        
+    
+        var popup_38ca062035c14c0d986790d117e66e36 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_f62aa2d071454981a5cd0fd757f431a5 = $(`<div id="html_f62aa2d071454981a5cd0fd757f431a5" style="width: 100.0%; height: 100.0%;"><p> Queens Fruit Market</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.647496, -79.403435]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_38ca062035c14c0d986790d117e66e36.setContent(html_f62aa2d071454981a5cd0fd757f431a5);
+        
+
+        marker_2a4e5581982a4b1fb0194c91bf85923e.bindPopup(popup_38ca062035c14c0d986790d117e66e36)
+        ;
+
+        
+    
+    
+            marker_2a4e5581982a4b1fb0194c91bf85923e.bindTooltip(
+                `<div>
+                     <strong>68. Queens Fruit Market</strong><br><strong> DDist: </strong>3.21 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a5a6f974c88841e6bce499e09d1d1111 = L.marker(
+                [43.654303, -79.397613],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_84ac78926c0e42d59ae6a25116a629be = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_a5a6f974c88841e6bce499e09d1d1111.setIcon(icon_84ac78926c0e42d59ae6a25116a629be);
+        
+    
+        var popup_36f4ea08c38141028bcd10d824a623d9 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_28fae1bdc3734c849b1e8a721becfbde = $(`<div id="html_28fae1bdc3734c849b1e8a721becfbde" style="width: 100.0%; height: 100.0%;"><p> New Wing Fong Company</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.654303, -79.397613]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_36f4ea08c38141028bcd10d824a623d9.setContent(html_28fae1bdc3734c849b1e8a721becfbde);
+        
+
+        marker_a5a6f974c88841e6bce499e09d1d1111.bindPopup(popup_36f4ea08c38141028bcd10d824a623d9)
+        ;
+
+        
+    
+    
+            marker_a5a6f974c88841e6bce499e09d1d1111.bindTooltip(
+                `<div>
+                     <strong>69. New Wing Fong Company</strong><br><strong> DDist: </strong>3.28 km
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a2a78a1c7d684a439088a12beb8a76c2 = L.marker(
+                [43.661679, -79.369506],
+                {}
+            ).addTo(marker_cluster_aedc256306b245d38898a424096fa0fb);
+        
+    
+            var icon_26d82deb0cf84370919c049a3167769d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shopping-cart", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_a2a78a1c7d684a439088a12beb8a76c2.setIcon(icon_26d82deb0cf84370919c049a3167769d);
+        
+    
+        var popup_255e67eb11504f8680e08350c2c86267 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e8453f87b55645d7be4f67bd7ea36cb6 = $(`<div id="html_e8453f87b55645d7be4f67bd7ea36cb6" style="width: 100.0%; height: 100.0%;"><p> Stanley's Smoke and Grocery</p>                       <p><button type='button' id='poi_button' onclick="create_trip('mode_of_transit=foot&origin=[43.6445345, -79.380381]&destination=[43.661679, -79.369506]&time=time_now&date_time=&submit_paths=Submit#');" >go there</button></p>                   </div>`)[0];
+            popup_255e67eb11504f8680e08350c2c86267.setContent(html_e8453f87b55645d7be4f67bd7ea36cb6);
+        
+
+        marker_a2a78a1c7d684a439088a12beb8a76c2.bindPopup(popup_255e67eb11504f8680e08350c2c86267)
+        ;
+
+        
+    
+    
+            marker_a2a78a1c7d684a439088a12beb8a76c2.bindTooltip(
+                `<div>
+                     <strong>70. Stanley's Smoke and Grocery</strong><br><strong> DDist: </strong>3.29 km
                  </div>`,
                 {"sticky": true}
             );

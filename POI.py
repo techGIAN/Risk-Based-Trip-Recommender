@@ -3,7 +3,7 @@ from utilityMethods import ROUTE_FROM
 
 
 class POI(Trip_Recommender):
-    # poi_risk = None
+    poi_risk = None
 
     def __init__(self, coordinate, origin, poi_risk, ROUTE_FROM=ROUTE_FROM.OSRM, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False,
                  mode_of_transit='car', is_time_now=True, time_later_val=None):
@@ -18,8 +18,6 @@ class POI(Trip_Recommender):
                          is_time_now=is_time_now,
                          time_later_val=time_later_val)
 
-        # TO DO
-        # compute POI risk and update it accordingly
 
     # filter out paths based on distance and time to get to the location
     def filter(self, dist_filter, time_filter):

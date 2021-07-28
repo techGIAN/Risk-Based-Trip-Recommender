@@ -1,4 +1,4 @@
-from functional import seq
+# from functional import seq
 import pandas as pd
 import numpy as np
 import geopandas as gpd

@@ -19,17 +19,17 @@
 <div class="tabs">
     <div class="tab">
         {% if tab_val == "results" %}
-            <button class="tablinks" onclick="showTab(event, 'path_recommender')">Path Recommender</button>
-            <button class="tablinks" onclick="showTab(event, 'poi_recommender')">POI Recommender</button>
-            <button class="tablinks" onclick="showTab(event, 'results')" id="defaultOpen">Searched Results</button>
+        <button class="tablinks" onclick="showTab(event, 'path_recommender')">Path Recommender</button>
+        <button class="tablinks" onclick="showTab(event, 'poi_recommender')">POI Recommender</button>
+        <button class="tablinks" onclick="showTab(event, 'results')" id="defaultOpen">Searched Results</button>
         {% elif tab_val == "poi_recommender" %}
-            <button class="tablinks" onclick="showTab(event, 'path_recommender')">Path Recommender</button>
-            <button class="tablinks" onclick="showTab(event, 'poi_recommender')" id="defaultOpen">POI Recommender</button>
-            <button class="tablinks" onclick="showTab(event, 'results')">Searched Results</button>
+        <button class="tablinks" onclick="showTab(event, 'path_recommender')">Path Recommender</button>
+        <button class="tablinks" onclick="showTab(event, 'poi_recommender')" id="defaultOpen">POI Recommender</button>
+        <button class="tablinks" onclick="showTab(event, 'results')">Searched Results</button>
         {% else %}
-            <button class="tablinks" onclick="showTab(event, 'path_recommender')" id="defaultOpen">Path Recommender</button>
-            <button class="tablinks" onclick="showTab(event, 'poi_recommender')">POI Recommender</button>
-            <button class="tablinks" onclick="showTab(event, 'results')">Searched Results</button>
+        <button class="tablinks" onclick="showTab(event, 'path_recommender')" id="defaultOpen">Path Recommender</button>
+        <button class="tablinks" onclick="showTab(event, 'poi_recommender')">POI Recommender</button>
+        <button class="tablinks" onclick="showTab(event, 'results')">Searched Results</button>
         {% endif %}
     </div>
 </div>

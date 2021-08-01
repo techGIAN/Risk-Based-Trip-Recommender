@@ -14,7 +14,9 @@ from utilityMethods import query, ROUTE_FROM
 from shapely import wkt
 import branca.colormap as cm
 
-from RiskMap import RiskMap
+
+# uncomment this line
+# from RiskMap import RiskMap
 
 geoloc = Nominatim(user_agent='TripRecApp')
 geolocation = RateLimiter(geoloc.geocode, min_delay_seconds=2, return_value_on_exception=None)
@@ -36,6 +38,8 @@ class Trip_Recommender(Location):
         'color' : [],
         'risk_map':None
     }
+    total_risk = 0
+    GDF_FILE = 'hex_gdf.csv'
 
     #  Initializes parameters
     def __init__(self, source, destination, trip_count,
@@ -77,9 +81,16 @@ class Trip_Recommender(Location):
                                                 mode_of_transit=self.mode_of_transit)
 
         for i in reversed(range(len(path_list))):
-            new_path = Path(path_list[i], distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
+            # new_path = Path(path_list[i], distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
+            swapped_points = [[pt[1],pt[0]] for pt in path_list[i]]
+            new_path = Path(swapped_points, distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
+
             new_path.set_risk_of_path()
+            new_path_risk = new_path.get_risk_of_path()
+            self.total_risk += new_path_risk
             self.paths.append(new_path)
+
+            print('Risk of Path ' + str(i) + ': ' + str(new_path_risk) + '; TotalRiskSoFar: ' + str(self.total_risk))
 
     #  Get paths from source to destination
     def plot(self):
@@ -105,32 +116,32 @@ class Trip_Recommender(Location):
         #     style_function=lambda x:{'fillColor':'gray', 'color':'black'}
         # ).add_to(m)
         # colormap
-        colormap = cm.LinearColormap(colors=[(255,0,0,0), 'red'])
-        colormap.caption = 'Risk Level'
-        colormap.add_to(m)
-        style_func = lambda x: {
-            'color': 'black',
-            'fillColor': colormap(x['properties']['risk_val']),
-            'fillOpacity': 0.5
-        }
-        highlight_func = lambda x: {
-            'fillColor': '#000000',
-            'color': '#000000',
-            'fillOpacity': 0.3
-        }
-        self.map_val['risk_map'] = folium.features.GeoJson(
-            grid_gdf,
-            style_function=style_func,
-            highlight_function=highlight_func,
-            control=False,
-            tooltip=folium.features.GeoJsonTooltip(
-                fields=['cellID', 'risk_val'],
-                aliases=['Hex ID', 'Risk Level'],
-                style=('background-color: white; color: #333333; font-family: arial; font-sizeL 12px; padding: 10px;'),
-                sticky=True
-            )
-        )
-        self.map_val['risk_map'].add_to(m)
+        # colormap = cm.LinearColormap(colors=[(255,0,0,0), 'red'])
+        # colormap.caption = 'Risk Level'
+        # colormap.add_to(m)
+        # style_func = lambda x: {
+        #     'color': 'black',
+        #     'fillColor': colormap(x['properties']['risk_val']),
+        #     'fillOpacity': 0.5
+        # }
+        # highlight_func = lambda x: {
+        #     'fillColor': '#000000',
+        #     'color': '#000000',
+        #     'fillOpacity': 0.3
+        # }
+        # self.map_val['risk_map'] = folium.features.GeoJson(
+        #     grid_gdf,
+        #     style_function=style_func,
+        #     highlight_function=highlight_func,
+        #     control=False,
+        #     tooltip=folium.features.GeoJsonTooltip(
+        #         fields=['cellID', 'risk_val'],
+        #         aliases=['Hex ID', 'Risk Level'],
+        #         style=('background-color: white; color: #333333; font-family: arial; font-sizeL 12px; padding: 10px;'),
+        #         sticky=True
+        #     )
+        # )
+        # self.map_val['risk_map'].add_to(m)
 
         # markers
         self.map_val['origin'] = folium.Marker(
@@ -155,7 +166,8 @@ class Trip_Recommender(Location):
 
         i = len(self.paths) - 1
         for path in self.paths:
-            pts = path.coordinates
+            pts = [[pt[1],pt[0]] for pt in path.coordinates]
+
 
             # for pt in pts:
             #     temp = pt[0]
@@ -165,18 +177,19 @@ class Trip_Recommender(Location):
             this_distance = str(round(path.total_distance, 2)) + 'Km'
             this_duration = str(round(path.total_duration, 2)) + ' min'
             risk_val = str(round(path.risk,2))
+            rrisk_val = str(round(path.risk/self.total_risk,2))
 
             if path.total_duration >= 60:
                 this_duration = str(round(path.total_duration / 60, 2)) + " h"
 
             trip_name = self.mode_of_transit + ': Trip ' + str(i + 1) + '<br>' + \
                         this_distance + '<br>' + this_duration + '<br>' + \
-                        'risk: ' + risk_val
+                        'rrisk: ' + rrisk_val
 
             self.results_html = "<button id='path_selector' onclick='selectRoute("+str(i)+")' >Trip " + str(i+1) + \
                                 ': <div style="padding-left:10px;">time:' + this_duration + '</div>' \
                                 '<div style="padding-left:10px;">distance: ' + this_distance + '</div>' \
-                                '<div style="padding-left:10px;"risk: ' + risk_val + '</div>' \
+                                '<div style="padding-left:10px;"rrisk: ' + rrisk_val + '</div>' \
                                 '</button>\n' + self.results_html
 
             rand_color = 'darkblue'

@@ -1,7 +1,8 @@
 import copy
 from utilityMethods import query
 
-from RiskMap import RiskMap
+# uncomment this line
+# from RiskMap import RiskMap
 from shapely import wkt
 import pandas as pd
 import numpy as np
@@ -24,7 +25,6 @@ class Path:
     ROUTE_FROM = None
 
     hexagons = dict()
-    risks = None
     discretized_points = []
     discretized_linestrings = []
     id = 0
@@ -104,8 +104,8 @@ class Path:
         path_hex = self.hex_of_path()
         self.risk = self.path_risk()
 
-    # def get_risk_of_path(self):
-    #     return self.risk
+    def get_risk_of_path(self):
+        return self.risk
 
     def discretize_path(self):
         '''
@@ -198,5 +198,5 @@ class Path:
             pathRisk += sum(risk_vals)
             t += 1
 
-        self.risk = pathRisk
+        # self.risk = pathRisk
         return pathRisk

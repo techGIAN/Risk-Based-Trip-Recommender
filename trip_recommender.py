@@ -14,6 +14,7 @@ from utilityMethods import query, ROUTE_FROM
 from shapely import wkt
 import branca.colormap as cm
 
+from optimizer import Optimizer
 
 # uncomment this line
 # from RiskMap import RiskMap
@@ -40,6 +41,7 @@ class Trip_Recommender(Location):
     }
     total_risk = 0
     GDF_FILE = 'hex_gdf.csv'
+    df_paths = pd.DataFrame(columns=['path_id', 'path_distance', 'path_duration', 'path_risk'])
 
     #  Initializes parameters
     def __init__(self, source, destination, trip_count,
@@ -83,14 +85,41 @@ class Trip_Recommender(Location):
         for i in reversed(range(len(path_list))):
             # new_path = Path(path_list[i], distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
             swapped_points = [[pt[1],pt[0]] for pt in path_list[i]]
-            new_path = Path(swapped_points, distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
+            new_path = Path(i, swapped_points, distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
 
+            # set and retrieve risk of path
             new_path.set_risk_of_path()
             new_path_risk = new_path.get_risk_of_path()
             self.total_risk += new_path_risk
-            self.paths.append(new_path)
 
-            print('Risk of Path ' + str(i) + ': ' + str(new_path_risk) + '; TotalRiskSoFar: ' + str(self.total_risk))
+            # add the path to the list of current paths
+            self.paths.append(new_path)
+            
+            # building the df of the paths with attributes [path_id, path_distance, path_duration, path_risk]
+            path_dict = {'path_id': i, 'path_distance': distances[i], 'path_duration': durations[i], 'path_risk': new_path_risk}
+            self.df_paths = self.df_paths.append(path_dict, ignore_index=True)
+            
+
+            # print('Risk of Path ' + str(i) + ': ' + str(new_path_risk) + '; TotalRiskSoFar: ' + str(self.total_risk))
+        
+        # Use the optimizer to rank the paths according to score
+        df_path_sub = pd.DataFrame(columns=['path_distance', 'path_duration', 'path_risk'])
+        df_path_sub[['path_distance', 'path_duration', 'path_risk']] = self.df_paths[['path_distance', 'path_duration', 'path_risk']]
+        op = Optimizer()
+        v = op.opt(np_array=df_path_sub.to_numpy())
+        self.df_paths['path_score'] = v[0]*self.df_paths['path_distance'] + v[1]*self.df_paths['path_duration'] + v[2]*self.df_paths['path_risk']
+        self.df_paths.sort_values(by=['path_score'], inplace=True, ascending=True)
+
+        # and sort by ranking
+        rank = 1
+        for idx, row in self.df_paths.iterrows():
+            for i in range(len(self.paths)):
+                if self.paths[i].id == row['path_id']:
+                    self.paths[i].rank = rank
+                    self.paths[i].score = row['path_score']
+            rank += 1
+
+        self.paths = sorted(self.paths, key=lambda p: p.rank, reverse=True)
 
     #  Get paths from source to destination
     def plot(self):
@@ -184,13 +213,17 @@ class Trip_Recommender(Location):
 
             trip_name = self.mode_of_transit + ': Trip ' + str(i + 1) + '<br>' + \
                         this_distance + '<br>' + this_duration + '<br>' + \
-                        'rrisk: ' + rrisk_val
+                        'rrisk: ' + rrisk_val + '<br> Rank: ' + str(path.rank) # + '<br> Score: ' + str(round(path.score,2))
+
 
             self.results_html = "<button id='path_selector' onclick='selectRoute("+str(i)+")' >Trip " + str(i+1) + \
                                 ': <div style="padding-left:10px;">time:' + this_duration + '</div>' \
                                 '<div style="padding-left:10px;">distance: ' + this_distance + '</div>' \
                                 '<div style="padding-left:10px;"rrisk: ' + rrisk_val + '</div>' \
+                                '<div style="padding-left:10px;"rank: ' + str(path.rank) + '</div>' \
                                 '</button>\n' + self.results_html
+                                # '<div style="padding-left:10px;"score: ' + str(round(path.score,2)) + '</div>' \
+                                
 
             rand_color = 'darkblue'
             opacity_val = 0.3
@@ -233,6 +266,9 @@ class Trip_Recommender(Location):
 
     def getPaths(self):
         return self.paths
+    
+    def normalizer(ll):
+        return [x/sum(ll) for x in ll]
 
     def selectPath(self, number):
         number = int(number)

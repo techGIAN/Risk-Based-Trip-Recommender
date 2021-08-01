@@ -31,7 +31,10 @@ class Path:
     grid_gdf = None
     GDF_FILE = 'hex_gdf.csv'
 
-    def __init__(self, coordinates, distance, time, ROUTE_FROM = 'OSRM'):
+    rank = -1
+    score = 0
+
+    def __init__(self, id, coordinates, distance, time, ROUTE_FROM = 'OSRM'):
         self.coordinates = coordinates
         self.total_distance = distance
         self.total_duration = time

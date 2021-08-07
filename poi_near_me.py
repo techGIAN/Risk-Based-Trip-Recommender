@@ -9,7 +9,7 @@ from folium.plugins import MarkerCluster
 import folium
 from Location import Location
 from POI import POI
-from utilityMethods import SORT_BY, ROUTE_FROM
+from utilityMethods import SORT_BY, ROUTE_FROM, haversine_dist
 from termcolor import colored
 
 from datetime import datetime as dt
@@ -127,7 +127,9 @@ class POINearMe(Location):
 
         start = time.time()
 
-        self.df_poi['haversine_distance'] = self.haversine_dist()
+        self.df_poi['haversine_distance'] = haversine_dist(source=self.source,
+                                                           latitude=self.df_poi['latitude'],
+                                                           longitude=self.df_poi['longitude'])
 
         self.__update_pois()
         # self.__filter_by_criteria()
@@ -137,18 +139,6 @@ class POINearMe(Location):
         if self.IS_DEBUG_MODE:
             print(colored('\tFinish filter application ', color='magenta'))
             print(colored('Finish initialization\n<================', color='magenta'))
-
-    def haversine_dist(self):
-        R = 6373.0
-        lat1 = np.deg2rad(self.source[0])
-        lon1 = np.deg2rad(self.source[1])
-        lat2 = np.deg2rad(self.df_poi['latitude'])
-        lon2 = np.deg2rad(self.df_poi['longitude'])
-        d_lon = lon2 - lon1
-        d_lat = lat2 - lat1
-        d = np.sin(d_lat / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(d_lon / 2) ** 2
-        cons = 2 * np.arctan2(np.sqrt(d), np.sqrt(1 - d))
-        return R * cons
 
     # Used by __update_pois
     # Make sure to keep self.df_poi unchanged as it takes time to reload the file

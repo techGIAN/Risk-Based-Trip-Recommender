@@ -1,5 +1,5 @@
 import copy
-from utilityMethods import query
+from utilityMethods import query, ROUTE_FROM
 
 # uncomment this line
 # from RiskMap import RiskMap
@@ -22,7 +22,7 @@ class Path:
     total_duration = None
     time_by_segment = []
     distance_by_segment = []
-    ROUTE_FROM = None
+    ROUTE_FROM = ROUTE_FROM.OSRM
 
     hexagons = dict()
     discretized_points = []
@@ -34,12 +34,23 @@ class Path:
     rank = -1
     score = 0
 
-    def __init__(self, id, coordinates, distance, time, ROUTE_FROM = 'OSRM'):
+    def __init__(self, id, coordinates, distance, time, ROUTE_FROM=ROUTE_FROM.OSRM, hexagons=None,
+                 discretized_points=None, discretized_linestrings=None):
         self.coordinates = coordinates
         self.total_distance = distance
         self.total_duration = time
         self.ROUTE_FROM = ROUTE_FROM
         self.id = id
+
+        if hexagons is not None:
+            self.hexagons = hexagons
+
+        if discretized_points is not None:
+            self.discretized_points = discretized_points
+
+        if discretized_linestrings is not None:
+            self.discretized_linestrings = discretized_linestrings
+
         self.init_gdf(self.GDF_FILE)
 
     def init_gdf(self, gdf_file='hex_gdf.csv'):
@@ -104,7 +115,10 @@ class Path:
             Sets the risk of the path
         '''
         self.discretize_path()
-        path_hex = self.hex_of_path()
+
+        if len(self.hexagons) == 0:
+            path_hex = self.hex_of_path()
+
         self.risk = self.path_risk()
 
     def get_risk_of_path(self):
@@ -114,8 +128,10 @@ class Path:
         '''
             Discretizes the path. First into  points then into linestrings
         '''
-        self.set_discretized_points()
-        self.set_discretized_linestrings()
+        if len(self.discretized_points) == 0:
+            self.set_discretized_points()
+        if len(self.discretized_linestrings) == 0:
+            self.set_discretized_linestrings()
 
     def set_discretized_points(self):
         '''
@@ -203,3 +219,6 @@ class Path:
 
         # self.risk = pathRisk
         return pathRisk
+
+    def get_hexagons(self):
+        return self.hexagons

@@ -1,7 +1,8 @@
 import webbrowser
 import os
-
+import ast
 import folium
+import time
 
 import pandas as pd
 import geopandas as gpd
@@ -9,6 +10,7 @@ from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from Location import Location
 from Path import Path
+from RiskMap import RiskMap
 from utilityMethods import query, ROUTE_FROM
 
 from shapely import wkt
@@ -22,6 +24,7 @@ from optimizer import Optimizer
 geoloc = Nominatim(user_agent='TripRecApp')
 geolocation = RateLimiter(geoloc.geocode, min_delay_seconds=2, return_value_on_exception=None)
 WEBNAME = 'templates/recommender.html'
+df_trip_path = 'df_trips.csv'
 
 
 class Trip_Recommender(Location):
@@ -42,6 +45,7 @@ class Trip_Recommender(Location):
     total_risk = 0
     GDF_FILE = 'hex_gdf.csv'
     df_paths = pd.DataFrame(columns=['path_id', 'path_distance', 'path_duration', 'path_risk'])
+    df_trip = None
 
     #  Initializes parameters
     def __init__(self, source, destination, trip_count,
@@ -52,8 +56,6 @@ class Trip_Recommender(Location):
         self.setNewTrip(source, destination, trip_count, ROUTE_FROM,
                         IS_DEBUG_MODE=IS_DEBUG_MODE, IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE,
                         mode_of_transit=mode_of_transit, is_time_now=is_time_now, time_later_val=time_later_val)
-
-
 
     def setNewTrip(self, source, destination, trip_count, ROUTE_FROM,
                    IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False, mode_of_transit='car',
@@ -74,34 +76,10 @@ class Trip_Recommender(Location):
         if not os.path.exists(self.GDF_FILE):
             rm = RiskMap(w=1000)
 
-        path_list, distances, durations = query(source=self.source,
-                                                destination=self.destination,
-                                                trip_count=self.trip_count,
-                                                IS_DEBUG_MODE=IS_DEBUG_MODE,
-                                                IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE,
-                                                ROUTE_FROM=self.ROUTE_FROM,
-                                                mode_of_transit=self.mode_of_transit)
+        self.__set_trips_and_paths(ROUTE_FROM, IS_DEBUG_MODE, IS_FULL_DEBUG_MODE)
+        self.__rank_paths()
 
-        for i in reversed(range(len(path_list))):
-            # new_path = Path(path_list[i], distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
-            swapped_points = [[pt[1],pt[0]] for pt in path_list[i]]
-            new_path = Path(i, swapped_points, distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
-
-            # set and retrieve risk of path
-            new_path.set_risk_of_path()
-            new_path_risk = new_path.get_risk_of_path()
-            self.total_risk += new_path_risk
-
-            # add the path to the list of current paths
-            self.paths.append(new_path)
-            
-            # building the df of the paths with attributes [path_id, path_distance, path_duration, path_risk]
-            path_dict = {'path_id': i, 'path_distance': distances[i], 'path_duration': durations[i], 'path_risk': new_path_risk}
-            self.df_paths = self.df_paths.append(path_dict, ignore_index=True)
-            
-
-            # print('Risk of Path ' + str(i) + ': ' + str(new_path_risk) + '; TotalRiskSoFar: ' + str(self.total_risk))
-        
+    def __rank_paths(self):
         # Use the optimizer to rank the paths according to score
         df_path_sub = pd.DataFrame(columns=['path_distance', 'path_duration', 'path_risk'])
         df_path_sub[['path_distance', 'path_duration', 'path_risk']] = self.df_paths[['path_distance', 'path_duration', 'path_risk']]
@@ -120,9 +98,97 @@ class Trip_Recommender(Location):
             rank += 1
 
         self.paths = sorted(self.paths, key=lambda p: p.rank, reverse=True)
+    
+    def __set_trips_and_paths(self, ROUTE_FROM, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
+        distances, durations, path_list = None, None, None
+        paths_discretized_points, paths_discretized_linestrings = None, None
+        notFound = True
+
+        # Path exists
+        if os.path.exists(df_trip_path) and ROUTE_FROM == ROUTE_FROM.OSRM:
+            self.df_trip = pd.read_csv(df_trip_path)
+
+            # Doesn't include mode of transit as there is no distinction in OSRM
+            row = self.df_trip[(self.df_trip['source'] == str(self.source)) &
+                               (self.df_trip['destination'] == str(self.destination))]
+
+            # Take into account a reverse trip with the assumption that the distance and
+            # duration remains the same
+            if len(row) == 0:
+                row = self.df_trip[(self.df_trip['source'] == str(self.destination)) &
+                                   (self.df_trip['destination'] == str(self.source))]
+
+            # Entry exists! retrive and use it
+            if len(row) > 0:
+                print("\t\t\tTrip Exists!")
+                distances = ast.literal_eval(row['distance'].values[0])
+                durations = ast.literal_eval(row['duration'].values[0])
+                path_list = ast.literal_eval(row['routes'].values[0])
+
+                paths_hexagons = ast.literal_eval(row['hexagons'].values[0])
+                paths_discretized_points = ast.literal_eval(row['discretized_points'].values[0])
+
+                notFound = False
+
+
+        # Either file doesn't exist, trip doesn't exist or the query is not for OSRM
+        if notFound:
+            self.df_trip = pd.DataFrame(columns=['source',
+                                                 'destination',
+                                                 'distance',
+                                                 'duration',
+                                                 'routes',
+                                                 'hexagons',
+                                                 'discretized_points'])
+
+            path_list, distances, durations = query(source=self.source,
+                                                    destination=self.destination,
+                                                    trip_count=self.trip_count,
+                                                    IS_DEBUG_MODE=IS_DEBUG_MODE,
+                                                    IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE,
+                                                    ROUTE_FROM=self.ROUTE_FROM,
+                                                    mode_of_transit=self.mode_of_transit)
+
+        hexagons, discretized_points, discretized_linestrings = [], [], []
+
+        for i in reversed(range(len(path_list))):
+            if notFound:
+                new_path = Path(i, path_list[i], distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
+            else:
+                new_path = Path(i, coordinates=path_list[i], distance=distances[i], time=durations[i],
+                                ROUTE_FROM=ROUTE_FROM.OSRM, hexagons=paths_hexagons[i],
+                                discretized_points=paths_discretized_points[i])
+
+            # No need to double swap. It is being taken cared of in queryOSRM
+            # swapped_points = [[pt[1],pt[0]] for pt in path_list[i]]
+            # new_path = Path(i, swapped_points, distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
+
+            # set and retrieve risk of path
+            new_path.set_risk_of_path()
+            new_path_risk = new_path.get_risk_of_path()
+            self.total_risk += new_path_risk
+
+            # add the path to the list of current paths
+            discretized_points.append(new_path.discretized_points)
+            hexagons.append(new_path.get_hexagons())
+
+            self.paths.append(new_path)
+
+            # building the df of the paths with attributes [path_id, path_distance, path_duration, path_risk]
+            path_dict = {'path_id': i, 'path_distance': distances[i], 'path_duration': durations[i], 'path_risk': new_path_risk}
+            self.df_paths = self.df_paths.append(path_dict, ignore_index=True)
+
+        if notFound and ROUTE_FROM == ROUTE_FROM.OSRM:
+            row = pd.DataFrame({'source': [self.source], 'destination': [self.destination], 'distance': [distances],
+                                'duration': [durations], 'routes': [path_list], 'hexagons': [hexagons],
+                                'discretized_points':[discretized_points]})
+
+            self.df_trip = self.df_trip.append(row)
+            self.df_trip.to_csv(df_trip_path, index=False)
 
     #  Get paths from source to destination
     def plot(self):
+        start = time.time()
         self.results_html = ''
 
         mid = [(self.source[0] + self.destination[0]) / 2, (self.source[1] + self.destination[1]) / 2]
@@ -130,9 +196,9 @@ class Trip_Recommender(Location):
         tgt_poi = 'Destination'
         m = folium.Map(location=mid, zoom_start=14)
 
-
         # Add hexagon layer
         print('init hex layer')
+
         df = pd.read_csv(self.GDF_FILE)
         df['geometry'] = df['geometry'].apply(wkt.loads)
         grid_gdf = gpd.GeoDataFrame(df, crs='epsg:4326')
@@ -195,8 +261,10 @@ class Trip_Recommender(Location):
 
         i = len(self.paths) - 1
         for path in self.paths:
-            pts = [[pt[1],pt[0]] for pt in path.coordinates]
+            # No need to double swap. It is being taken cared of in queryOSRM
+            # pts = [[pt[1],pt[0]] for pt in path.coordinates]
 
+            pts = path.coordinates
 
             # for pt in pts:
             #     temp = pt[0]
@@ -206,7 +274,7 @@ class Trip_Recommender(Location):
             this_distance = str(round(path.total_distance, 2)) + 'Km'
             this_duration = str(round(path.total_duration, 2)) + ' min'
             risk_val = str(round(path.risk,2))
-            rrisk_val = str(round(path.risk/self.total_risk,2))
+            rrisk_val = str(round(path.risk/self.total_risk,2)) if self.total_risk != 0 else "0"
 
             if path.total_duration >= 60:
                 this_duration = str(round(path.total_duration / 60, 2)) + " h"
@@ -258,6 +326,8 @@ class Trip_Recommender(Location):
         m.save(WEBNAME)
         path_to_open = 'file:///' + os.getcwd() + '/' + WEBNAME
         # webbrowser.open_new_tab(path_to_open)
+        end = time.time()
+        print("time took to process request: " + str(round((end - start) / 60, 2)) + " min")
 
     # Prints the number of points per kilometer to get a sense of the resolution
     def get_resolution_data(self):
@@ -272,12 +342,12 @@ class Trip_Recommender(Location):
 
     def selectPath(self, number):
         number = int(number)
-        print("path value that needs to change: "+ str(number))
+
         mid = [(self.source[0] + self.destination[0]) / 2, (self.source[1] + self.destination[1]) / 2]
         m = folium.Map(location=mid, zoom_start=14)
 
         # markers
-        self.map_val['risk_map'].add_to(m)
+        # self.map_val['risk_map'].add_to(m)
         self.map_val['origin'].add_to(m)
         self.map_val['destination'].add_to(m)
 

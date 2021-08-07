@@ -3,6 +3,9 @@ import urllib.request
 import json
 import os
 from enum import Enum
+import numpy as np
+import pandas as pd
+import ast
 
 GRASS_HOPPER_KEY = 'fc4feee8-6646-46a1-a480-ad2a14f094c2'
 
@@ -23,14 +26,63 @@ class ROUTE_FROM(Enum):
 # returns path_list, distances, durations
 def query(source, destination, trip_count, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False, ROUTE_FROM=ROUTE_FROM.OSRM,
           mode_of_transit='car'):
-    q = None
+    """
+    :param source: source coordinates
+    :param destination: destination coordinates
+    :return: search results: distance, duration, routes
+    """
+    file_name = 'df_past_coordinates_search.csv'
 
     if ROUTE_FROM == ROUTE_FROM.OSRM:
+        if os.path.isfile(file_name):
+            print("\t\t\tFile EXISTS!!!")
+            coordinate_file = pd.read_csv(file_name)
+
+            row = coordinate_file[(coordinate_file['source'] == str(source)) &
+                                  (coordinate_file['destination'] == str(destination))]
+
+            # Take into account a reverse trip with the assumption that the distance and
+            # duration remains the same
+            if len(row) > 0:
+                row = coordinate_file[(coordinate_file['source'] == str(destination)) &
+                                      (coordinate_file['destination'] == str(source))]
+
+            # Entry exists! retrive and use it
+            if len(row) > 0:
+                print("\tEntry Exists!!!")
+                distance = ast.literal_eval(row['distance'].values[0])
+                duration = ast.literal_eval(row['duration'].values[0])
+                routes = ast.literal_eval(row['routes'].values[0])
+
+                return routes, distance, duration
+
+        else:
+            print("\tEntry does't Exists!!!")
+            coordinate_file = pd.DataFrame(columns=['source',
+                                                    'destination',
+                                                    'distance',
+                                                    'duration',
+                                                    'routes',
+                                                    'mode_of_transit'])
+
         q = queryOSRM(source, destination, mode_of_transit, IS_DEBUG_MODE, IS_FULL_DEBUG_MODE)
+        routes, distance, duration = __get_path_points(q, ROUTE_FROM, trip_count)
+
+        # save entry to the csv file
+        row = pd.DataFrame({'source': [source], 'destination': [destination],
+                            'distance': [distance], 'duration': [duration],
+                            'routes': [routes], 'mode_of_transit': [mode_of_transit]})
+
+        print("\tAppending File!!!")
+        coordinate_file = coordinate_file.append(row)
+        coordinate_file.to_csv(file_name, index=False)
+
+        # return routes, distance and duration
+        return routes, distance, duration
+
     elif ROUTE_FROM == ROUTE_FROM.GRASS_HOPPER:
         q = queryGrassHopper(source, destination, trip_count, mode_of_transit, IS_DEBUG_MODE, IS_FULL_DEBUG_MODE)
-
-    return __get_path_points(q, ROUTE_FROM, trip_count)
+        return __get_path_points(q, ROUTE_FROM, trip_count)
 
 
 # Get paths from OSRM for a given source and destination
@@ -129,3 +181,15 @@ def __get_path_points_GRASS_HOPPER(routing_data, num_of_routes):
 
     return routes, dist_tags, duration_tags
 
+
+def haversine_dist(source, latitude, longitude):
+    R = 6373.0
+    lat1 = np.deg2rad(source[0])
+    lon1 = np.deg2rad(source[1])
+    lat2 = np.deg2rad(latitude)
+    lon2 = np.deg2rad(longitude)
+    d_lon = lon2 - lon1
+    d_lat = lat2 - lat1
+    d = np.sin(d_lat / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(d_lon / 2) ** 2
+    cons = 2 * np.arctan2(np.sqrt(d), np.sqrt(1 - d))
+    return R * cons

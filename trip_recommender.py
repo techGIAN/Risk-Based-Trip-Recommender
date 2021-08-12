@@ -1,3 +1,4 @@
+import copy
 import webbrowser
 import os
 import ast
@@ -35,12 +36,12 @@ class Trip_Recommender(Location):
     mode_of_transit = 'car'
     map_val = {
         'origin': None,
-        'destination':None,
-        'pts' : [],
-        'popup' : [],
-        'tooltip' : [],
-        'color' : [],
-        'risk_map':None
+        'destination': None,
+        'pts': [],
+        'popup': [],
+        'tooltip': [],
+        'color': [],
+        'risk_map': None
     }
     total_risk = 0
     GDF_FILE = 'hex_gdf.csv'
@@ -82,10 +83,12 @@ class Trip_Recommender(Location):
     def __rank_paths(self):
         # Use the optimizer to rank the paths according to score
         df_path_sub = pd.DataFrame(columns=['path_distance', 'path_duration', 'path_risk'])
-        df_path_sub[['path_distance', 'path_duration', 'path_risk']] = self.df_paths[['path_distance', 'path_duration', 'path_risk']]
+        df_path_sub[['path_distance', 'path_duration', 'path_risk']] = self.df_paths[
+            ['path_distance', 'path_duration', 'path_risk']]
         op = Optimizer()
         v = op.opt(np_array=df_path_sub.to_numpy())
-        self.df_paths['path_score'] = v[0]*self.df_paths['path_distance'] + v[1]*self.df_paths['path_duration'] + v[2]*self.df_paths['path_risk']
+        self.df_paths['path_score'] = v[0] * self.df_paths['path_distance'] + v[1] * self.df_paths['path_duration'] + v[
+            2] * self.df_paths['path_risk']
         self.df_paths.sort_values(by=['path_score'], inplace=True, ascending=True)
 
         # and sort by ranking
@@ -98,14 +101,14 @@ class Trip_Recommender(Location):
             rank += 1
 
         self.paths = sorted(self.paths, key=lambda p: p.rank, reverse=True)
-    
+
     def __set_trips_and_paths(self, ROUTE_FROM, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
         distances, durations, path_list = None, None, None
         paths_discretized_points, paths_discretized_linestrings = None, None
         notFound = True
 
         # Path exists
-        if os.path.exists(df_trip_path) and ROUTE_FROM == ROUTE_FROM.OSRM:
+        if os.path.exists(df_trip_path):
             self.df_trip = pd.read_csv(df_trip_path)
 
             # Doesn't include mode of transit as there is no distinction in OSRM
@@ -121,24 +124,22 @@ class Trip_Recommender(Location):
             # Entry exists! retrive and use it
             if len(row) > 0:
                 print("\t\t\tTrip Exists!")
+
                 distances = ast.literal_eval(row['distance'].values[0])
                 durations = ast.literal_eval(row['duration'].values[0])
                 path_list = ast.literal_eval(row['routes'].values[0])
 
-                paths_hexagons = ast.literal_eval(row['hexagons'].values[0])
                 paths_discretized_points = ast.literal_eval(row['discretized_points'].values[0])
 
                 notFound = False
 
-
-        # Either file doesn't exist, trip doesn't exist or the query is not for OSRM
+        # Either file doesn't exist or trip doesn't exist
         if notFound:
             self.df_trip = pd.DataFrame(columns=['source',
                                                  'destination',
                                                  'distance',
                                                  'duration',
                                                  'routes',
-                                                 'hexagons',
                                                  'discretized_points'])
 
             path_list, distances, durations = query(source=self.source,
@@ -151,40 +152,39 @@ class Trip_Recommender(Location):
 
         hexagons, discretized_points, discretized_linestrings = [], [], []
 
-        for i in reversed(range(len(path_list))):
+        for i in range(len(path_list)):
             if notFound:
-                new_path = Path(i, path_list[i], distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
+                new_path = Path(i, path_list[i], distances[i], durations[i], ROUTE_FROM=ROUTE_FROM.OSRM, hexagons=None,
+                                discretized_points=None)
             else:
                 new_path = Path(i, coordinates=path_list[i], distance=distances[i], time=durations[i],
-                                ROUTE_FROM=ROUTE_FROM.OSRM, hexagons=paths_hexagons[i],
+                                ROUTE_FROM=ROUTE_FROM.OSRM,
                                 discretized_points=paths_discretized_points[i])
-
-            # No need to double swap. It is being taken cared of in queryOSRM
-            # swapped_points = [[pt[1],pt[0]] for pt in path_list[i]]
-            # new_path = Path(i, swapped_points, distances[i], durations[i], ROUTE_FROM=self.ROUTE_FROM)
 
             # set and retrieve risk of path
             new_path.set_risk_of_path()
-            new_path_risk = new_path.get_risk_of_path()
+            new_path_risk = copy.deepcopy(new_path.get_risk_of_path())
             self.total_risk += new_path_risk
+            desct_points = copy.deepcopy(new_path.discretized_points)
 
             # add the path to the list of current paths
-            discretized_points.append(new_path.discretized_points)
+            discretized_points.append(desct_points)
             hexagons.append(new_path.get_hexagons())
 
             self.paths.append(new_path)
 
             # building the df of the paths with attributes [path_id, path_distance, path_duration, path_risk]
-            path_dict = {'path_id': i, 'path_distance': distances[i], 'path_duration': durations[i], 'path_risk': new_path_risk}
+            path_dict = {'path_id': i, 'path_distance': distances[i], 'path_duration': durations[i],
+                         'path_risk': new_path_risk}
             self.df_paths = self.df_paths.append(path_dict, ignore_index=True)
 
-        if notFound and ROUTE_FROM == ROUTE_FROM.OSRM:
+        if notFound:
             row = pd.DataFrame({'source': [self.source], 'destination': [self.destination], 'distance': [distances],
-                                'duration': [durations], 'routes': [path_list], 'hexagons': [hexagons],
-                                'discretized_points':[discretized_points]})
+                                'duration': [durations], 'routes': [path_list],'hexagons': [hexagons],
+                                'discretized_points': [discretized_points]})
 
             self.df_trip = self.df_trip.append(row)
-            self.df_trip.to_csv(df_trip_path, index=False)
+            row.to_csv(df_trip_path, mode='a', index=False, header=False)
 
     #  Get paths from source to destination
     def plot(self):
@@ -266,32 +266,28 @@ class Trip_Recommender(Location):
 
             pts = path.coordinates
 
-            # for pt in pts:
-            #     temp = pt[0]
-            #     pt[0] = pt[1]
-            #     pt[1] = temp
-
             this_distance = str(round(path.total_distance, 2)) + 'Km'
             this_duration = str(round(path.total_duration, 2)) + ' min'
-            risk_val = str(round(path.risk,2))
-            rrisk_val = str(round(path.risk/self.total_risk,2)) if self.total_risk != 0 else "0"
+            risk_val = str(round(path.risk, 2))
+            rrisk_val = str(round(path.risk / self.total_risk, 2)) if self.total_risk != 0 else "0"
 
             if path.total_duration >= 60:
                 this_duration = str(round(path.total_duration / 60, 2)) + " h"
 
             trip_name = self.mode_of_transit + ': Trip ' + str(i + 1) + '<br>' + \
                         this_distance + '<br>' + this_duration + '<br>' + \
-                        'rrisk: ' + rrisk_val + '<br> Rank: ' + str(path.rank) # + '<br> Score: ' + str(round(path.score,2))
+                        'risk: ' + risk_val + '<br>' + \
+                        'rrisk: ' + rrisk_val + '<br> Rank: ' + str(
+                path.rank)  # + '<br> Score: ' + str(round(path.score,2))
 
-
-            self.results_html = "<button id='path_selector' onclick='selectRoute("+str(i)+")' >Trip " + str(i+1) + \
+            self.results_html = "<button id='path_selector' onclick='selectRoute(" + str(i) + ")' >Trip " + str(i + 1) + \
                                 ': <div style="padding-left:10px;">time:' + this_duration + '</div>' \
                                 '<div style="padding-left:10px;">distance: ' + this_distance + '</div>' \
+                                '<div style="padding-left:10px;">risk: ' + risk_val + '</div>' \
                                 '<div style="padding-left:10px;"rrisk: ' + rrisk_val + '</div>' \
                                 '<div style="padding-left:10px;"rank: ' + str(path.rank) + '</div>' \
                                 '</button>\n' + self.results_html
-                                # '<div style="padding-left:10px;"score: ' + str(round(path.score,2)) + '</div>' \
-                                
+            # '<div style="padding-left:10px;"score: ' + str(round(path.score,2)) + '</div>' \
 
             rand_color = 'darkblue'
             opacity_val = 0.3
@@ -300,6 +296,7 @@ class Trip_Recommender(Location):
                 opacity_val = 1
 
             fg = folium.FeatureGroup(trip_name)
+
             folium.vector_layers.PolyLine(
                 pts,
                 popup='<b>' + trip_name + '</b>',
@@ -336,9 +333,9 @@ class Trip_Recommender(Location):
 
     def getPaths(self):
         return self.paths
-    
+
     def normalizer(ll):
-        return [x/sum(ll) for x in ll]
+        return [x / sum(ll) for x in ll]
 
     def selectPath(self, number):
         number = int(number)

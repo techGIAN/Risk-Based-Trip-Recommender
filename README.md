@@ -30,11 +30,25 @@ def __init__(self, locations=None, popups=None, icons=None, name=None,
 
 ## Datasets
 Link here: https://drive.google.com/drive/folders/1aTrklikj97VsuOBSC1Xk86uOb8QYRVxG?usp=sharing
-* POI Risk Map: ```ca_poi_risks_2021-04-19-one-week.csv```
-* POI Relative Risk Map: ```ca_poi_rrisks_2021-04-19-one-week.csv```
+
+and here: https://drive.google.com/drive/folders/1O3ZPLvYV6_P8lyms-3R-7pOqNm_CwPfK?usp=sharing
+* POI Risk Map: ```GTA_risks.csv```
 * Hex Risk Map: ```hex_gdf.csv```
+***
+### Faster Processing
+Link here: https://drive.google.com/drive/folders/1O3ZPLvYV6_P8lyms-3R-7pOqNm_CwPfK?usp=sharing
+To make the files run faster, use:
+* Past trips recorded: ```df_trips.csv```
+* Past coordinate recorder: ```df_past_coordinates_search.csv```
 
 ## Usage
 Run <code>mainPage.py</code>, copy the url and paste into the browser. 
 
+## Evaluation
+To evaluate the program, run:
+1. ```POI-Explorer.ipynb``` for the POIs in the GTA
+2. ```POI_risk_calculator.ipynb``` for the extrapolated, hourly POI risks following skewed, normal, and uniform distributions.
+3. ```queries_generator.py``` to generate random queries in Toronto
+4. ```QueryProcessor.ipynb``` to process the queries from step 3
+5. ```animate.py``` to animate the results
 

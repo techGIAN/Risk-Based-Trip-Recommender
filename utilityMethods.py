@@ -29,41 +29,44 @@ def query(source, destination, trip_count, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MO
     """
     :param source: source coordinates
     :param destination: destination coordinates
+    :param trip_count: max number of trips to query
+    :param IS_DEBUG_MODE: outputs debug messages
+    :param IS_FULL_DEBUG_MODE: outputs extended debug messages
     :return: search results: distance, duration, routes
     """
     file_name = 'df_past_coordinates_search.csv'
 
     if ROUTE_FROM == ROUTE_FROM.OSRM:
         if os.path.isfile(file_name):
-            print("\t\t\tFile EXISTS!!!")
-            coordinate_file = pd.read_csv(file_name)
+            # Since it is a large file, read it in chunks
+            for coordinate_file in pd.read_csv(file_name, chunksize=5000):
+                row = coordinate_file[(coordinate_file['source'] == str(source)) &
+                                      (coordinate_file['destination'] == str(destination))]
 
-            row = coordinate_file[(coordinate_file['source'] == str(source)) &
-                                  (coordinate_file['destination'] == str(destination))]
+                # Take into account a reverse trip with the assumption that the distance and
+                # duration remains the same
+                if len(row) == 0:
+                    row = coordinate_file[(coordinate_file['source'] == str(destination)) &
+                                          (coordinate_file['destination'] == str(source))]
 
-            # Take into account a reverse trip with the assumption that the distance and
-            # duration remains the same
-            if len(row) > 0:
-                row = coordinate_file[(coordinate_file['source'] == str(destination)) &
-                                      (coordinate_file['destination'] == str(source))]
+                # Entry exists! retrive and use it
+                if len(row) > 0:
+                    print("\tEntry Exists!!!")
+                    distance = ast.literal_eval(row['distance'].values[0])
+                    duration = ast.literal_eval(row['duration'].values[0])
+                    routes = ast.literal_eval(row['routes'].values[0])
 
-            # Entry exists! retrive and use it
-            if len(row) > 0:
-                print("\tEntry Exists!!!")
-                distance = ast.literal_eval(row['distance'].values[0])
-                duration = ast.literal_eval(row['duration'].values[0])
-                routes = ast.literal_eval(row['routes'].values[0])
-
-                return routes, distance, duration
+                    return routes, distance, duration
 
         else:
-            print("\tEntry does't Exists!!!")
             coordinate_file = pd.DataFrame(columns=['source',
                                                     'destination',
                                                     'distance',
                                                     'duration',
                                                     'routes',
                                                     'mode_of_transit'])
+
+        print("\tEntry does't Exists!!!")
 
         q = queryOSRM(source, destination, mode_of_transit, IS_DEBUG_MODE, IS_FULL_DEBUG_MODE)
         routes, distance, duration = __get_path_points(q, ROUTE_FROM, trip_count)
@@ -73,9 +76,7 @@ def query(source, destination, trip_count, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MO
                             'distance': [distance], 'duration': [duration],
                             'routes': [routes], 'mode_of_transit': [mode_of_transit]})
 
-        print("\tAppending File!!!")
-        coordinate_file = coordinate_file.append(row)
-        coordinate_file.to_csv(file_name, index=False)
+        row.to_csv(file_name, mode='a', index=False, header=False)
 
         # return routes, distance and duration
         return routes, distance, duration

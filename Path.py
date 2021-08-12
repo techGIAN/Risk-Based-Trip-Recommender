@@ -42,15 +42,9 @@ class Path:
         self.ROUTE_FROM = ROUTE_FROM
         self.id = id
 
-        if hexagons is not None:
-            self.hexagons = hexagons
-
-        if discretized_points is not None:
-            self.discretized_points = discretized_points
-
-        if discretized_linestrings is not None:
-            self.discretized_linestrings = discretized_linestrings
-
+        self.hexagons = hexagons if hexagons is not None else dict()
+        self.discretized_points = discretized_points if discretized_points is not None else []
+        self.discretized_linestrings = discretized_linestrings if discretized_linestrings is not None else []
         self.init_gdf(self.GDF_FILE)
 
     def init_gdf(self, gdf_file='hex_gdf.csv'):
@@ -116,8 +110,7 @@ class Path:
         '''
         self.discretize_path()
 
-        if len(self.hexagons) == 0:
-            path_hex = self.hex_of_path()
+        path_hex = self.hex_of_path()
 
         self.risk = self.path_risk()
 
@@ -130,8 +123,7 @@ class Path:
         '''
         if len(self.discretized_points) == 0:
             self.set_discretized_points()
-        if len(self.discretized_linestrings) == 0:
-            self.set_discretized_linestrings()
+        self.set_discretized_linestrings()
 
     def set_discretized_points(self):
         '''
@@ -154,16 +146,18 @@ class Path:
                 S = T
 
         # append the last point in the path if it's not yet included
-        if T not in self.discretized_points:
-            self.discretized_points.append(T)
+        if self.coordinates[-1] not in self.discretized_points:
+            self.discretized_points.append(self.coordinates[-1])
 
     def set_discretized_linestrings(self):
         '''
             Populate list of discrete LineStrings on the path.
         '''
+        swapped_points = [[pt[1],pt[0]] for pt in self.discretized_points]
+
         for i in range(len(self.discretized_points)-1):
-            s0 = tuple(self.discretized_points[i])
-            s1 = tuple(self.discretized_points[i+1])
+            s0 = tuple(swapped_points[i])
+            s1 = tuple(swapped_points[i+1])
             string = LineString([s0,s1])
             self.discretized_linestrings.append(string)
 
@@ -199,8 +193,11 @@ class Path:
 
     def path_risk(self):
         '''
-            Computes and returns the risk of the path
+            Computes the risk of the path
+        :param offset: from what hour to start evaluation. Value ranges between 0 to 167
+        :return: returns the risk of the path
         '''
+
         pathRisk = 0
         t = 0
 
@@ -219,6 +216,35 @@ class Path:
 
         # self.risk = pathRisk
         return pathRisk
+
+    def get_risk_of_path_over_a_week(self):
+        '''
+            Computes and returns the risk of a path over time
+        '''
+        pathRisks = [0]*168
+
+        t = [60*i for i in range(168)]
+
+        for line_hex in self.hexagons.items():
+            l_string, hexes = line_hex
+            risk_vals = []
+            [risk_vals.append([]) for i in range(168)]
+
+            for hex in hexes:
+                hex_data = self.grid_gdf[self.grid_gdf['cellID'] == hex]
+                hex_risk_dict = ast.literal_eval(hex_data.iloc[0,2])
+
+                for i in range(168):
+                    risk_vals[i].append(hex_risk_dict[t[i]])
+
+            for i in range(168):
+                risk_vals[i] = [v/len(risk_vals[i]) for v in risk_vals[i]]
+                pathRisks[i] += sum(risk_vals[i])
+
+            for i in range(168):
+                t[i] += 1
+
+        return pathRisks
 
     def get_hexagons(self):
         return self.hexagons

@@ -12,7 +12,9 @@ import random
 import os
 
 travel_by = ['car', 'foot']
+
 output_results_to = 'static/auxiliary_files/queries.csv'
+
 categories = ['Specialized Freight Trucking',
               'Restaurants and Other Eating Places',
               'Building Equipment Contractors', 'Grocery Stores',
@@ -130,8 +132,8 @@ categories = ['Specialized Freight Trucking',
 def get_queries(bounds_1, bounds_2, num_results_per_row, num_rows):
     # GTA_risks.csv was computer from POI_risk_calculator.ipynb
     df_poi = pd.read_csv('GTA_risks.csv')
-    df_poi = df_poi[df_poi['latitude'] >= bounds_1[0]][df_poi['latitude'] <= bounds_2[0]]
-    df_poi = df_poi[df_poi['longitude'] <= bounds_1[1]][df_poi['longitude'] >= bounds_2[1]]
+    # df_poi = df_poi[df_poi['latitude'] >= bounds_1[0]][df_poi['latitude'] <= bounds_2[0]]
+    # df_poi = df_poi[df_poi['longitude'] <= bounds_1[1]][df_poi['longitude'] >= bounds_2[1]]
 
     destinations = random.choices(range(0, len(df_poi) - 1), k=min((num_results_per_row * num_rows), len(df_poi)))
 
@@ -194,7 +196,7 @@ def get_queries_by_category(bounds_1, bounds_2, num_results_per_row, num_rows, c
 
     res = pd.DataFrame(columns=['source', 'destination', 'category', 'query'])
     res_dict = {}
-    radius = 25    # Km
+    radius = 15    # Km
     dict_index = 0
 
     for index_i in i:
@@ -230,22 +232,22 @@ results = pd.DataFrame(columns=['source', 'destination', 'category', 'query'])
 print("\tBegin round 1:")
 category_index = random.choices(range(0, len(categories) - 1), k=min(15, len(categories)))
 
-for ind in range(10):
-    results = results.append(get_queries_by_category(bounds_1=[43.722694, -79.221234],
-                                                     bounds_2=[43.791898, -79.628495],
-                                                     num_results_per_row=15,
-                                                     num_rows=5,
+for ind in range(10,15):
+    results = results.append(get_queries_by_category(bounds_1=[43.669871, -79.280689],
+                                                     bounds_2=[43.674519, -79.589007],
+                                                     num_results_per_row=2,
+                                                     num_rows=3,
                                                      category=categories[category_index[ind]]))
 
 # Round 2:
 print("\tBegin round 2:")
-
-for ind in range(10,15):
-    results = results.append(get_queries_by_category(bounds_1=[43.669871, -79.280689],
-                                                     bounds_2=[43.674519, -79.589007],
+for ind in range(5):
+    results = results.append(get_queries_by_category(bounds_1=[43.722694, -79.221234],
+                                                     bounds_2=[43.791898, -79.628495],
                                                      num_results_per_row=5,
                                                      num_rows=5,
                                                      category=categories[category_index[ind]]))
+
 print("results length = " + str(len(results)))
 
 print("\tBegin saving files:")

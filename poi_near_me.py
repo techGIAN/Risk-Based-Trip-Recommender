@@ -27,11 +27,12 @@ pd.options.mode.chained_assignment = None
 
 class POINearMe(Location):
     # df_poi = pd.read_csv('Safegraph-Canada-Core-Free-10-Attributes.csv')
-    df_poi = pd.read_csv('ca_poi_rrisks_2021-04-19-one-week.csv')  # treat it as a constant
+    # df_poi = pd.read_csv('ca_poi_rrisks_2021-04-19-one-week.csv')  # treat it as a constant
+    df_poi = pd.read_csv('GTA_risks.csv')  # treat it as a constant
     df_past_queries = None
-    radius = 25                 # in Km
-    max_trip_duration = 60      # in minutes
-    K_poi = 20                  # number of POIs to offer
+    radius = 25  # in Km
+    max_trip_duration = 60  # in minutes
+    K_poi = 20  # number of POIs to offer
     poi_category = None
     poi_list = []
     sortBy = SORT_BY.haversine_distance
@@ -40,7 +41,7 @@ class POINearMe(Location):
     poi_results = None
     map_val = {
         'center_marker': None,
-        'markers':None
+        'markers': None
     }
 
     # ct = dt.now()
@@ -49,7 +50,11 @@ class POINearMe(Location):
     # risk_attribute = 'poiRisk_' + str(hr)
     ct = None
     hr = None
-    risk_attribute = ''
+    # risk_attribute = ''
+
+    risk_attribute_normal = ''
+    risk_attribute_skewed = ''
+    risk_attribute_uniform = ''
 
     def __init__(self,
                  origin,
@@ -117,7 +122,10 @@ class POINearMe(Location):
 
         self.hr = self.ct.weekday() * 24 + self.ct.hour
         # hr = 159 # tester for Nofrills at Yonge/Steeles
-        self.risk_attribute = 'poiRisk_' + str(self.hr)
+        # self.risk_attribute = 'poiRisk_' + str(self.hr)
+        self.risk_attribute_normal = 'normal_risks' + str(self.hr)
+        self.risk_attribute_skewed = 'skewed_risks' + str(self.hr)
+        self.risk_attribute_uniform = 'uniform_risks_' + str(self.hr)
 
         if duration is not None:
             self.max_trip_duration = duration
@@ -131,8 +139,14 @@ class POINearMe(Location):
                                                            latitude=self.df_poi['latitude'],
                                                            longitude=self.df_poi['longitude'])
 
-        self.__update_pois()
-        # self.__filter_by_criteria()
+        # No need to use __update_pois as the trip is saved in trip_recommender
+        # and the subsections are saved in utilityMethods
+        # self.__update_pois()
+
+        self.__filter_by_criteria()
+
+        self.__filter()
+
         end = time.time()
         print(colored("time took to process request: " + str(round((end - start) / 60, 2)) + " min", color='red'))
 
@@ -140,25 +154,33 @@ class POINearMe(Location):
             print(colored('\tFinish filter application ', color='magenta'))
             print(colored('Finish initialization\n<================', color='magenta'))
 
-    # Used by __update_pois
     # Make sure to keep self.df_poi unchanged as it takes time to reload the file
     # The program saves the initial results in self.poi_results
-    def __filter_by_criteria(self, current_pois=None):
+    def __filter_by_criteria(self):
         self.poi_results = self.df_poi.copy()
         self.poi_results = self.poi_results[self.poi_results['top_category'] == self.poi_category]
+
+        print(colored("len(self.df_poi) = " + str(len(self.df_poi[self.df_poi['top_category'] == self.poi_category])), "red"))
+        print(colored(self.df_poi[self.df_poi['top_category'] == self.poi_category]['haversine_distance'], 'red'))
 
         # add a general filter of haversine_distance distance from origin
         self.poi_results = self.poi_results[self.poi_results['haversine_distance'] <= self.radius]
         self.poi_results = self.poi_results.reset_index()
+
         print(colored("\tnumber of results to consider: " + str(len(self.poi_results)), "cyan"))
+        if len(self.poi_results) == 0:
+            raise Exception("Sorry, no results where found!")
 
         duration = []
         distance = []
+        path_risk = []
+        normal, skewed, uniform , avg_risk= [], [], [], []
 
+        # Cannot remove duplicates because the
         # Remove duplicates
-        if current_pois is not None:
-            self.poi_results = self.poi_results[~self.poi_results['placekey'].isin(current_pois['placekey'])]
-            print(colored("\tnumber of results to consider after reduction: " + str(len(self.poi_results)), "cyan"))
+        # if current_pois is not None:
+        #     self.poi_results = self.poi_results[~self.poi_results['placekey'].isin(current_pois['placekey'])]
+        #     print(colored("\tnumber of results to consider after reduction: " + str(len(self.poi_results)), "cyan"))
 
         for index, row in self.poi_results.iterrows():
             while True:
@@ -166,16 +188,23 @@ class POINearMe(Location):
                     poi = POI(coordinate=[row['latitude'],
                                           row['longitude']],
                               origin=self.source,
-                              poi_risk=row[self.risk_attribute],
                               ROUTE_FROM=self.ROUTE_FROM,
                               IS_DEBUG_MODE=self.IS_DEBUG_MODE,
                               IS_FULL_DEBUG_MODE=self.IS_FULL_DEBUG_MODE,
                               mode_of_transit=self.travel_by,
                               is_time_now=self.time_now,
-                              time_later_val=self.time_later_value)
+                              time_later_val=self.time_later_value,
+                              hour=self.hr,
+                              row=row,
+                              sort_by=self.sortBy)
 
                     duration.append(poi.getTime())
                     distance.append(poi.getDistance())
+                    path_risk.append(poi.risk_of_paths)
+                    normal.append(poi.get_normal_risk())
+                    skewed.append(poi.get_skewed_risk())
+                    uniform.append(poi.get_uniform_risk())
+                    avg_risk.append((poi.get_normal_risk()+poi.get_skewed_risk()+poi.get_uniform_risk())/3)
 
                     if not poi.isEmpty():
                         self.poi_list.append(poi)
@@ -186,132 +215,133 @@ class POINearMe(Location):
 
         self.poi_results['travel_time'] = duration
         self.poi_results['distance'] = distance
+        self.poi_results['path_risk'] = path_risk
+        self.poi_results['normal_poi_risk'] = normal
+        self.poi_results['skewed_poi_risk'] = skewed
+        self.poi_results['uniform_poi_risk'] = uniform
+        self.poi_results['average_poi_risk'] = avg_risk
 
-        if current_pois is not None:
-            current_pois = pd.merge(current_pois, self.df_poi, on='placekey')
-            self.poi_results = self.poi_results.append(current_pois, ignore_index=True)
-            self.poi_results.reset_index
-            print(colored("\tagain total number of resuls: " + str(len(self.poi_results)), "cyan"))
+        # if current_pois is not None:
+        #     current_pois = pd.merge(current_pois, self.df_poi, on='placekey')
+        #     self.poi_results = self.poi_results.append(current_pois, ignore_index=True)
+        #     self.poi_results.reset_index
+        #     print(colored("\tagain total number of resuls: " + str(len(self.poi_results)), "cyan"))
 
     # Filter based on distance, time, or risk
     def __filter(self):
         print(colored("\t\tAbout to filter results: ", "magenta"))
-        # print(colored("1. poi results before filtering: \n" + str(self.poi_results[['travel_time', 'distance', 'risk_arrive']]) , "blue"))
 
         self.poi_results = self.poi_results[self.poi_results['distance'] <= self.radius]
         self.poi_results = self.poi_results[self.poi_results['travel_time'] <= self.max_trip_duration]
 
         if self.sortBy == SORT_BY.Distance:
             self.poi_results.sort_values(by=['distance'], ignore_index=True, inplace=True, ascending=True)
+
         elif self.sortBy == SORT_BY.Time:
             self.poi_results.sort_values(by=['travel_time'], ignore_index=True, inplace=True, ascending=True)
+
+        elif self.sortBy == SORT_BY.POIScore:
+            df_sub = pd.DataFrame(columns=['travel_time', 'distance', 'path_risk', 'average_poi_risk'])
+            df_sub[['travel_time', 'distance', 'path_risk', 'average_poi_risk']] = self.poi_results[
+                ['travel_time', 'distance', 'path_risk', 'average_poi_risk']]
+            op = Optimizer()
+            v = op.opt(np_array=df_sub.to_numpy())
+            self.poi_results['poi_score'] = v[0] * self.poi_results['travel_time'] + \
+                                            v[1] * self.poi_results['distance'] + \
+                                            v[2] * self.poi_results['path_risk'] + \
+                                            v[3] * self.poi_results['average_poi_risk']
+
+            self.poi_results.sort_values(by=['poi_score'], ignore_index=True, inplace=True, ascending=True)
         else:
-            # risk needs to be recomputed in every query due to its dynamic nature
-            self.poi_results['arrival'] = self.poi_results['travel_time'] / 60 + self.hr
-            self.poi_results['arrival'] = self.poi_results.arrival.apply(int)
-            self.poi_results['arrival'] = [v % 168 for v in self.poi_results['arrival']]
-            self.poi_results['risk_arrive'] = 0.0
+            # sort by risk
+            df_sub = pd.DataFrame(columns=['path_risk', 'average_poi_risk'])
+            df_sub[['path_risk', 'average_poi_risk']] = self.poi_results[
+                ['path_risk', 'average_poi_risk']]
+            op = Optimizer()
+            v = op.opt(np_array=df_sub.to_numpy())
+            self.poi_results['total_trip_risk'] = v[0] * self.poi_results['path_risk'] + \
+                                                  v[1] * self.poi_results['average_poi_risk']
 
-            try:
-                for i in range(self.poi_results.shape[0]):
-                    arr = self.poi_results.iloc[i, 178]
-                    self.poi_results.iloc[i, 179] = self.poi_results.iloc[i, arr + 7]
-            except Exception as e:
-                print(colored("\t===>\n\t\tERROR! " + str(e) + "\n\t<===", "yellow"))
-
-            if self.sortBy == SORT_BY.POIScore:
-                # optimize result and sort by score
-                df_sub = pd.DataFrame(columns=['travel_time', 'distance', 'risk_arrive'])
-                df_sub[['travel_time', 'distance', 'risk_arrive']] = self.poi_results[
-                    ['travel_time', 'distance', 'risk_arrive']]
-                op = Optimizer()
-                v = op.opt(np_array=df_sub.to_numpy())
-                self.poi_results['poi_score'] = v[0] * self.poi_results['travel_time'] + \
-                                                v[1] * self.poi_results['distance'] + \
-                                                v[2] * self.poi_results['risk_arrive']
-
-                self.poi_results.sort_values(by=['poi_score'], ignore_index=True, inplace=True, ascending=True)
-            else:
-                # sort by risk
-                self.poi_results.sort_values(by=['risk_arrive'], ignore_index=True, inplace=True, ascending=True)
+            self.poi_results.sort_values(by=['total_trip_risk'], ignore_index=True, inplace=True, ascending=True)
 
         self.poi_results = self.poi_results.head(self.K_poi).reset_index()
         print(colored("\t\tnumber of results after filtering: " + str(len(self.poi_results)), "magenta"))
         # print(colored("1. poi results after filtering: \n" + str(self.poi_results) , "cyan"))
 
-    # Pull out an existing query if it exists, update it if necessary.
-    # Add query and its results otherwise
-    # columns: Source [longitude, latitude] not None,
-    #          category [from sg] not None,
-    #          modeOfTransit [car/foot/bike] not None,
-    #          route_from not None,
-    #               // pois filtered by haversine distance
-    #          search radius not None,
-    #          poi [{poi:{placekey, distance, time, risk}}...] not None,
-    #          primary key(Source, category, modeOfTransit, route_from)
-    def __update_pois(self):
-        self.poi_results = None
-        add_new_row = False
-
-        if os.path.isfile('df_past_queries.csv'):
-            self.df_past_queries = pd.read_csv('df_past_queries.csv')
-
-            row = self.df_past_queries[(self.df_past_queries['source'] == str(self.source)) &
-                                       (self.df_past_queries['top_category'] == self.poi_category) &
-                                       (self.df_past_queries['modeOfTransit'] == self.travel_by) &
-                                       (self.df_past_queries['route_from'] == "ROUTE_FROM."+str(self.ROUTE_FROM.name))]
-
-            # A past query already exists - either fetch results or update it
-            if len(row) > 0:
-                index = row.index.values[0]
-
-                # need to increase search radius to account for additional information
-                if self.radius > row.iloc[0]['search_radius']:
-                    print("\tNEED TO INCREASE RADIUS SEARCH")
-                    current_pois = pd.read_json(row['poi'][index])
-                    try:
-                        self.__filter_by_criteria(current_pois=current_pois)
-                    except Exception as e:
-                        if str(e) != "Location based indexing can only have [integer, integer slice (START point is " \
-                                     "INCLUDED, END point is EXCLUDED), listlike of integers, boolean array] types":
-                            print(colored("\t\tERROR! " + str(e), "red"))
-                            print(colored("\t\t" + str(self.poi_results), "red"))
-
-                    df = self.poi_results[['placekey', 'travel_time', 'distance']]
-
-                    # update existing row
-                    self.df_past_queries['search_radius'][index] = self.radius
-                    self.df_past_queries['poi'][index] = df.to_json()
-
-                # fetch pois from the row and store it in the class instance as a dataframe
-                self.poi_results = pd.read_json(row['poi'][index])
-
-            # there is no entry - need to compute and add an new entry
-            else:
-                self.__filter_by_criteria()
-                add_new_row = True
-
-        # Need to create a file
-        else:
-            self.df_past_queries = pd.DataFrame(columns=['source', 'top_category', 'modeOfTransit', 'route_from',
-                                                         'search_radius', 'poi'])
-            self.__filter_by_criteria()
-            add_new_row = True
-
-        # add query file:
-        if add_new_row:
-            df = self.poi_results[['placekey', 'travel_time', 'distance']]
-            row = pd.DataFrame({'source': [self.source], 'top_category': [self.poi_category],
-                                'modeOfTransit': [self.travel_by], 'route_from': [self.ROUTE_FROM],
-                                'search_radius': [self.radius], 'poi': [df.to_json()]})
-
-            self.df_past_queries = self.df_past_queries.append(row)
-
-        # save file:
-        self.df_past_queries.to_csv('df_past_queries.csv', index=False)
-
-        # apply filtering based on Distance, Time, or Risk
-        self.__filter()
+    # # Pull out an existing query if it exists, update it if necessary.
+    # # Add query and its results otherwise
+    # # columns: Source [longitude, latitude] not None,
+    # #          category [from sg] not None,
+    # #          modeOfTransit [car/foot/bike] not None,
+    # #          route_from not None,
+    # #               // pois filtered by haversine distance
+    # #          search radius not None,
+    # #          poi [{poi:{placekey, distance, time, risk}}...] not None,
+    # #          primary key(Source, category, modeOfTransit, route_from)
+    # def __update_pois(self):
+    #     self.poi_results = None
+    #     add_new_row = False
+    #
+    #     if os.path.isfile('df_past_queries.csv'):
+    #         self.df_past_queries = pd.read_csv('df_past_queries.csv')
+    #
+    #         row = self.df_past_queries[(self.df_past_queries['source'] == str(self.source)) &
+    #                                    (self.df_past_queries['top_category'] == self.poi_category) &
+    #                                    (self.df_past_queries['modeOfTransit'] == self.travel_by) &
+    #                                    (self.df_past_queries['route_from'] == "ROUTE_FROM." + str(
+    #                                        self.ROUTE_FROM.name))]
+    #
+    #         # A past query already exists - either fetch results or update it
+    #         if len(row) > 0:
+    #             index = row.index.values[0]
+    #
+    #             # need to increase search radius to account for additional information
+    #             if self.radius > row.iloc[0]['search_radius']:
+    #                 print("\tNEED TO INCREASE RADIUS SEARCH")
+    #                 current_pois = pd.read_json(row['poi'][index])
+    #                 try:
+    #                     self.__filter_by_criteria(current_pois=current_pois)
+    #                 except Exception as e:
+    #                     if str(e) != "Location based indexing can only have [integer, integer slice (START point is " \
+    #                                  "INCLUDED, END point is EXCLUDED), listlike of integers, boolean array] types":
+    #                         print(colored("\t\tERROR! " + str(e), "red"))
+    #                         print(colored("\t\t" + str(self.poi_results), "red"))
+    #
+    #                 df = self.poi_results[['placekey', 'travel_time', 'distance']]
+    #
+    #                 # update existing row
+    #                 self.df_past_queries['search_radius'][index] = self.radius
+    #                 self.df_past_queries['poi'][index] = df.to_json()
+    #
+    #             # fetch pois from the row and store it in the class instance as a dataframe
+    #             self.poi_results = pd.read_json(row['poi'][index])
+    #
+    #         # there is no entry - need to compute and add an new entry
+    #         else:
+    #             self.__filter_by_criteria()
+    #             add_new_row = True
+    #
+    #     # Need to create a file
+    #     else:
+    #         self.df_past_queries = pd.DataFrame(columns=['source', 'top_category', 'modeOfTransit', 'route_from',
+    #                                                      'search_radius', 'poi'])
+    #         self.__filter_by_criteria()
+    #         add_new_row = True
+    #
+    #     # add query file:
+    #     if add_new_row:
+    #         df = self.poi_results[['placekey', 'travel_time', 'distance']]
+    #         row = pd.DataFrame({'source': [self.source], 'top_category': [self.poi_category],
+    #                             'modeOfTransit': [self.travel_by], 'route_from': [self.ROUTE_FROM],
+    #                             'search_radius': [self.radius], 'poi': [df.to_json()]})
+    #
+    #         self.df_past_queries = self.df_past_queries.append(row)
+    #
+    #     # save file:
+    #     self.df_past_queries.to_csv('df_past_queries.csv', index=False)
+    #
+    #     # apply filtering based on Distance, Time, or Risk
+    #     self.__filter()
 
     def graphPOIs(self):
         self.results_html = ''
@@ -327,10 +357,10 @@ class POINearMe(Location):
 
         im = IconMapper()
 
-        coords=[]
-        popups=[]
-        tooltip_strings=[]
-        icons=[]
+        coords = []
+        popups = []
+        tooltip_strings = []
+        icons = []
 
         # for i in range(self.K_poi):
         for index, point_of_interest in self.poi_results.iterrows():
@@ -341,12 +371,18 @@ class POINearMe(Location):
             poi_name = \
                 self.df_poi[self.df_poi['placekey'] == point_of_interest['placekey']].loc[:, 'location_name'].values[0]
 
-            self.results_html += "<button id='recenter_poi' onclick='recenter_poi("+str(poi_coords)+")' >" + \
-                                 str(index+1) + ". " + poi_name + ":" \
-                                                                  '<div style="padding-left:20px;">time:' + \
-                                 str(round(point_of_interest['travel_time'],2)) + ' min</div>' \
-                                                                                  '<div style="padding-left:20px;">distance: ' + \
-                                 str(round(point_of_interest['distance'],2)) + 'Km</div></button>'
+            self.results_html += "<button id='recenter_poi' onclick='recenter_poi(" + str(poi_coords) + ")' >" + \
+                                 str(index + 1) + ". " + poi_name + ":" \
+                                 '<div style="padding-left:20px;">normal poi risk:' + \
+                                 str(round(point_of_interest['normal_poi_risk'], 2)) + '</div>' \
+                                '<div style="padding-left:20px;">skewed poi risk:' + \
+                                 str(round(point_of_interest['skewed_poi_risk'], 2)) + '</div>' \
+                                '<div style="padding-left:20px;">uniform poi risk:' + \
+                                 str(round(point_of_interest['uniform_poi_risk'], 2)) + '</div>' \
+                                '<div style="padding-left:20px;">time:' + \
+                                 str(round(point_of_interest['travel_time'], 2)) + ' min</div>' \
+                                 '<div style="padding-left:20px;">distance: ' + \
+                                 str(round(point_of_interest['distance'], 2)) + 'Km</div></button>'
 
             query = None
             if self.time_now:

@@ -15,40 +15,27 @@ travel_by = ['car', 'foot']
 
 output_results_to = 'static/auxiliary_files/queries.csv'
 
-categories = ['Specialized Freight Trucking',
-              'Restaurants and Other Eating Places',
+categories = ['Restaurants and Other Eating Places',
               'Building Equipment Contractors', 'Grocery Stores',
-              'Promoters of Performing Arts, Sports, and Similar Events',
               'Automotive Parts, Accessories, and Tire Stores',
-              'Motion Picture and Video Industries',
-              'Health and Personal Care Stores', 'Amusement Parks and Arcades',
+              'Health and Personal Care Stores',
               'Nursing Care Facilities (Skilled Nursing Facilities)',
-              'Other Amusement and Recreation Industries', 'Clothing Stores',
-              'Traveler Accommodation',
+              'Clothing Stores',
               'Lawn and Garden Equipment and Supplies Stores',
               'Home Furnishings Stores', 'Other Personal Services',
               'Accounting, Tax Preparation, Bookkeeping, and Payroll Services',
               'Other Miscellaneous Store Retailers',
               'Offices of Other Health Practitioners', 'Offices of Physicians',
-              'Museums, Historical Sites, and Similar Institutions',
-              'Lessors of Real Estate', 'Drinking Places (Alcoholic Beverages)',
-              'Specialty (except Psychiatric and Substance Abuse) Hospitals',
-              'Building Material and Supplies Dealers',
-              'Activities Related to Real Estate',
               'General Medical and Surgical Hospitals', 'Spectator Sports',
               'Florists',
               'Hardware, and Plumbing and Heating Equipment and Supplies Merchant Wholesalers',
               'Electronics and Appliance Stores', 'Shoe Stores',
               'Book Stores and News Dealers', 'Offices of Dentists',
               'Sporting Goods, Hobby, and Musical Instrument Stores',
-              'Personal Care Services', 'Other Financial Investment Activities',
-              'Other Schools and Instruction',
+              'Personal Care Services',
               'Printing and Related Support Activities',
               'Offices of Real Estate Agents and Brokers',
               'Jewelry, Luggage, and Leather Goods Stores',
-              'Couriers and Express Delivery Services', 'Death Care Services',
-              'Activities Related to Credit Intermediation',
-              'Foundation, Structure, and Building Exterior Contractors',
               'Gasoline Stations',
               'Machinery, Equipment, and Supplies Merchant Wholesalers',
               'Automotive Repair and Maintenance', 'Specialty Food Stores',
@@ -56,30 +43,21 @@ categories = ['Specialized Freight Trucking',
               'General Merchandise Stores, including Warehouse Clubs and Supercenters',
               'Automobile Dealers', 'Furniture Stores', 'Special Food Services',
               'Personal and Household Goods Repair and Maintenance',
-              'Consumer Goods Rental', 'Other Ambulatory Health Care Services',
-              'Postal Service', 'Religious Organizations',
-              'Office Supplies, Stationery, and Gift Stores',
+              'Consumer Goods Rental',
+              'Religious Organizations',
               'Building Finishing Contractors', 'Beer, Wine, and Liquor Stores',
               'Colleges, Universities, and Professional Schools',
-              "Drugs and Druggists' Sundries Merchant Wholesalers",
-              'Travel Arrangement and Reservation Services',
-              'Electronic and Precision Equipment Repair and Maintenance',
-              'Continuing Care Retirement Communities and Assisted Living Facilities for the Elderly',
               'Bakeries and Tortilla Manufacturing',
               'Agencies, Brokerages, and Other Insurance Related Activities',
               'Used Merchandise Stores', 'Depository Credit Intermediation',
-              'Warehousing and Storage',
               'Management, Scientific, and Technical Consulting Services',
               'Architectural, Engineering, and Related Services',
-              'Miscellaneous Durable Goods Merchant Wholesalers',
               'Automotive Equipment Rental and Leasing',
-              'Other Motor Vehicle Dealers',
               'Advertising, Public Relations, and Related Services',
               'Investigation and Security Services',
               'Support Activities for Air Transportation',
               'Social Advocacy Organizations', 'Department Stores',
               'Legal Services', 'Gambling Industries',
-              'Remediation and Other Waste Management Services',
               'Insurance Carriers',
               'Coating, Engraving, Heat Treating, and Allied Activities',
               'RV (Recreational Vehicle) Parks and Recreational Camps',
@@ -87,46 +65,12 @@ categories = ['Specialized Freight Trucking',
               'Support Activities for Road Transportation',
               'Home Health Care Services', 'Household Appliance Manufacturing',
               'Drycleaning and Laundry Services',
-              'Other Miscellaneous Manufacturing', 'Rail Transportation',
               'Wired and Wireless Telecommunications Carriers',
-              'Utility System Construction', 'Individual and Family Services',
-              'Sound Recording Industries',
-              'Lumber and Other Construction Materials Merchant Wholesalers',
-              'Household Appliances and Electrical and Electronic Goods Merchant Wholesalers',
-              'Other Information Services',
               'Commercial and Industrial Machinery and Equipment Rental and Leasing',
-              'Urban Transit Systems', 'Outpatient Care Centers',
-              'Child Day Care Services', 'Residential Building Construction',
-              'Business Schools and Computer and Management Training',
-              'Other Transit and Ground Passenger Transportation',
-              'Glass and Glass Product Manufacturing',
-              'Waste Treatment and Disposal',
-              'Justice, Public Order, and Safety Activities',
-              'Miscellaneous Nondurable Goods Merchant Wholesalers',
-              'Nondepository Credit Intermediation',
-              'Motor Vehicle Manufacturing',
-              'Motor Vehicle and Motor Vehicle Parts and Supplies Merchant Wholesalers',
-              'Medical and Diagnostic Laboratories', 'Performing Arts Companies',
-              'Waste Collection', 'Employment Services',
-              'Apparel Accessories and Other Apparel Manufacturing',
-              'Management of Companies and Enterprises',
-              'Elementary and Secondary Schools',
-              'Greenhouse, Nursery, and Floriculture Production',
-              'Services to Buildings and Dwellings',
-              'Executive, Legislative, and Other General Government Support',
-              'Petroleum and Petroleum Products Merchant Wholesalers',
-              'National Security and International Affairs',
-              'Grantmaking and Giving Services', 'Inland Water Transportation',
-              'Administration of Economic Programs',
-              'Data Processing, Hosting, and Related Services',
-              'Scenic and Sightseeing Transportation, Land',
-              'Metal and Mineral (except Petroleum) Merchant Wholesalers',
-              'Clay Product and Refractory Manufacturing',
-              'Other Specialty Trade Contractors',
-              'Freight Transportation Arrangement',
-              'Grocery and Related Product Merchant Wholesalers',
-              'Taxi and Limousine Service',
-              'Interurban and Rural Bus Transportation']
+              'Urban Transit Systems',
+              'Child Day Care Services',
+              'Waste Collection',
+              'Elementary and Secondary Schools']
 
 
 def get_queries(bounds_1, bounds_2, num_results_per_row, num_rows):
@@ -179,7 +123,6 @@ def get_queries_by_category(bounds_1, bounds_2, num_results_per_row, num_rows, c
     """
 
     # GTA_risks.csv was computer from POI_risk_calculator.ipynb
-
     df_poi = pd.read_csv('GTA_risks.csv')
     df_poi = df_poi[df_poi['latitude'] >= bounds_1[0]][df_poi['latitude'] <= bounds_2[0]]
     df_poi = df_poi[df_poi['longitude'] <= bounds_1[1]][df_poi['longitude'] >= bounds_2[1]]
@@ -194,13 +137,27 @@ def get_queries_by_category(bounds_1, bounds_2, num_results_per_row, num_rows, c
     if len(i) > num_results_per_row:
         i = i[:-1]
 
-    res = pd.DataFrame(columns=['source', 'destination', 'category', 'query'])
     res_dict = {}
     radius = 15    # Km
     dict_index = 0
+    RISKS_N = []
+    RISKS_S = []
+    RISKS_U = []
+
 
     for index_i in i:
         for index_j in j:
+            D = []
+            Q = []
+            R_N = []
+            R_S = []
+            R_U = []
+
+            for k in range(168):
+                R_S.append([])
+                R_N.append([])
+                R_U.append([])
+
             result = ""
             df_poi['haversine_distance'] = haversine_dist(source=[index_i, index_j],
                                                           latitude=df_poi['latitude'],
@@ -208,17 +165,32 @@ def get_queries_by_category(bounds_1, bounds_2, num_results_per_row, num_rows, c
 
             destinations = df_poi[df_poi['haversine_distance'] <= radius]
 
-            for index, destination in destinations.iterrows():
-                dest = [destination['latitude'],
-                        destination['longitude']]
+            if len(destinations) > 0:
+                for index, destination in destinations.iterrows():
+                    dest = [destination['latitude'],
+                            destination['longitude']]
 
-                result = queryOSRM(source=[index_i, index_j],
-                                   destination=dest,
-                                   mode_of_transit=random.choice(travel_by))
+                    D.append(dest)
+                    result = queryOSRM(source=[index_i, index_j],
+                                       destination=dest,
+                                       mode_of_transit=random.choice(travel_by))
+                    Q.append(result)
+
+                    for k in range(168):
+                        R_N[k].append(destination['normal_risks' + str(k)])
+                        R_S[k].append(destination['skewed_risks' + str(k)])
+                        R_U[k].append(destination['uniform_risks_' + str(k)])
+
                 res_dict[dict_index] = {'source': [index_i, index_j],
-                                        'destination': dest,
+                                        'destinations': D,
                                         'category': category,
-                                        'query': result}
+                                        'queries': Q}
+
+                for k in range(168):
+                    res_dict[dict_index].update({'normal_risks' + str(k): R_N[k]})
+                    res_dict[dict_index].update({'skewed_risks' + str(k): R_S[k]})
+                    res_dict[dict_index].update({'uniform_risks_' + str(k): R_U[k]})
+
                 dict_index += 1
 
     res = pd.DataFrame.from_dict(res_dict, "index")
@@ -226,26 +198,28 @@ def get_queries_by_category(bounds_1, bounds_2, num_results_per_row, num_rows, c
     return res
 
 
-results = pd.DataFrame(columns=['source', 'destination', 'category', 'query'])
+results = te
 
 # Round 1:
 print("\tBegin round 1:")
 category_index = random.choices(range(0, len(categories) - 1), k=min(15, len(categories)))
 
-for ind in range(10,15):
+for ind in range(8):
+    print(categories[category_index[ind]])
     results = results.append(get_queries_by_category(bounds_1=[43.669871, -79.280689],
                                                      bounds_2=[43.674519, -79.589007],
-                                                     num_results_per_row=2,
-                                                     num_rows=3,
+                                                     num_results_per_row=8,
+                                                     num_rows=10,
                                                      category=categories[category_index[ind]]))
 
 # Round 2:
 print("\tBegin round 2:")
-for ind in range(5):
+for ind in range(8,15):
+    print(categories[category_index[ind]])
     results = results.append(get_queries_by_category(bounds_1=[43.722694, -79.221234],
                                                      bounds_2=[43.791898, -79.628495],
-                                                     num_results_per_row=5,
-                                                     num_rows=5,
+                                                     num_results_per_row=7,
+                                                     num_rows=10,
                                                      category=categories[category_index[ind]]))
 
 print("results length = " + str(len(results)))

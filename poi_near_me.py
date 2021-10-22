@@ -232,7 +232,7 @@ class POINearMe(Location):
         print(colored("\t\tAbout to filter results: ", "magenta"))
 
         self.poi_results = self.poi_results[self.poi_results['distance'] <= self.radius]
-        self.poi_results = self.poi_results[self.poi_results['travel_time'] <= self.max_trip_duration]
+        # self.poi_results = self.poi_results[self.poi_results['travel_time'] <= self.max_trip_duration]
 
         if self.sortBy == SORT_BY.Distance:
             self.poi_results.sort_values(by=['distance'], ignore_index=True, inplace=True, ascending=True)
@@ -246,10 +246,13 @@ class POINearMe(Location):
                 ['travel_time', 'distance', 'path_risk', 'average_poi_risk']]
             op = Optimizer()
             v = op.opt(np_array=df_sub.to_numpy())
-            self.poi_results['poi_score'] = v[0] * self.poi_results['travel_time'] + \
-                                            v[1] * self.poi_results['distance'] + \
-                                            v[2] * self.poi_results['path_risk'] + \
-                                            v[3] * self.poi_results['average_poi_risk']
+            res = v[0] * self.poi_results['travel_time'] + \
+                  v[1] * self.poi_results['distance'] + \
+                  v[2] * self.poi_results['path_risk'] + \
+                  v[3] * self.poi_results['average_poi_risk']
+            self.poi_results['poi_score'] = res
+            print(len(res))
+            print(len(self.poi_results))
 
             self.poi_results.sort_values(by=['poi_score'], ignore_index=True, inplace=True, ascending=True)
         else:

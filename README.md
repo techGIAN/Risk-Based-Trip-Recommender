@@ -1,3 +1,11 @@
+#### Updated Toronto POIs risks' file (with normal, skewed and uniform distributions) is located in: https://drive.google.com/file/d/1VMbcir9q4-l_ODvDG60Yrzei3i_5iIDy/view?usp=sharing 
+
+***
+
+
+
+
+
 # Risk-Based-Trip-Recommender
 An individual trip-recommendation system based on risk of epidemic infection and distance of trip
 

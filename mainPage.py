@@ -30,8 +30,8 @@ def handlePathRequests():
         destination = request.args['destination']
         origin = request.args['origin']
         time = request.args['time']
-        mode_of_transit = request.args['mode_of_transit']
-
+        # mode_of_transit = request.args['mode_of_transit']
+        mode_of_transit = 'car'
         session['time'] = time
         session['destination'] = destination
         session['origin'] = origin
@@ -170,7 +170,7 @@ def home():
     if RouteFrom == ROUTE_FROM.OSRM:
         session['query_from'] = 'osrm'
     else:
-        session['query_from'] = 'grass_hopper'
+        session['query_from'] = 'graph_hopper'
 
     if request.method == 'GET' and len(request.args.to_dict()) != 0:
         print(colored('received a get request', 'red'))

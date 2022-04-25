@@ -1,6 +1,6 @@
 from trip_recommender import Trip_Recommender
 from utilityMethods import ROUTE_FROM, SORT_BY
-
+import ast
 
 class POI(Trip_Recommender):
     poi_risk = None
@@ -31,19 +31,22 @@ class POI(Trip_Recommender):
         for path in self.paths:
             try:
                 arrival = int(path.total_duration / 60 + hour) % 168
+                self.normal_risk = (ast.literal_eval(row['normal_risks'])[5])
+                self.skewed_risk =(ast.literal_eval(row['skewed_risks'])[5])
+                self.uniform_risk = (ast.literal_eval(row['uniform_risks'])[5])
 
-                self.normal_risk = (row['normal_risks' + str(arrival)])
-                self.skewed_risk =(row['skewed_risks' + str(arrival)])
-                self.uniform_risk = (row['uniform_risks_' + str(arrival)])
+                # self.normal_risk = (row['normal_risks' + str(arrival)])
+                # self.skewed_risk =(row['skewed_risks' + str(arrival)])
+                # self.uniform_risk = (row['uniform_risks_' + str(arrival)])
             except Exception as e:
                 print("ERROR, ERROR: POI.py: " + str(e))
 
-        if sort_by == SORT_BY.Distance:
-            self.set_min_distance_index()
-        elif sort_by == SORT_BY.Time:
-            self.set_min_duration_index()
-        else:
-            self.set_min_risk_index()
+        # if sort_by == SORT_BY.Distance:
+        #     self.set_min_distance_index()
+        # elif sort_by == SORT_BY.Time:
+        #     self.set_min_duration_index()
+        # else:
+        #     self.set_min_risk_index()
 
     # filter out paths based on distance and time to get to the location
     def filter(self, dist_filter, time_filter):

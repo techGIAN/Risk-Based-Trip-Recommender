@@ -4,13 +4,13 @@ import os
 import ast
 import folium
 import time
-
+import itertools
 import pandas as pd
 import geopandas as gpd
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from Location import Location
-from Path import Path
+from Path import Path, hex_of_path
 from RiskMap import RiskMap
 from utilityMethods import query, ROUTE_FROM
 
@@ -25,7 +25,11 @@ from optimizer import Optimizer
 geoloc = Nominatim(user_agent='TripRecApp')
 geolocation = RateLimiter(geoloc.geocode, min_delay_seconds=2, return_value_on_exception=None)
 WEBNAME = 'templates/recommender.html'
-df_trip_path = 'df_trips.csv'
+# df_trip_path = 'df_trips.csv'
+GDF_FILE = 'hex_gdf.csv'
+df = pd.read_csv(GDF_FILE)
+df['geometry'] = df['geometry'].apply(wkt.loads)
+grid_gdf = gpd.GeoDataFrame(df, crs='epsg:4326')
 
 
 class Trip_Recommender(Location):
@@ -44,8 +48,8 @@ class Trip_Recommender(Location):
         'risk_map': None
     }
     total_risk = 0
-    GDF_FILE = 'hex_gdf.csv'
-    df_paths = pd.DataFrame(columns=['path_id', 'path_distance', 'path_duration', 'path_risk'])
+
+    # df_paths = pd.DataFrame(columns=['path_id', 'path_distance', 'path_duration', 'path_risk'])
     df_trip = None
 
     #  Initializes parameters
@@ -74,11 +78,11 @@ class Trip_Recommender(Location):
         self.destination = super().get_coordinates(destination)
 
         # create a risk map if it does not exist
-        if not os.path.exists(self.GDF_FILE):
+        if not os.path.exists(GDF_FILE):
             rm = RiskMap(w=1000)
 
         self.__set_trips_and_paths(ROUTE_FROM, IS_DEBUG_MODE, IS_FULL_DEBUG_MODE)
-        self.__rank_paths()
+        # self.__rank_paths()
 
     def __rank_paths(self):
         # Use the optimizer to rank the paths according to score
@@ -103,88 +107,138 @@ class Trip_Recommender(Location):
         self.paths = sorted(self.paths, key=lambda p: p.rank, reverse=True)
 
     def __set_trips_and_paths(self, ROUTE_FROM, IS_DEBUG_MODE=False, IS_FULL_DEBUG_MODE=False):
-        distances, durations, path_list = None, None, None
-        paths_discretized_points, paths_discretized_linestrings = None, None
-        notFound = True
+        # distances, durations, path_list = None, None, None
+        # paths_discretized_points, paths_discretized_linestrings = None, None
+        # notFound = True
 
-        # Path exists
-        if os.path.exists(df_trip_path):
-            self.df_trip = pd.read_csv(df_trip_path)
+        # # Path exists
+        # if os.path.exists(df_trip_path):
+        #     self.df_trip = pd.read_csv(df_trip_path)
+        #
+        #     # Doesn't include mode of transit as there is no distinction in OSRM
+        #     row = self.df_trip[(self.df_trip['source'] == str(self.source)) &
+        #                        (self.df_trip['destination'] == str(self.destination))]
+        #
+        #     # Take into account a reverse trip with the assumption that the distance and
+        #     # duration remains the same
+        #     if len(row) == 0:
+        #         row = self.df_trip[(self.df_trip['source'] == str(self.destination)) &
+        #                            (self.df_trip['destination'] == str(self.source))]
+        #
+        #     # Entry exists! retrive and use it
+        #     if len(row) > 0:
+        #         print("\t\t\tTrip Exists!")
+        #
+        #         distances = ast.literal_eval(row['distance'].values[0])
+        #         durations = ast.literal_eval(row['duration'].values[0])
+        #         path_list = ast.literal_eval(row['routes'].values[0])
+        #
+        #         paths_discretized_points = ast.literal_eval(row['discretized_points'].values[0])
+        #
+        #         notFound = False
+        #
+        # # Either file doesn't exist or trip doesn't exist
+        # if notFound:
+        #     self.df_trip = pd.DataFrame(columns=['source',
+        #                                          'destination',
+        #                                          'distance',
+        #                                          'duration',
+        #                                          'routes',
+        #                                          'discretized_points'])
 
-            # Doesn't include mode of transit as there is no distinction in OSRM
-            row = self.df_trip[(self.df_trip['source'] == str(self.source)) &
-                               (self.df_trip['destination'] == str(self.destination))]
+        path_list, distances, durations = query(source=self.source,
+                                                destination=self.destination,
+                                                trip_count=self.trip_count,
+                                                IS_DEBUG_MODE=IS_DEBUG_MODE,
+                                                IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE,
+                                                ROUTE_FROM=self.ROUTE_FROM,
+                                                mode_of_transit=self.mode_of_transit)
 
-            # Take into account a reverse trip with the assumption that the distance and
-            # duration remains the same
-            if len(row) == 0:
-                row = self.df_trip[(self.df_trip['source'] == str(self.destination)) &
-                                   (self.df_trip['destination'] == str(self.source))]
-
-            # Entry exists! retrive and use it
-            if len(row) > 0:
-                print("\t\t\tTrip Exists!")
-
-                distances = ast.literal_eval(row['distance'].values[0])
-                durations = ast.literal_eval(row['duration'].values[0])
-                path_list = ast.literal_eval(row['routes'].values[0])
-
-                paths_discretized_points = ast.literal_eval(row['discretized_points'].values[0])
-
-                notFound = False
-
-        # Either file doesn't exist or trip doesn't exist
-        if notFound:
-            self.df_trip = pd.DataFrame(columns=['source',
-                                                 'destination',
-                                                 'distance',
-                                                 'duration',
-                                                 'routes',
-                                                 'discretized_points'])
-
-            path_list, distances, durations = query(source=self.source,
-                                                    destination=self.destination,
-                                                    trip_count=self.trip_count,
-                                                    IS_DEBUG_MODE=IS_DEBUG_MODE,
-                                                    IS_FULL_DEBUG_MODE=IS_FULL_DEBUG_MODE,
-                                                    ROUTE_FROM=self.ROUTE_FROM,
-                                                    mode_of_transit=self.mode_of_transit)
-
-        hexagons, discretized_points, discretized_linestrings = [], [], []
+        # hexagons, discretized_points, discretized_linestrings = [], [], []
 
         for i in range(len(path_list)):
-            if notFound:
-                new_path = Path(i, path_list[i], distances[i], durations[i], ROUTE_FROM=ROUTE_FROM.OSRM, hexagons=None,
-                                discretized_points=None)
-            else:
-                new_path = Path(i, coordinates=path_list[i], distance=distances[i], time=durations[i],
-                                ROUTE_FROM=ROUTE_FROM.OSRM,
-                                discretized_points=paths_discretized_points[i])
+            # if notFound:
+            new_path = Path(i, path_list[i], distances[i], durations[i], grid_gdf, ROUTE_FROM=ROUTE_FROM.OSRM,
+                            hexagons=None, discretized_points=None)
+            # else:
+            #     new_path = Path(i, coordinates=path_list[i], distance=distances[i], time=durations[i],
+            #                     ROUTE_FROM=ROUTE_FROM.OSRM,
+            #                     discretized_points=paths_discretized_points[i])
 
             # set and retrieve risk of path
-            new_path.set_risk_of_path()
-            new_path_risk = copy.deepcopy(new_path.get_risk_of_path())
-            self.total_risk += new_path_risk
-            desct_points = copy.deepcopy(new_path.discretized_points)
+            # new_path.set_risk_of_path()
+            new_path.set_general_risk_of_path()
+            # new_path_risk = copy.deepcopy(new_path.get_risk_of_path())
+            self.total_risk += new_path.get_risk_of_path()
+            # desct_points = copy.deepcopy(new_path.discretized_points)
 
             # add the path to the list of current paths
-            discretized_points.append(desct_points)
-            hexagons.append(new_path.get_hexagons())
+            # discretized_points.append(desct_points)
+            # hexagons.append(new_path.get_hexagons())
 
             self.paths.append(new_path)
 
             # building the df of the paths with attributes [path_id, path_distance, path_duration, path_risk]
-            path_dict = {'path_id': i, 'path_distance': distances[i], 'path_duration': durations[i],
-                         'path_risk': new_path_risk}
-            self.df_paths = self.df_paths.append(path_dict, ignore_index=True)
+            # path_dict = {'path_id': i, 'path_distance': distances[i], 'path_duration': durations[i],
+            #              'path_risk': new_path_risk}
+            # self.df_paths = self.df_paths.append(path_dict, ignore_index=True)
 
-        if notFound:
-            row = pd.DataFrame({'source': [self.source], 'destination': [self.destination], 'distance': [distances],
-                                'duration': [durations], 'routes': [path_list],'hexagons': [hexagons],
-                                'discretized_points': [discretized_points]})
+        # if notFound:
+        #     row = pd.DataFrame({'source': [self.source], 'destination': [self.destination], 'distance': [distances],
+        #                         'duration': [durations], 'routes': [path_list],'hexagons': [hexagons],
+        #                         'discretized_points': [discretized_points]})
+        #
+        #     self.df_trip = self.df_trip.append(row)
+        #     row.to_csv(df_trip_path, mode='a', index=False, header=False)
 
-            self.df_trip = self.df_trip.append(row)
-            row.to_csv(df_trip_path, mode='a', index=False, header=False)
+    def hex_layer(self, m, grid_gdf):
+        # Add hexagon layer
+        print('init hex layer')
+
+        try:
+            pth = [path.coordinates for path in self.paths]
+            points = [self.source, self.destination]
+            for i in range(len(pth)):
+                for j in range(len(pth[i])):
+                    points.append([pth[i][j][1],pth[i][j][0]])
+
+            ind = hex_of_path(grid_gdf, points)
+            grid = grid_gdf.loc[ind]
+
+        except Exception as e:
+            print("ERROR in trip_rec: "+str(e))
+
+        # risk at 0 only
+        grid['hex_risk'] = grid['hex_risk'].apply(eval)
+        grid['risk_val'] = [l[0] for l in grid['hex_risk']]
+
+        colormap = cm.LinearColormap(colors=[(255,0,0,0), 'red'])
+        colormap.caption = 'Risk Level'
+        colormap.add_to(m)
+        style_func = lambda x: {
+            'color': 'black',
+            'fillColor': colormap(x['properties']['risk_val']),
+            'stroke':True,
+            'weight':1,
+            'fillOpacity': 0.7
+        }
+        highlight_func = lambda x: {
+            'fillColor': '#000000',
+            'color': '#000000',
+            'fillOpacity': 0.8
+        }
+        folium.features.GeoJson(
+            grid,
+            style_function=style_func,
+            highlight_function=highlight_func,
+            control=False,
+            tooltip=folium.features.GeoJsonTooltip(
+                fields=['cellID', 'risk_val'],
+                aliases=['Hex ID', 'Risk Level'],
+                style=('background-color: white; color: #333333; font-family: arial; font-sizeL 12px; padding: 10px;'),
+                sticky=True
+            )
+        ).add_to(m)
 
     #  Get paths from source to destination
     def plot(self):
@@ -196,47 +250,13 @@ class Trip_Recommender(Location):
         tgt_poi = 'Destination'
         m = folium.Map(location=mid, zoom_start=14)
 
-        # Add hexagon layer
-        print('init hex layer')
+        # # Add hexagon layer
+        # print('init hex layer')
+        # df = pd.read_csv(self.GDF_FILE)
+        # df['geometry'] = df['geometry'].apply(wkt.loads)
+        # grid_gdf = gpd.GeoDataFrame(df, crs='epsg:4326')
+        self.hex_layer(m, grid_gdf)
 
-        df = pd.read_csv(self.GDF_FILE)
-        df['geometry'] = df['geometry'].apply(wkt.loads)
-        grid_gdf = gpd.GeoDataFrame(df, crs='epsg:4326')
-        # risk at 0 only
-        grid_gdf['hex_risk'] = grid_gdf['hex_risk'].apply(eval)
-        grid_gdf['risk_val'] = [l[0] for l in grid_gdf['hex_risk']]
-        # gray map
-        # folium.GeoJson(
-        #     grid_gdf['geometry'],
-        #     style_function=lambda x:{'fillColor':'gray', 'color':'black'}
-        # ).add_to(m)
-        # colormap
-        # colormap = cm.LinearColormap(colors=[(255,0,0,0), 'red'])
-        # colormap.caption = 'Risk Level'
-        # colormap.add_to(m)
-        # style_func = lambda x: {
-        #     'color': 'black',
-        #     'fillColor': colormap(x['properties']['risk_val']),
-        #     'fillOpacity': 0.5
-        # }
-        # highlight_func = lambda x: {
-        #     'fillColor': '#000000',
-        #     'color': '#000000',
-        #     'fillOpacity': 0.3
-        # }
-        # self.map_val['risk_map'] = folium.features.GeoJson(
-        #     grid_gdf,
-        #     style_function=style_func,
-        #     highlight_function=highlight_func,
-        #     control=False,
-        #     tooltip=folium.features.GeoJsonTooltip(
-        #         fields=['cellID', 'risk_val'],
-        #         aliases=['Hex ID', 'Risk Level'],
-        #         style=('background-color: white; color: #333333; font-family: arial; font-sizeL 12px; padding: 10px;'),
-        #         sticky=True
-        #     )
-        # )
-        # self.map_val['risk_map'].add_to(m)
 
         # markers
         self.map_val['origin'] = folium.Marker(
@@ -274,18 +294,17 @@ class Trip_Recommender(Location):
             if path.total_duration >= 60:
                 this_duration = str(round(path.total_duration / 60, 2)) + " h"
 
-            trip_name = self.mode_of_transit + ': Trip ' + str(i + 1) + '<br>' + \
-                        this_distance + '<br>' + this_duration + '<br>' + \
-                        'risk: ' + risk_val + '<br>' + \
-                        'rrisk: ' + rrisk_val + '<br> Rank: ' + str(
-                path.rank)  # + '<br> Score: ' + str(round(path.score,2))
-
+            # trip_name = '<strong>Trip ' + str(i + 1) + ':</strong><br>' + \
+            #             'risk: ' + risk_val + '<br>' + \
+            #             'rrisk: ' + rrisk_val + '<br> ' #'Rank: ' +\
+                        # this_duration + '<br>' + \
+                        # str(path.rank)  # + '<br> Score: ' + str(round(path.score,2))
+            trip_name = str(i + 1)
             self.results_html = "<button id='path_selector' onclick='selectRoute(" + str(i) + ")' >Trip " + str(i + 1) + \
-                                ': <div style="padding-left:10px;">time:' + this_duration + '</div>' \
-                                '<div style="padding-left:10px;">distance: ' + this_distance + '</div>' \
-                                '<div style="padding-left:10px;">risk: ' + risk_val + '</div>' \
-                                '<div style="padding-left:10px;"rrisk: ' + rrisk_val + '</div>' \
-                                '<div style="padding-left:10px;"rank: ' + str(path.rank) + '</div>' \
+                                ': <div style="padding-left:10px;">time:' + this_duration + '</div>' + \
+                                '<div style="padding-left:10px;">distance: ' + this_distance + '</div>' + \
+                                '<div style="padding-left:10px;">risk: ' + rrisk_val + '</div>' + \
+                                '<div style="padding-left:10px;"rank: ' + str(path.rank) + '</div>' + \
                                 '</button>\n' + self.results_html
             # '<div style="padding-left:10px;"score: ' + str(round(path.score,2)) + '</div>' \
 
@@ -300,9 +319,9 @@ class Trip_Recommender(Location):
             folium.vector_layers.PolyLine(
                 pts,
                 popup='<b>' + trip_name + '</b>',
-                tooltip=trip_name,
+                tooltip=folium.Tooltip(trip_name, permanent=True),
                 color=rand_color,
-                weight=10,
+                weight=8,
                 opacity=opacity_val
             ).add_to(fg)
 
@@ -323,8 +342,8 @@ class Trip_Recommender(Location):
         m.save(WEBNAME)
         path_to_open = 'file:///' + os.getcwd() + '/' + WEBNAME
         # webbrowser.open_new_tab(path_to_open)
-        end = time.time()
-        print("time took to process request: " + str(round((end - start) / 60, 2)) + " min")
+        # end = time.time()
+        # print("time took to process request: " + str(round((end - start) / 60, 2)) + " min")
 
     # Prints the number of points per kilometer to get a sense of the resolution
     def get_resolution_data(self):
@@ -382,3 +401,11 @@ class Trip_Recommender(Location):
         '''
         m.get_root().script.add_child(folium.Element(my_js))
         m.save(WEBNAME)
+
+
+# trip = Trip_Recommender(source=[43.9443836, -79.4547236], destination=[43.9397253,-79.4533074], trip_count=5)
+# trip.plot()
+# time.sleep(5)
+#
+# trip = Trip_Recommender(source=[43.9444184, -79.4546002], destination=[43.9397253,-79.4533074], trip_count=5)
+# trip.plot()

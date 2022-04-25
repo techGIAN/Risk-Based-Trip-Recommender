@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 import geopandas as gpd
 import ast
+import itertools
 
 from shapely.geometry import Point, LineString, Polygon
 
@@ -28,34 +29,34 @@ class Path:
     discretized_points = []
     discretized_linestrings = []
     id = 0
+    hex_ids = None
     grid_gdf = None
-    GDF_FILE = 'hex_gdf.csv'
-
     rank = -1
     score = 0
 
-    def __init__(self, id, coordinates, distance, time, ROUTE_FROM=ROUTE_FROM.OSRM, hexagons=None,
+    def __init__(self, id, coordinates, distance, time, grid_gdf, ROUTE_FROM=ROUTE_FROM.OSRM, hexagons=None,
                  discretized_points=None, discretized_linestrings=None):
         self.coordinates = coordinates
         self.total_distance = distance
         self.total_duration = time
         self.ROUTE_FROM = ROUTE_FROM
+        self.grid_gdf = grid_gdf
         self.id = id
 
         self.hexagons = hexagons if hexagons is not None else dict()
         self.discretized_points = discretized_points if discretized_points is not None else []
         self.discretized_linestrings = discretized_linestrings if discretized_linestrings is not None else []
-        self.init_gdf(self.GDF_FILE)
+        # self.init_gdf(self.GDF_FILE)
 
-    def init_gdf(self, gdf_file='hex_gdf.csv'):
-        '''
-            Initiate the hex grid dataframe
-        '''
-        df = pd.read_csv(gdf_file)
-        df['geometry'] = df['geometry'].apply(wkt.loads)
-        grid_gdf = gpd.GeoDataFrame(df, crs='epsg:4326')
-        self.grid_gdf = grid_gdf
-
+    # def init_gdf(self, gdf_file='hex_gdf.csv'):
+    #     '''
+    #         Initiate the hex grid dataframe
+    #     '''
+    #     df = pd.read_csv(gdf_file)
+    #     df['geometry'] = df['geometry'].apply(wkt.loads)
+    #     grid_gdf = gpd.GeoDataFrame(df, crs='epsg:4326')
+    #     self.grid_gdf = grid_gdf
+    #
     # def calculate_risk(self):
     #     # get the distance and duration of each line segment of the path
     #     self.__set_paths__full_data()
@@ -110,9 +111,29 @@ class Path:
         '''
         self.discretize_path()
 
-        path_hex = self.hex_of_path()
+        # path_hex = self.hex_of_path()
 
         self.risk = self.path_risk()
+
+    def set_general_risk_of_path(self):
+        # the general assumption is that the person spend equal amount of
+        # time in each hexagon. As such, the risk is simple the average of
+        # all the hexagon values
+
+        points = []
+        for i in range(len(self.coordinates)):
+            points.append([self.coordinates[i][1],self.coordinates[i][0]])
+
+        self.hex_ids = hex_of_path(self.grid_gdf, points)
+        risks = self.grid_gdf.loc[self.hex_ids]['hex_risk']
+        time_per_hex = self.total_duration / len(self.hex_ids)
+
+        self.risk = 0
+
+        for x in risks:
+            self.risk += ast.literal_eval(x)[0]
+
+        # self.risk = self.risk / len(risks)
 
     def get_risk_of_path(self):
         return self.risk
@@ -248,3 +269,62 @@ class Path:
 
     def get_hexagons(self):
         return self.hexagons
+
+
+def hex_of_path(grid_gdf, points):
+    '''
+        Returns a dictionary
+        Params
+        ------
+        path : a list of the LineStrings of the path
+        Return
+        -----
+        dict : keys = LineStrings and
+               values = list of hexagons intersecting the given LineString
+    '''
+    # hex_ids = list(grid_gdf.cellID)
+    try:
+        hexes = list(grid_gdf.geometry)
+    except Exception as e:
+        print("ERROR in path 1 : "+str(e))
+    try:
+        points = [Point(p) for p in points]
+    except Exception as e:
+        print("\tERROR in path 2 : "+str(e))
+
+    ind = []
+
+    try:
+        counter = 0
+        for hex in hexes:
+            tmp = np.where(np.array([hex.contains(x) or hex.intersects(x) for x in points])==True)[0]
+            # print(hex)
+            # print(points[0])
+            if len(tmp) > 0:
+                ind.append(counter)
+            counter += 1
+    except Exception as e:
+        print("\tERROR in path 3 : "+str(e))
+
+    try:
+        ind = list(set(list(itertools.chain(*ind))))
+    except Exception as e:
+        print("\tERROR in path 4 : "+str(e))
+
+    return ind
+
+
+def risk_map_intersect_poi(grid_gdf, pois):
+    # grid_gdf and pois are a geopandas dataframe geopandas.GeoDataFrame()
+    hexes = list(grid_gdf.geometry)
+    polys = list(pois.polygon_wkt)
+    ind = []
+    counter = 0
+    for hex in hexes:
+        tmp = np.where(np.array([hex.contains(x) or hex.intersects(x) for x in polys])==True)[0]
+
+        if len(tmp) > 0:
+            ind.append(counter)
+        counter += 1
+
+    return ind

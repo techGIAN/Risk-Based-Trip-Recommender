@@ -19,15 +19,15 @@
 <div class="tabs">
     <div class="tab">
         {% if tab_val == "results" %}
-        <button class="tablinks" onclick="showTab(event, 'path_recommender')">Path Recommender</button>
+        <button class="tablinks" onclick="showTab(event, 'path_recommender')">Trip Recommender</button>
         <button class="tablinks" onclick="showTab(event, 'poi_recommender')">POI Recommender</button>
         <button class="tablinks" onclick="showTab(event, 'results')" id="defaultOpen">Searched Results</button>
         {% elif tab_val == "poi_recommender" %}
-        <button class="tablinks" onclick="showTab(event, 'path_recommender')">Path Recommender</button>
+        <button class="tablinks" onclick="showTab(event, 'path_recommender')">Trip Recommender</button>
         <button class="tablinks" onclick="showTab(event, 'poi_recommender')" id="defaultOpen">POI Recommender</button>
         <button class="tablinks" onclick="showTab(event, 'results')">Searched Results</button>
         {% else %}
-        <button class="tablinks" onclick="showTab(event, 'path_recommender')" id="defaultOpen">Path Recommender</button>
+        <button class="tablinks" onclick="showTab(event, 'path_recommender')" id="defaultOpen">Trip Recommender</button>
         <button class="tablinks" onclick="showTab(event, 'poi_recommender')">POI Recommender</button>
         <button class="tablinks" onclick="showTab(event, 'results')">Searched Results</button>
         {% endif %}
@@ -40,16 +40,16 @@
         <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');">
         <label for="osrm">OSRM</label>
 
-        <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
-               onclick="select_query('grass_hopper');" checked>
-        <label for="grass_hopper">Graph Hopper</label>
+        <input type="radio" id="graph_hopper" name="query_from" value="graph_hopper"
+               onclick="select_query('graph_hopper');" checked>
+        <label for="graph_hopper">Graph Hopper</label>
         {% else %}
         <input type="radio" id="osrm" name="query_from" value="osrm" onclick="select_query('osrm');" checked>
         <label for="osrm">OSRM</label>
 
-        <input type="radio" id="grass_hopper" name="query_from" value="grass_hopper"
-               onclick="select_query('grass_hopper');">
-        <label for="grass_hopper">Graph Hopper</label>
+        <input type="radio" id="graph_hopper" name="query_from" value="graph_hopper"
+               onclick="select_query('graph_hopper');">
+        <label for="graph_hopper">Graph Hopper</label>
         {% endif %}
     </div>
 </form>
@@ -63,37 +63,37 @@
         {% endif %}
 
         <!--    Mode of Transit Radio Buttons    -->
-        <div class="radio-toolbar-transit" style="width: 100%;">
+<!--        <div class="radio-toolbar-transit" style="width: 100%;">-->
 
-            {% if session['mode_of_transit'] == "foot" %}
-            <input type="radio" id="car" name="mode_of_transit" value="car">
-            <label for="car">Drive</label>
+<!--            {% if session['mode_of_transit'] == "foot" %}-->
+<!--            <input type="radio" id="car" name="mode_of_transit" value="car">-->
+<!--            <label for="car">Drive</label>-->
 
-            <input type="radio" id="foot" name="mode_of_transit" value="foot" checked>
-            <label for="foot">Walk</label>
+<!--            <input type="radio" id="foot" name="mode_of_transit" value="foot" checked>-->
+<!--            <label for="foot">Walk</label>-->
 
-            <input type="radio" id="bike" name="mode_of_transit" value="bike">
-            <label for="bike">Bike</label>
-            {% elif session['mode_of_transit'] == "bike" %}
-            <input type="radio" id="car" name="mode_of_transit" value="car">
-            <label for="car">Drive</label>
+<!--            <input type="radio" id="bike" name="mode_of_transit" value="bike">-->
+<!--            <label for="bike">Bike</label>-->
+<!--            {% elif session['mode_of_transit'] == "bike" %}-->
+<!--            <input type="radio" id="car" name="mode_of_transit" value="car">-->
+<!--            <label for="car">Drive</label>-->
 
-            <input type="radio" id="foot" name="mode_of_transit" value="foot">
-            <label for="foot">Walk</label>
+<!--            <input type="radio" id="foot" name="mode_of_transit" value="foot">-->
+<!--            <label for="foot">Walk</label>-->
 
-            <input type="radio" id="bike" name="mode_of_transit" value="bike" checked>
-            <label for="bike">Bike</label>
-            {% else %}
-            <input type="radio" id="car" name="mode_of_transit" value="car" checked>
-            <label for="car">Drive</label>
+<!--            <input type="radio" id="bike" name="mode_of_transit" value="bike" checked>-->
+<!--            <label for="bike">Bike</label>-->
+<!--            {% else %}-->
+<!--            <input type="radio" id="car" name="mode_of_transit" value="car" checked>-->
+<!--            <label for="car">Drive</label>-->
 
-            <input type="radio" id="foot" name="mode_of_transit" value="foot">
-            <label for="foot">Walk</label>
+<!--            <input type="radio" id="foot" name="mode_of_transit" value="foot">-->
+<!--            <label for="foot">Walk</label>-->
 
-            <input type="radio" id="bike" name="mode_of_transit" value="bike">
-            <label for="bike">Bike</label>
-            {% endif %}
-        </div>
+<!--            <input type="radio" id="bike" name="mode_of_transit" value="bike">-->
+<!--            <label for="bike">Bike</label>-->
+<!--            {% endif %}-->
+<!--        </div>-->
 
         <!--    Point of origin input filed    -->
         <div class="origin_pop" style="width: 80%;border-style: none;float: left;">

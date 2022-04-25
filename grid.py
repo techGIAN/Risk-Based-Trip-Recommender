@@ -38,8 +38,8 @@ def generate_hex_grid(bounds, w):
     y_size = distance(nw, geopy.Point(south, west)).meters
     n_rows = 1 + int(x_size / x_sep)
     n_cols = 2 + int(y_size / y_sep)
-    # print("Constructing hex grid with {} cells".format(n_rows*n_cols//2))
-
+    print("\tConstructing hex grid with {} cells".format(n_rows*n_cols//2))
+    print('\trow='+str(n_rows) + ', cols='+str(n_cols))
     # get cell geo coord offset from the start
     # see stackoverflow.com/questions/24427828
     def offset(row, col):
@@ -58,11 +58,12 @@ def generate_hex_grid(bounds, w):
 
     # hex grid algorithm, see redblobgames.com/grids/hexagons/ for details
     cells = {'cellID':[], 'geometry':[]}
-    for row in range(n_rows):
+    for row in range(n_cols):
+        print(row)
         # print("Cell {}/{} ({:.1f})%".format(
             # row*n_cols//2, n_rows*n_cols//2, 100*row/n_rows), end="\r")
-        for col in range(n_cols):
-            
+        for col in range(n_rows):
+            print('\t',col)
             # doubled coord system
             if (row + col) % 2 == 0:
                 center = offset(row, col)

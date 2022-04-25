@@ -14,15 +14,20 @@ class RiskMap():
     bounds = None
     w = None
     grid_gdf = None
-    MAX_TIME = 7 * 24 * 60
+    MAX_TIME = 1 #7 * 24 * 60
 
     # north, south, west, east of Toronto
-    def __init__(self, bounds=[43.872954, 43.531890, -79.906792, -79.139932], w=2000, filename='hex_gdf.csv'):
+    # def __init__(self, bounds=[43.872954, 43.531890, -79.906792, -79.139932], w=2000, filename='hex_gdf.csv'):
+    def __init__(self, bounds=[43.779574, 43.769315, -79.519378, -79.490257], w=50, filename='hex_gdf.csv'):
         self.bounds = bounds
         self.w = w # w long side in meters (use smaller in actual)
+        print('about to generate hex grid ...')
         self.grid_gdf = grid.generate_hex_grid(self.bounds, self.w)
+        print('about to compute hex risk...')
         self.compute_hex_risk()
+        print('about to save file ...')
         self.to_csv(filename)
+        self.plot()
     
     def compute_hex_risk(self):
         '''
@@ -40,10 +45,11 @@ class RiskMap():
 
         # First attempt, each hexagon has a random risk
         for t in range(self.MAX_TIME):
+            print(t)
             hex_risks.append(round(np.random.rand(),2))
 
         # Second attempt, each hexagon's risk depends on a) density of people in hex and b) duration
-        # TO-DO later
+        # TODO later
 
         return hex_risks
     
@@ -68,3 +74,7 @@ class RiskMap():
         '''
         self.grid_gdf.plot_map(figsize=(10, 6), alpha=0.2, edgecolor='k')
         plt.show()
+
+
+# r= RiskMap(bounds=[43.793088, 43.754751, -79.527427, -79.478950])
+# r= RiskMap()
